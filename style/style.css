@@ -1,0 +1,8 @@
+.buttonModifyTurns {
+    color: purple;
+    display: block;
+}
+.buttonModifyTurns.Displayed {
+    color: purple;
+    display: none;
+}

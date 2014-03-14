@@ -1,0 +1,37 @@
+newAlly = function () {
+    ally = {}; //Nuevo objecto ally. También se puede construir como ally = new Object();
+    var image = "Green Square"; //pendiente modificacion, debe ir dentro de paladin
+    ally.paladin = {
+        hp: prompt("Hit Points"), // puntos de vida de paladin.
+        wait: prompt("Initial Wait"), // Wait inicial. Remodelar segun exigencias
+        initiative: prompt("Initiative Level"), //Nivel de Iniciativa
+        attack: prompt("Attack Level"), //Nivel de Ataque
+        defense: prompt("Defense Level"), // Nivel de Defensa
+        image: image //Imagen del personaje
+    };
+};
+newEnemy = function () {
+    enemy = {}; //Nuevo objecto enemy. También se puede construir como enemy = new Object();
+    var image = "Red Square";
+    enemy.troll = {
+        hp: prompt("Hit Points"),
+        wait: prompt("Initial Wait"),
+        initiative: prompt("Initiative Level"),
+        attack: prompt("Attack Level"),
+        defense: prompt("Defense Level"),
+        image: image
+    };
+};
+modifyTurns = function () {
+    ally.paladin.wait = prompt("New Ally Wait"); //Modifica manualmente el Wait de ally.paladin
+    enemy.troll.wait = prompt("New Enemy Wait"); //Modifica manualmente el Wait de enemy.troll
+};
+checkTurns = function (){
+    console.log("Paladin wait = " + ally.paladin.wait); //Muestra en consola el WAIT actual del Paladín
+    console.log("Troll wait = " + enemy.troll.wait); //Muestra en consola el WAIT actual del troll
+};
+/*
+Esta linea copiarla cuando ally.paladin.hp && enemy.troll.hp > 0
+document.getElementById('buttonModifyTurns').classList.toggle('Displayed');
+Esto hay que ponerlo en bucle para chequearlo constantemente. El CSS está actualmente alterado.
+*/
