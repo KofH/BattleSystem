@@ -24,19 +24,30 @@ newAlly = function () {
             image: image //Imagen del personaje
         };
         contAllies += 1;
-    }    
+    }   
 };
 newEnemy = function () {
-    enemy = {}; //Nuevo objecto enemy. También se puede construir como enemy = new Object();
-    var image = "Red Square";
-    enemy.troll = {
-        hp: prompt("Hit Points"),
-        wait: prompt("Initial Wait"),
-        initiative: prompt("Initiative Level"),
-        attack: prompt("Attack Level"),
-        defense: prompt("Defense Level"),
-        image: image
-    };
+	if (contEnemies == MAX_ENEMIES){
+        alert("Too many enemies in the battle!");
+    }
+    
+    else{            
+        enemy = {};//Nuevo objecto ally. También se puede construir como ally = new Object();
+        var image = "Red Square"; //pendiente modificacion, debe ir dentro de paladin
+        var name = prompt("Name of your Enemy");
+        
+        names[MAX_ALLIES + contEnemies] = name;
+        
+        enemy[name] = {
+            hp: prompt("Hit Points"), // puntos de vida de paladin.
+            wait: prompt("Initial Wait"), // Wait inicial. Remodelar segun exigencias
+            initiative: prompt("Initiative Level"), //Nivel de Iniciativa
+            attack: prompt("Attack Level"), //Nivel de Ataque
+            defense: prompt("Defense Level"), // Nivel de Defensa
+            image: image //Imagen del personaje
+        };
+        contEnemies += 1;
+    }
 };
 modifyTurns = function () {
     ally.paladin.wait = prompt("New Ally Wait"); //Modifica manualmente el Wait de ally.paladin
