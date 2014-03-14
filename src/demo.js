@@ -1,14 +1,30 @@
+names = [];
+var MAX_ALLIES = 4, MAX_ENEMIES = 6;
+var contAllies = 0, contEnemies = 0;
+
 newAlly = function () {
-    ally = {}; //Nuevo objecto ally. También se puede construir como ally = new Object();
-    var image = "Green Square"; //pendiente modificacion, debe ir dentro de paladin
-    ally.paladin = {
-        hp: prompt("Hit Points"), // puntos de vida de paladin.
-        wait: prompt("Initial Wait"), // Wait inicial. Remodelar segun exigencias
-        initiative: prompt("Initiative Level"), //Nivel de Iniciativa
-        attack: prompt("Attack Level"), //Nivel de Ataque
-        defense: prompt("Defense Level"), // Nivel de Defensa
-        image: image //Imagen del personaje
-    };
+    
+    if (contAllies == MAX_ALLIES){
+        alert("Too many allies in the battle!");
+    }
+    
+    else{            
+        ally = {};//Nuevo objecto ally. También se puede construir como ally = new Object();
+        var image = "Green Square"; //pendiente modificacion, debe ir dentro de paladin
+        var name = prompt("Name of your Ally");
+        
+        names[contAllies] = name;
+        
+        ally[name] = {
+            hp: prompt("Hit Points"), // puntos de vida de paladin.
+            wait: prompt("Initial Wait"), // Wait inicial. Remodelar segun exigencias
+            initiative: prompt("Initiative Level"), //Nivel de Iniciativa
+            attack: prompt("Attack Level"), //Nivel de Ataque
+            defense: prompt("Defense Level"), // Nivel de Defensa
+            image: image //Imagen del personaje
+        };
+        contAllies += 1;
+    }    
 };
 newEnemy = function () {
     enemy = {}; //Nuevo objecto enemy. También se puede construir como enemy = new Object();
