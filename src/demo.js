@@ -14,14 +14,16 @@ newAlly = function () {
         var name = prompt("Name of your Ally");
         
         names[contAllies] = name;
-        
         ally[name] = {
-            hp: prompt("Hit Points"), // puntos de vida de paladin.
-            wait: prompt("Initial Wait"), // Wait inicial. Remodelar segun exigencias
-            initiative: prompt("Initiative Level"), //Nivel de Iniciativa
-            attack: prompt("Attack Level"), //Nivel de Ataque
-            defense: prompt("Defense Level"), // Nivel de Defensa
-            image: image //Imagen del personaje
+            strength: prompt("Initial Strength"), //Fuerza del personaje aliado
+            agility: prompt("Initial Agility"), //Agilidad del personaje aliado
+            inteligence: prompt("Initial Inteligence"), //Inteligencia del personaje aliado
+        	hp: 1, // Puntos de vida. Según valor de la fuerza
+            wait: 0, // Wait inicial es 0 siempre.
+            initiative: 1, // Iniciativa. Según valor de la agilidad
+            attack: 1, // Ataque. Según valor de fuerza (y arma después)
+            defense: 1, // Defensa. Según valor de agilidad (y armadura después)
+            image: image // Imagen del personaje
         };
         contAllies += 1;
     }   
@@ -38,8 +40,11 @@ newEnemy = function () {
         
         names[MAX_ALLIES + contEnemies] = name;
         
-        enemy[name] = {
-            hp: prompt("Hit Points"), // puntos de vida de paladin.
+	    enemy[name] = {
+    		strength: prompt("Initial Strength"), //Fuerza del personaje aliado
+            agility: prompt("Initial Agility"), //Agilidad del personaje aliado
+            inteligence: prompt("Initial Inteligence"), //Inteligencia del personaje aliado
+        	hp: prompt("Hit Points"), // puntos de vida de paladin.
             wait: prompt("Initial Wait"), // Wait inicial. Remodelar segun exigencias
             initiative: prompt("Initiative Level"), //Nivel de Iniciativa
             attack: prompt("Attack Level"), //Nivel de Ataque
