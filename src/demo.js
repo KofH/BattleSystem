@@ -15,21 +15,20 @@ newAlly = function () {
         
         names[contAllies] = name;
         ally[name] = {
-            strength: prompt("Initial Strength"), //Fuerza del personaje aliado
-            agility: prompt("Initial Agility"), //Agilidad del personaje aliado
-            inteligence: prompt("Initial Inteligence"), //Inteligencia del personaje aliado
-        	hp: 0, // Puntos de vida. Según valor de la fuerza
-            wait: 0, // Wait inicial es 0 siempre.
-            initiative: 0, // Iniciativa. Según valor de la agilidad
-            attack: 0, // Ataque. Según valor de fuerza (y arma después)
-            defense: 0, // Defensa. Según valor de agilidad (y armadura después)
-            image: image // Imagen del personaje
+			strength: prompt("Initial Strength"), //Fuerza del personaje aliado
+			agility: prompt("Initial Agility"), //Agilidad del personaje aliado
+			inteligence: prompt("Initial Inteligence"), //Inteligencia del personaje aliado
+			hp: 0,
+			wait: 0,
+			initiative: 0,
+			attack: 0,
+			defense: 0
         };
         ally[names[contAllies]].hp = ally[names[contAllies]].strength * 3;
         ally[names[contAllies]].initiative = ally[names[contAllies]].inteligence * 3;
         ally[names[contAllies]].attack = ally[names[contAllies]].strength * 2;
-        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4; //sumarle X valor de la agilidad.
-        contAllies += 1;
+        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4; //sumarle X valor de la agilidad
+        ++contAllies;
     }   
 };
 newEnemy = function () {
@@ -43,19 +42,18 @@ newEnemy = function () {
         var name = prompt("Name of your Enemy");
         
         names[MAX_ALLIES + contEnemies] = name;
-        
-	    enemy[name] = {
-    		strength: prompt("Initial Strength"), //Fuerza del personaje aliado
-            agility: prompt("Initial Agility"), //Agilidad del personaje aliado
-            inteligence: prompt("Initial Inteligence"), //Inteligencia del personaje aliado
-        	hp: prompt("Hit Points"), // puntos de vida de paladin.
-            wait: prompt("Initial Wait"), // Wait inicial. Remodelar segun exigencias
-            initiative: prompt("Initiative Level"), //Nivel de Iniciativa
-            attack: prompt("Attack Level"), //Nivel de Ataque
-            defense: prompt("Defense Level"), // Nivel de Defensa
-            image: image //Imagen del personaje
+        enemy[name] = {
+    		strength: prompt("Initial Strength"), //Fuerza inicial del enemigo
+			agility: prompt("Initial Agility"), //Agilidad inicial del enemigo
+			inteligence: prompt("Initial Inteligence"), //Inteligencia inicial del enemigo
+			hp: 0,
+			wait: 0,
+			initiative: 0,
+			attack: 0,
+			defense: 0
         };
-        contEnemies += 1;
+        enemy[names[contEnemies]].hp = enemy[names[contEnemies]].strength * 3;
+        ++contEnemies;
     }
 };
 modifyTurns = function () {
