@@ -15,9 +15,9 @@ newAlly = function () {
         
         names[contAllies] = name;
         ally[name] = {
-			strength: prompt("Initial Strength"), //Fuerza del personaje aliado
-			agility: prompt("Initial Agility"), //Agilidad del personaje aliado
-			inteligence: prompt("Initial Inteligence"), //Inteligencia del personaje aliado
+			strength: parseInt(prompt("Initial Strength")), //Fuerza del personaje aliado
+			agility: parseInt(prompt("Initial Agility")), //Agilidad del personaje aliado
+			inteligence: parseInt(prompt("Initial Inteligence")), //Inteligencia del personaje aliado
 			hp: 0,
 			wait: 0,
 			initiative: 0,
@@ -27,7 +27,7 @@ newAlly = function () {
         ally[names[contAllies]].hp = ally[names[contAllies]].strength * 3;
         ally[names[contAllies]].initiative = ally[names[contAllies]].inteligence * 3;
         ally[names[contAllies]].attack = ally[names[contAllies]].strength * 2;
-        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4; //sumarle X valor de la agilidad
+        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4 + ally[names[contAllies]].agility; //sumarle X valor de la agilidad
         ++contAllies;
     }   
 };
@@ -43,29 +43,25 @@ newEnemy = function () {
         
         names[MAX_ALLIES + contEnemies] = name;
         enemy[name] = {
-    		strength: prompt("Initial Strength"), //Fuerza inicial del enemigo
-			agility: prompt("Initial Agility"), //Agilidad inicial del enemigo
-			inteligence: prompt("Initial Inteligence"), //Inteligencia inicial del enemigo
+    		strength: parseInt(prompt("Initial Strength")), //Fuerza inicial del enemigo
+			agility: parseInt(prompt("Initial Agility")), //Agilidad inicial del enemigo
+			inteligence: parseInt(prompt("Initial Inteligence")), //Inteligencia inicial del enemigo
 			hp: 0,
 			wait: 0,
 			initiative: 0,
 			attack: 0,
 			defense: 0
         };
-        enemy[names[contEnemies]].hp = enemy[names[contEnemies]].strength * 3;
+        enemy[names[MAX_ALLIES + contEnemies]].hp = enemy[names[MAX_ALLIES + contEnemies]].strength * 3;
+        enemy[names[MAX_ALLIES + contEnemies]].initiative = enemy[names[MAX_ALLIES + contEnemies]].inteligence * 3;
+        enemy[names[MAX_ALLIES + contEnemies]].attack = enemy[names[MAX_ALLIES + contEnemies]].strength * 2;
+        enemy[names[MAX_ALLIES + contEnemies]].defense = enemy[names[MAX_ALLIES + contEnemies]].strength * 4 + enemy[names[MAX_ALLIES + contEnemies]].agility;
         ++contEnemies;
     }
 };
 modifyTurns = function () {
-    ally.paladin.wait = prompt("New Ally Wait"); //Modifica manualmente el Wait de ally.paladin
-    enemy.troll.wait = prompt("New Enemy Wait"); //Modifica manualmente el Wait de enemy.troll
+	alert("COMING SOON!");
 };
 checkTurns = function (){
-    console.log("Paladin wait = " + ally.paladin.wait); //Muestra en consola el WAIT actual del Paladín
-    console.log("Troll wait = " + enemy.troll.wait); //Muestra en consola el WAIT actual del troll
+	alert("COMING SOON");
 };
-/*
-Esta linea copiarla cuando ally.paladin.hp && enemy.troll.hp > 0
-document.getElementById('buttonModifyTurns').classList.toggle('Displayed');
-Esto hay que ponerlo en bucle para chequearlo constantemente. El CSS está actualmente alterado.
-*/
