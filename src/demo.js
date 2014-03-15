@@ -18,13 +18,17 @@ newAlly = function () {
             strength: prompt("Initial Strength"), //Fuerza del personaje aliado
             agility: prompt("Initial Agility"), //Agilidad del personaje aliado
             inteligence: prompt("Initial Inteligence"), //Inteligencia del personaje aliado
-        	hp: 1, // Puntos de vida. Según valor de la fuerza
+        	hp: 0, // Puntos de vida. Según valor de la fuerza
             wait: 0, // Wait inicial es 0 siempre.
-            initiative: 1, // Iniciativa. Según valor de la agilidad
-            attack: 1, // Ataque. Según valor de fuerza (y arma después)
-            defense: 1, // Defensa. Según valor de agilidad (y armadura después)
+            initiative: 0, // Iniciativa. Según valor de la agilidad
+            attack: 0, // Ataque. Según valor de fuerza (y arma después)
+            defense: 0, // Defensa. Según valor de agilidad (y armadura después)
             image: image // Imagen del personaje
         };
+        ally[names[contAllies]].hp = ally[names[contAllies]].strength * 3;
+        ally[names[contAllies]].initiative = ally[names[contAllies]].inteligence * 3;
+        ally[names[contAllies]].attack = ally[names[contAllies]].strength * 2;
+        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4; //sumarle X valor de la agilidad.
         contAllies += 1;
     }   
 };
