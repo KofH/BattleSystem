@@ -1,6 +1,8 @@
 names = [];
 var MAX_ALLIES = 4, MAX_ENEMIES = 6;
 var contAllies = 0, contEnemies = 0;
+ally = {};
+enemy = {};
 
 newAlly = function () {
     
@@ -9,7 +11,6 @@ newAlly = function () {
     }
     
     else{            
-        ally = {};//Nuevo objecto ally. También se puede construir como ally = new Object();
         var image = "Green Square"; //pendiente modificacion, debe ir dentro de paladin
         var name = prompt("Name of your Ally");
         
@@ -36,9 +37,8 @@ newEnemy = function () {
         alert("Too many enemies in the battle!");
     }
     
-    else{            
-        enemy = {};//Nuevo objecto ally. También se puede construir como ally = new Object();
-        var image = "Red Square"; //pendiente modificacion, debe ir dentro de paladin
+    else{
+    	var image = "Red Square"; //pendiente modificacion, debe ir dentro de paladin
         var name = prompt("Name of your Enemy");
         
         names[MAX_ALLIES + contEnemies] = name;
