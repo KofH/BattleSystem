@@ -11,7 +11,6 @@ newAlly = function () {
     }
     
     else{            
-        var image = "Green Square"; //pendiente modificacion, debe ir dentro de paladin
         var name = prompt("Name of your Ally");
         
         names[contAllies] = name;
@@ -28,7 +27,7 @@ newAlly = function () {
         ally[names[contAllies]].hp = ally[names[contAllies]].strength * 3;
         ally[names[contAllies]].initiative = ally[names[contAllies]].inteligence * 3;
         ally[names[contAllies]].attack = ally[names[contAllies]].strength * 2;
-        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4 + ally[names[contAllies]].agility; //sumarle X valor de la agilidad
+        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4 + ally[names[contAllies]].agility;
         ++contAllies;
     }   
 };
@@ -38,7 +37,6 @@ newEnemy = function () {
     }
     
     else{
-    	var image = "Red Square"; //pendiente modificacion, debe ir dentro de paladin
         var name = prompt("Name of your Enemy");
         
         names[MAX_ALLIES + contEnemies] = name;
@@ -58,6 +56,44 @@ newEnemy = function () {
         enemy[names[MAX_ALLIES + contEnemies]].defense = enemy[names[MAX_ALLIES + contEnemies]].strength * 4 + enemy[names[MAX_ALLIES + contEnemies]].agility;
         ++contEnemies;
     }
+};
+fightersGenerator = function (){
+	for (var fighterAlly = 1; contAllies < MAX_ALLIES; contAllies++, fighterAlly++){
+		var name = "Ally" + fighterAlly;
+		names[contAllies] = name;
+		ally[name] = {
+				strength: 1,
+				agility: 1,
+				inteligence: 1,
+				hp: 0,
+				wait: 0,
+				initiative: 0,
+				attack: 0,
+				defense: 0
+		};
+		ally[names[contAllies]].hp = ally[names[contAllies]].strength * 3;
+		ally[names[contAllies]].initiative = ally[names[contAllies]].inteligence * 3;
+        ally[names[contAllies]].attack = ally[names[contAllies]].strength * 2;
+        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4 + ally[names[contAllies]].agility;	
+	}
+	for (var fighterEnemy = 1; contEnemies < MAX_ENEMIES; contEnemies++, fighterEnemy++){
+		var name = "Enemy" + fighterEnemy;
+		names[MAX_ALLIES + contEnemies] = name;
+        enemy[name] = {
+    		strength: 1,
+			agility: 1,
+			inteligence: 1,
+			hp: 0,
+			wait: 0,
+			initiative: 0,
+			attack: 0,
+			defense: 0
+        };
+        enemy[names[MAX_ALLIES + contEnemies]].hp = enemy[names[MAX_ALLIES + contEnemies]].strength * 3;
+        enemy[names[MAX_ALLIES + contEnemies]].initiative = enemy[names[MAX_ALLIES + contEnemies]].inteligence * 3;
+        enemy[names[MAX_ALLIES + contEnemies]].attack = enemy[names[MAX_ALLIES + contEnemies]].strength * 2;
+        enemy[names[MAX_ALLIES + contEnemies]].defense = enemy[names[MAX_ALLIES + contEnemies]].strength * 4 + enemy[names[MAX_ALLIES + contEnemies]].agility;
+	}
 };
 modifyTurns = function () {
 	alert("COMING SOON!");
