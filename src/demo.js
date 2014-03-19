@@ -96,15 +96,15 @@ fightersGenerator = function (){
 	}
 };
 modifyAttributes = function () {
-	searchFighter = prompt("How do you want to change?"), contSearch = 0;
-	while (searchFighter != names[contSearch] && searchFighter != "Not Found") {
+	var searchFighter = prompt("How do you want to change?"), contSearch = 0, found = true;
+	while (searchFighter != names[contSearch] && found) {
 		if (contSearch > MAX_ALLIES + MAX_ENEMIES) { //Control de ERRORES en el caso de que no encuentre nada
-			searchFighter = "Not Found";
+			found = false;
 		}		
 		contSearch++
 	}
 	
-	if (searchFighter != "Not Found") {
+	if (found) {
 		if (contSearch < MAX_ALLIES) {
 			modAttr = prompt("What Attribute do you want to modify? strength, agility or inteligence");
 			ally[names[contSearch]][modAttr] = parseInt(prompt("Insert the new Value"));
