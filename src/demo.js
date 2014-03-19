@@ -95,9 +95,30 @@ fightersGenerator = function (){
         enemy[names[MAX_ALLIES + contEnemies]].defense = enemy[names[MAX_ALLIES + contEnemies]].strength * 4 + enemy[names[MAX_ALLIES + contEnemies]].agility;
 	}
 };
-modifyTurns = function () {
-	alert("COMING SOON!");
-};
+modifyAttributes = function () {
+	searchFighter = prompt("How do you want to change?"), contSearch = 0;
+	while (searchFighter != names[contSearch] && searchFighter != "Not Found") {
+		if (contSearch > MAX_ALLIES + MAX_ENEMIES) { //Control de ERRORES en el caso de que no encuentre nada
+			searchFighter = "Not Found";
+		}		
+		contSearch++
+	}
+	
+	if (searchFighter != "Not Found") {
+		if (contSearch < MAX_ALLIES) {
+			modAttr = prompt("What Attribute do you want to modify? strength, agility or inteligence");
+			ally[names[contSearch]][modAttr] = parseInt(prompt("Insert the new Value"));
+			console.log(modAttr + " for " + names[contSearch] + " is now " + ally[names[contSearch]][modAttr]);
+		} else {
+			modAttr = prompt("What Attribute do you want to modify? strength, agility or inteligence");
+			enemy[names[contSearch]][modAttr] = parseInt(prompt("Insert the new Value"));
+			console.log(modAttr + " for " + names[contSearch] + " is now " + enemy[names[contSearch]][modAttr]);
+		}
+	} else {
+		console.log("Fighter Not Found!")
+	}
+}; /* NOTA IMPORTANTE :: Generar una function que recalcule el resto de atributos apartir de STR, AGI & INT. Así solo tener que
+llamarla cada vez que se modifiquen estos valores iniciales */
 checkTurns = function (){
 	alert("COMING SOON");
 };
