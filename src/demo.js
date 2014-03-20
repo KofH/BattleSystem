@@ -109,36 +109,20 @@ modifyAttributes = function () {
 };
 calcSubAttributes = function (){ // Función a la que llamaremos para refrescar los subatributos
 	var contCalcSub = 0;
-	var items = document.getElementById("infoFightersContent");
-	while (contCalcSub < MAX_ALLIES + MAX_ENEMIES && contCalcSub <= contAllies && contCalcSub <= contEnemies) {
-		if (contCalcSub < MAX_ALLIES) {
-			ally[names[contCalcSub]].hp = ally[names[contCalcSub]].strength * 3;
-			ally[names[contCalcSub]].initiative = ally[names[contCalcSub]].inteligence * 4;
-			ally[names[contCalcSub]].attack = ally[names[contCalcSub]].strength * 5;
-			ally[names[contCalcSub]].defense = ally[names[contCalcSub]].strength * 2 + ally[names[contCalcSub]].agility * 3;
-		} else {
-			enemy[names[contCalcSub]].hp = enemy[names[contCalcSub]].strength * 3;
-			enemy[names[contCalcSub]].initiative = enemy[names[contCalcSub]].inteligence * 4;
-			enemy[names[contCalcSub]].attack = enemy[names[contCalcSub]].strength * 5;
-			enemy[names[contCalcSub]].defense = enemy[names[contCalcSub]].strength * 2 + enemy[names[contCalcSub]].agility * 3;
+	while (contCalcSub < names.length) {
+		if (names[contCalcSub] != undefined) {
+			if (contCalcSub < MAX_ALLIES) {
+				ally[names[contCalcSub]].hp = ally[names[contCalcSub]].strength * 3;
+				ally[names[contCalcSub]].initiative = ally[names[contCalcSub]].inteligence * 4;
+				ally[names[contCalcSub]].attack = ally[names[contCalcSub]].strength * 5;
+				ally[names[contCalcSub]].defense = ally[names[contCalcSub]].strength * 2 + ally[names[contCalcSub]].agility * 3;
+			} else {
+				enemy[names[contCalcSub]].hp = enemy[names[contCalcSub]].strength * 3;
+				enemy[names[contCalcSub]].initiative = enemy[names[contCalcSub]].inteligence * 4;
+				enemy[names[contCalcSub]].attack = enemy[names[contCalcSub]].strength * 5;
+				enemy[names[contCalcSub]].defense = enemy[names[contCalcSub]].strength * 2 + enemy[names[contCalcSub]].agility * 3;
+			}
 		}
 		contCalcSub++;
 	}
-	/*
-	contCalcSub = 0;
-	while (contCalcSub < MAX_ALLIES + MAX_ENEMIES && contCalcSub <= contAllies && contCalcSub <= contEnemies) {
-		if (contCalcSub < MAX_ALLIES){
-			items.innerHTML = ally[names[contCalcSub].strength];
-		} else {
-			items.innerHTML = enemy[names[contCalcSub]].strength;
-		}
-		contCalcSub++;
-	}/*
-	var i = 0;
-	while (i < 1) {
-		var item = document.createElement("li");
-		item.innerHTML = names[i];
-		items.appendChild(item);
-		i++
-	}*/
 };
