@@ -24,12 +24,9 @@ newAlly = function () {
 			attack: 0,
 			defense: 0
         };
-        ally[names[contAllies]].hp = ally[names[contAllies]].strength * 3;
-        ally[names[contAllies]].initiative = ally[names[contAllies]].inteligence * 3;
-        ally[names[contAllies]].attack = ally[names[contAllies]].strength * 2;
-        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4 + ally[names[contAllies]].agility;
         ++contAllies;
-    }   
+    }
+    calcSubAttributes();
 };
 newEnemy = function () {
 	if (contEnemies == MAX_ENEMIES){
@@ -50,12 +47,9 @@ newEnemy = function () {
 			attack: 0,
 			defense: 0
         };
-        enemy[names[MAX_ALLIES + contEnemies]].hp = enemy[names[MAX_ALLIES + contEnemies]].strength * 3;
-        enemy[names[MAX_ALLIES + contEnemies]].initiative = enemy[names[MAX_ALLIES + contEnemies]].inteligence * 3;
-        enemy[names[MAX_ALLIES + contEnemies]].attack = enemy[names[MAX_ALLIES + contEnemies]].strength * 2;
-        enemy[names[MAX_ALLIES + contEnemies]].defense = enemy[names[MAX_ALLIES + contEnemies]].strength * 4 + enemy[names[MAX_ALLIES + contEnemies]].agility;
         ++contEnemies;
     }
+	calcSubAttributes();
 };
 fightersGenerator = function (){
 	for (var fighterAlly = 1; contAllies < MAX_ALLIES; contAllies++, fighterAlly++){
@@ -71,10 +65,7 @@ fightersGenerator = function (){
 				attack: 0,
 				defense: 0
 		};
-		ally[names[contAllies]].hp = ally[names[contAllies]].strength * 3;
-		ally[names[contAllies]].initiative = ally[names[contAllies]].inteligence * 3;
-        ally[names[contAllies]].attack = ally[names[contAllies]].strength * 2;
-        ally[names[contAllies]].defense = ally[names[contAllies]].strength * 4 + ally[names[contAllies]].agility;	
+		calcSubAttributes();
 	}
 	for (var fighterEnemy = 1; contEnemies < MAX_ENEMIES; contEnemies++, fighterEnemy++){
 		var name = "Enemy" + fighterEnemy;
@@ -89,10 +80,7 @@ fightersGenerator = function (){
 			attack: 0,
 			defense: 0
         };
-        enemy[names[MAX_ALLIES + contEnemies]].hp = enemy[names[MAX_ALLIES + contEnemies]].strength * 3;
-        enemy[names[MAX_ALLIES + contEnemies]].initiative = enemy[names[MAX_ALLIES + contEnemies]].inteligence * 3;
-        enemy[names[MAX_ALLIES + contEnemies]].attack = enemy[names[MAX_ALLIES + contEnemies]].strength * 2;
-        enemy[names[MAX_ALLIES + contEnemies]].defense = enemy[names[MAX_ALLIES + contEnemies]].strength * 4 + enemy[names[MAX_ALLIES + contEnemies]].agility;
+        calcSubAttributes();
 	}
 };
 modifyAttributes = function () {
@@ -117,8 +105,40 @@ modifyAttributes = function () {
 	} else {
 		console.log("Fighter Not Found!")
 	}
-}; /* NOTA IMPORTANTE :: Generar una function que recalcule el resto de atributos apartir de STR, AGI & INT. Así solo tener que
-llamarla cada vez que se modifiquen estos valores iniciales */
-checkTurns = function (){
-	alert("COMING SOON");
+	calcSubAttributes();
+};
+calcSubAttributes = function (){ // Función a la que llamaremos para refrescar los subatributos
+	var contCalcSub = 0;
+	var items = document.getElementById("infoFightersContent");
+	while (contCalcSub < MAX_ALLIES + MAX_ENEMIES && contCalcSub <= contAllies && contCalcSub <= contEnemies) {
+		if (contCalcSub < MAX_ALLIES) {
+			ally[names[contCalcSub]].hp = ally[names[contCalcSub]].strength * 3;
+			ally[names[contCalcSub]].initiative = ally[names[contCalcSub]].inteligence * 4;
+			ally[names[contCalcSub]].attack = ally[names[contCalcSub]].strength * 5;
+			ally[names[contCalcSub]].defense = ally[names[contCalcSub]].strength * 2 + ally[names[contCalcSub]].agility * 3;
+		} else {
+			enemy[names[contCalcSub]].hp = enemy[names[contCalcSub]].strength * 3;
+			enemy[names[contCalcSub]].initiative = enemy[names[contCalcSub]].inteligence * 4;
+			enemy[names[contCalcSub]].attack = enemy[names[contCalcSub]].strength * 5;
+			enemy[names[contCalcSub]].defense = enemy[names[contCalcSub]].strength * 2 + enemy[names[contCalcSub]].agility * 3;
+		}
+		contCalcSub++;
+	}
+	/*
+	contCalcSub = 0;
+	while (contCalcSub < MAX_ALLIES + MAX_ENEMIES && contCalcSub <= contAllies && contCalcSub <= contEnemies) {
+		if (contCalcSub < MAX_ALLIES){
+			items.innerHTML = ally[names[contCalcSub].strength];
+		} else {
+			items.innerHTML = enemy[names[contCalcSub]].strength;
+		}
+		contCalcSub++;
+	}/*
+	var i = 0;
+	while (i < 1) {
+		var item = document.createElement("li");
+		item.innerHTML = names[i];
+		items.appendChild(item);
+		i++
+	}*/
 };
