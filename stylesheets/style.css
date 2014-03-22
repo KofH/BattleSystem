@@ -1,8 +1,6 @@
-.buttonModifyTurns {
-    color: purple;
-    display: block;
+.infoFightersContent,li{
+	margin: 0px 0px 10px 0px;
 }
-.buttonModifyTurns.Displayed {
-    color: purple;
-    display: none;
+.infoFightersContent,ul {
+	margin: 0px;
 }
