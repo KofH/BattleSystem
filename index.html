@@ -10,7 +10,10 @@
 <body>
 	<input type="button" id="fightersGenerator" value="Fighters Generator" onclick="fightersGenerator()" />	<br />
 	<input type="button" id="buttonNewCharacter" value="New Character" onclick="newCharacter()" />
-	<input type="button" class="buttonModifyAttributes" id="buttonModifyAttributes" value="Modify Attributes" onclick="modifyAttributes()" />
+	<input type="button" class="buttonModifyAttributes" id="buttonModifyAttributes" value="Modify Attributes" onclick="modifyAttributes()" /> <br />
+	<input type="button" id="buttonSave" value="Save Characters" onclick="saveCharacters()"/> <br />
+	<input type="file" id="fileUpload" name="file"/>
+	<input type="button" id="buttonLoad" value="Load from file" onclick="loadCharacters()"/>
 	<div id="infoFightersHeader">
 		<h3>Info Fighters:</h3>
 		<div class="infoFightersContent" id="infoFightersContent"></div>
