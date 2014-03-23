@@ -17,6 +17,20 @@ actions = {
 			this.__proto__.wait = 20;
 		},
 		areaAttack: function(){
+			var factionObjetiveSelected = prompt("ally or enemy");
+			if (factionObjetiveSelected == "ally") {
+				factionObj = contAllies;
+			} else if (factionObjetiveSelected == "enemy"){
+				factionObj = contEnemies;
+			} else {
+				alert("ERROR!");
+			}
+			var damage = this.inteligence / factionObj;
+			for (var contSearch = 0; contSearch < characters.length; contSearch++) {
+				if (characters[contSearch].faction = factionObjetiveSelected) {
+					characters[contSearch].hp -= damage;
+				}
+			}
 			alert("Area Attack!");
 		}
 };
