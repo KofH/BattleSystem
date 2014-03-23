@@ -1,13 +1,42 @@
-//names = [];
 var MAX_ALLIES = 4, MAX_ENEMIES = 6;
 var contAllies = 0, contEnemies = 0;
 characters = [];
+actions = {
+		attack: function(){
+			var target = searchCharacter();
+			var damage = this.strength * 2;
+			alert("Damage " + damage);
+			characters[target].hp -= damage;
+			alert("Character HP: " + characters[target].hp);
+			this.__proto__.wait = 50;
+		},
+		defPosition: function(){
+			var defense = this.defense + 2;
+			this.__proto__.defense = defense;
+			alert("Defense: " + defense);
+			this.__proto__.wait = 20;
+		},
+		areaAttack: function(){
+			alert("Area Attack!");
+		}
+};
+
+searchCharacter = function(){
+	var searchCharacter = prompt("Choose your target"), contSearch = 0, found = true;
+	while (contSearch < characters.length) {
+		if (searchCharacter == characters[contSearch].name){
+			return contSearch;
+        }
+        contSearch++
+	}
+    return -1;
+};
 
 saveCharacters = function(){
 	var serialization = JSON.stringify(characters);
 	var dataurl = "data:application/javascript;ucs2,"+ serialization;
 	window.open(dataurl);
-}
+};
 
 loadCharacters = function(){
 	var filereader = new FileReader();
@@ -27,7 +56,7 @@ loadCharacters = function(){
 	}
 	var file = document.getElementById("fileUpload").files[0];
 	filereader.readAsText(file,'utf8');
-}
+};
 
 newCharacter = function () {
 	var characterFaction = prompt("ally or enemy");
@@ -61,6 +90,7 @@ newCharacter = function () {
 					initiative: 0,
 					attack: 0,
 					defense: 0,
+					actions: ["attack"],
 					faction: characterFaction
 			}
 			calcSubAttributes();
