@@ -5,7 +5,7 @@ characters = [];
 
 saveCharacters = function(){
 	var serialization = JSON.stringify(characters);
-	var dataurl = "data:application/javascript;ucs2,"+ serialization;
+	var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
 	window.open(dataurl);
 }
 
