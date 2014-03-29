@@ -1,13 +1,58 @@
-//names = [];
 var MAX_ALLIES = 4, MAX_ENEMIES = 6;
 var contAllies = 0, contEnemies = 0;
 characters = [];
+actions = {
+		attack: function(){
+			var target = searchCharacter();
+			var damage = this.strength * 2;
+			alert("Damage " + damage);
+			characters[target].hp -= damage;
+			alert("Character HP: " + characters[target].hp);
+			this.prototype.wait = 50;
+		},
+		
+		defPosition: function(){
+			var defense = this.defense + 2;
+			this.prototype.defense = defense;
+			alert("Defense: " + defense);
+			this.prototype.wait = 20;			
+		},
+		
+		areaAttack: function(){
+			var factionObjetiveSelected = prompt("ally or enemy");
+			if (factionObjetiveSelected == "ally") {
+				factionObj = contAllies;
+			} else if (factionObjetiveSelected == "enemy"){
+				factionObj = contEnemies;
+			} else {
+				alert("ERROR!");
+			}
+			var damage = this.inteligence / factionObj;
+			for (var contSearch = 0; contSearch < characters.length; contSearch++) {
+				if (characters[contSearch].faction = factionObjetiveSelected) {
+					characters[contSearch].hp -= damage;
+				}
+			}
+			alert("Area Attack!");
+		}
+};
+
+searchCharacter = function(){
+	var searchCharacter = prompt("Choose your target"), contSearch = 0, found = true;
+	while (contSearch < characters.length) {
+		if (searchCharacter == characters[contSearch].name){
+			return contSearch;
+        }
+        contSearch++
+	}
+    return -1;
+};
 
 saveCharacters = function(){
 	var serialization = JSON.stringify(characters);
 	var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
 	window.open(dataurl);
-}
+};
 
 loadCharacters = function(){
 	var filereader = new FileReader();
@@ -27,7 +72,7 @@ loadCharacters = function(){
 	}
 	var file = document.getElementById("fileUpload").files[0];
 	filereader.readAsText(file,'utf8');
-}
+};
 
 newCharacter = function () {
 	var characterFaction = prompt("ally or enemy");
@@ -59,8 +104,9 @@ newCharacter = function () {
 					hp: 0,
 					wait: 0,
 					initiative: 0,
-					attack: 0,
+					offense: 0,
 					defense: 0,
+					actions: ["attack"],
 					faction: characterFaction
 			}
 			calcSubAttributes();
