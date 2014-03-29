@@ -8,14 +8,16 @@ actions = {
 			alert("Damage " + damage);
 			characters[target].hp -= damage;
 			alert("Character HP: " + characters[target].hp);
-			this.__proto__.wait = 50;
+			this.prototype.wait = 50;
 		},
+		
 		defPosition: function(){
 			var defense = this.defense + 2;
-			this.__proto__.defense = defense;
+			this.prototype.defense = defense;
 			alert("Defense: " + defense);
-			this.__proto__.wait = 20;
+			this.prototype.wait = 20;			
 		},
+		
 		areaAttack: function(){
 			var factionObjetiveSelected = prompt("ally or enemy");
 			if (factionObjetiveSelected == "ally") {
@@ -102,7 +104,7 @@ newCharacter = function () {
 					hp: 0,
 					wait: 0,
 					initiative: 0,
-					attack: 0,
+					offense: 0,
 					defense: 0,
 					actions: ["attack"],
 					faction: characterFaction
