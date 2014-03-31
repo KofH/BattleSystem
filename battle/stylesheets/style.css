@@ -4,3 +4,52 @@
 .infoFightersContent,ul {
 	margin: 0px;
 }
+.newCharacterPrompt{
+	display: none;
+}
+.newCharacterPrompt.Displayed{
+	display:block;
+	width: 300px;
+	height: 300px;
+	position: fixed;
+	left: 45%;
+	text-align: left;
+    font:normal 12px/14px Arial, Helvetica, Sans-serif;
+    color: #444;
+    font-weight:bold;
+}
+.newCharacterForm{
+
+}
+.newCharacterPrompt fieldset {
+    padding-left: 25px;
+    background-color: #eff4f6;
+    border: 1px solid #C3D4DB;
+    border-radius: 5px;
+}
+.newCharacterPrompt input{
+    margin-left: 5px;
+}
+.newCharacterInputAttr{
+    width: 40px;
+}
+.newCharacterInputName{
+    width: 150px;
+}
+.newCharacterRadio{
+    display:inline-block;
+    text-align: right;
+    margin-left: 60px;
+}
+.newCharacterLabel{
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 75px;
+    text-align: right;
+    margin-top: 6px;
+}
+.newCharacterFooter input {
+    margin-left: 60px;
+    font-weight:bold;
+}

@@ -13,8 +13,8 @@
 
 
 <body>
-	<input type="button" id="fightersGenerator" value="Fighters Generator" onclick="fightersGenerator()" />	<br />
-	<input type="button" id="buttonNewCharacter" value="New Character" onclick="newCharacter()" />
+	<input type="button" id="buttonFightersGenerator" value="Fighters Generator" onclick="fightersGenerator()" />	<br />
+	<input type="button" id="buttonNewCharacter" value="New Character" onclick="newCharacterPrompt()" />
 	<input type="button" class="buttonModifyAttributes" id="buttonModifyAttributes" value="Modify Attributes" onclick="modifyAttributes()" /> <br />
 	<input type="button" id="buttonSave" value="Save Characters" onclick="saveCharacters()"/> <br />
 	<input type="file" id="fileUpload" name="file"/>
@@ -22,6 +22,27 @@
 	<div id="infoFightersHeader">
 		<h3>Info Fighters:</h3>
 		<div class="infoFightersContent" id="infoFightersContent"></div>
+	</div>
+	<input type="button" onclick="test()" value="TEST" />
+	<div class="newCharacterPrompt" id="newCharacterPrompt">
+		 <fieldset>
+		  <legend>New Character</legend>
+		     <label class="newCharacterRadio"><input type="radio" id="newCharacterAlly" value="ally" name="newCharacter" />Ally</label>
+		     <label class="newCharacterRadio"><input type="radio" id="newCharacterEnemy" value="enemy" name="newCharacter" />Enemy</label><br /><br />
+		     <label class="newCharacterLabel">Name:</label> <input class="newCharacterInputName"type="text" id="newCharacterName" name="newCharacter"/><br />
+		     <label class="newCharacterLabel">Strength:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterStrength" size="5" name="newCharacter"/><br />
+		     <label class="newCharacterLabel">Agility:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterAgility" name="newCharacter"/><br />
+		     <label class="newCharacterLabel">Inteligence:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterInteligence" /><br /><hr>
+		     <p>Actions for New Character:</p>
+		     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAttack" value="attack"/>Melee Attack</label><br />
+		     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionDefense" value="defPosition"/>Defensive Position</label><br />
+		     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Magical Area</label>
+		     <br /><hr><br />	     
+		     <footer class="newCharacterFooter">
+		         <input type="button" id="newCharacterNext" onclick="newCharacter()" value="Submit"/>
+		         <input type="button" id="newCharacterReset" onclick="newCharacterPromptReset()" value="Reset"/>
+		     </footer>
+		 </fieldset> 
 	</div>
 </body>
 
