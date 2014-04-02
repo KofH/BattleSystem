@@ -41,12 +41,13 @@ body{
  ****************************************/
 #infoFightersHeader{
 	margin-left: 20px;
+	margin-top: 20px;
 }
 .infoFightersContent,li{
-	margin: 0px 0px 10px 0px;
+	margin: 10px 0px 0px 10px;
 }
 .infoFightersContent,ul {
-	margin: 0px;
+	margin: 0px 0px 0px 10px;
 }
 /****************************************
  ******** NEW CHARACTER PROMPT***********
