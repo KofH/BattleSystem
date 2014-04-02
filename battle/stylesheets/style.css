@@ -67,9 +67,6 @@ body{
     color: #444;
     font-weight:bold;
 }
-.newCharacterForm{
-
-}
 .newCharacterPrompt fieldset {
     padding-left: 25px;
     background-color: #eff4f6;
@@ -78,17 +75,20 @@ body{
 }
 .newCharacterPrompt input{
     margin-left: 5px;
+    margin-bottom: 5px;
 }
 .newCharacterInputAttr{
     width: 40px;
+    margin-bottom: 5px;
 }
 .newCharacterInputName{
     width: 150px;
+    margin-bottom: 5px;
 }
 .newCharacterRadio{
     display:inline-block;
     text-align: right;
-    margin-left: 60px;
+    margin: 10px 0px -10px 55px;
 }
 .newCharacterLabel{
     display: inline-block;
@@ -96,9 +96,18 @@ body{
     clear: left;
     width: 75px;
     text-align: right;
-    margin-top: 6px;
+    margin: 3px 0px 5px 0px;
+}
+#newCharacterPrompt p {
+	text-align: center;
+	margin: 5px 0px 5px -20px;
+}
+.newCharacterCheckBox input{
+	margin: 0px 0px 5px 25px;
 }
 .newCharacterFooter input {
-    margin-left: 60px;
     font-weight:bold;
+    margin: -15px 0px 7px 50px;
+    width: 55px;
+    text-align: center;
 }

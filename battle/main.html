@@ -14,7 +14,7 @@
 
 <body>
 	<div id="topMenu" class="bodyTopBar">
-        <input type="button" id="buttonFightersGenerator" class="buttonTopMenu" value="Fighters Generator" onClick="fightersGenerator()" />
+        <input type="button" id="buttonFightersGenerator" class="buttonTopMenu" value="Fighters Generator" 	onClick="fightersGenerator()" />
         <input type="button" id="buttonNewCharacter" class="buttonTopMenu" value="New Character" onClick="newCharacterPrompt()" />
         <input type="button" class="buttonTopMenu" id="buttonModifyAttributes" value="Modify Attributes" onClick="modifyAttributes()" />
         <input type="button" id="buttonSave" class="buttonTopMenu" value="Save Characters" onClick="saveCharacters()"/>
@@ -34,12 +34,12 @@
 		     <label class="newCharacterLabel">Name:</label> <input class="newCharacterInputName"type="text" id="newCharacterName" name="newCharacter"/><br />
 		     <label class="newCharacterLabel">Strength:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterStrength" size="5" name="newCharacter"/><br />
 		     <label class="newCharacterLabel">Agility:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterAgility" name="newCharacter"/><br />
-		     <label class="newCharacterLabel">Inteligence:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterInteligence" /><br /><hr>
+		     <label class="newCharacterLabel">Inteligence:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterInteligence" /><br />
 		     <p>Actions for New Character:</p>
 		     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAttack" value="attack"/>Melee Attack</label><br />
 		     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionDefense" value="defPosition"/>Defensive Position</label><br />
 		     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Magical Area</label>
-		     <br /><hr><br />	     
+		     <br /><br />	     
 		     <footer class="newCharacterFooter">
 		         <input type="button" id="newCharacterNext" onClick="newCharacter()" value="Submit"/>
 		         <input type="button" id="newCharacterReset" onClick="newCharacterPromptReset()" value="Reset"/>
