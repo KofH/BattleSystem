@@ -74,7 +74,8 @@ loadCharacters = function(){
 	filereader.readAsText(file,'utf8');
 };
 newCharacterPrompt = function(){
-	document.getElementById('newCharacterPrompt').classList.toggle('Displayed');	
+	document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
+	document.getElementById('newCharacterAlly').focus();
 };
 newCharacter = function () {
 	document.getElementById('newCharacterPrompt').classList.toggle('Displayed');

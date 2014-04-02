@@ -13,17 +13,19 @@
 
 
 <body>
-	<input type="button" id="buttonFightersGenerator" value="Fighters Generator" onclick="fightersGenerator()" />	<br />
-	<input type="button" id="buttonNewCharacter" value="New Character" onclick="newCharacterPrompt()" />
-	<input type="button" class="buttonModifyAttributes" id="buttonModifyAttributes" value="Modify Attributes" onclick="modifyAttributes()" /> <br />
-	<input type="button" id="buttonSave" value="Save Characters" onclick="saveCharacters()"/> <br />
-	<input type="file" id="fileUpload" name="file"/>
-	<input type="button" id="buttonLoad" value="Load from file" onclick="loadCharacters()"/>
-	<div id="infoFightersHeader">
-		<h3>Info Fighters:</h3>
-		<div class="infoFightersContent" id="infoFightersContent"></div>
+	<div id="topMenu" class="bodyTopBar">
+        <input type="button" id="buttonFightersGenerator" class="buttonTopMenu" value="Fighters Generator" onClick="fightersGenerator()" />
+        <input type="button" id="buttonNewCharacter" class="buttonTopMenu" value="New Character" onClick="newCharacterPrompt()" />
+        <input type="button" class="buttonTopMenu" id="buttonModifyAttributes" value="Modify Attributes" onClick="modifyAttributes()" />
+        <input type="button" id="buttonSave" class="buttonTopMenu" value="Save Characters" onClick="saveCharacters()"/>
+        <input type="file" id="fileUpload" class="buttonTopMenu" name="file"/>
+        <input type="button" id="buttonLoad" class="buttonTopMenu" value="Load from file" onClick="loadCharacters()"/>
+        <a href="https://github.com/KofH/BattleSystem/issues/new" target="_blank"><input type="button" id="buttonBugReport" class="buttonTopMenu" value="Report a bug!" /></a>
 	</div>
-	<input type="button" onclick="test()" value="TEST" />
+    <div id="infoFightersHeader">
+        <h3>Info Fighters:</h3>
+        <div class="infoFightersContent" id="infoFightersContent"></div>
+    </div>
 	<div class="newCharacterPrompt" id="newCharacterPrompt">
 		 <fieldset>
 		  <legend>New Character</legend>
@@ -39,8 +41,8 @@
 		     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Magical Area</label>
 		     <br /><hr><br />	     
 		     <footer class="newCharacterFooter">
-		         <input type="button" id="newCharacterNext" onclick="newCharacter()" value="Submit"/>
-		         <input type="button" id="newCharacterReset" onclick="newCharacterPromptReset()" value="Reset"/>
+		         <input type="button" id="newCharacterNext" onClick="newCharacter()" value="Submit"/>
+		         <input type="button" id="newCharacterReset" onClick="newCharacterPromptReset()" value="Reset"/>
 		     </footer>
 		 </fieldset> 
 	</div>
