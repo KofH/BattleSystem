@@ -3,24 +3,25 @@
 	<head>
 		<title>Battle System</title>
 		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-		<script defer data-main="../battle/main" src="../libs/require.js" type="text/javascript"></script>
+		<script defer data-main="../battle/main" src="src/libs/require.js" type="text/javascript"></script>
 	</head>
 	
 	
-	<script type="text/javascript" src="src/demo.js"></script>
-	<script type="text/javascript" src="src/backbone.js"></script>
 	<LINK href="stylesheets/style.css" rel="stylesheet" type="text/css">
 
 
 <body>
 	<div id="topMenu" class="bodyTopBar">
-        <input type="button" id="buttonFightersGenerator" class="buttonTopMenu" value="Fighters Generator" 	onClick="fightersGenerator()" />
-        <input type="button" id="buttonNewCharacter" class="buttonTopMenu" value="New Character" onClick="newCharacterPrompt()" />
-        <input type="button" class="buttonTopMenu" id="buttonModifyAttributes" value="Modify Attributes" onClick="modifyAttributes()" />
-        <input type="button" id="buttonSave" class="buttonTopMenu" value="Save Characters" onClick="saveCharacters()"/>
+        <input type="button" id="buttonFightersGenerator" class="buttonTopMenu" value="Fighters Generator" onclick="engine._viewModel.fightersGenerator()"/>
+        <input type="button" id="buttonNewCharacter" class="buttonTopMenu" value="New Character" onclick="engine._viewModel.newCharacterPrompt()" />
+        <input type="button" class="buttonTopMenu" id="buttonModifyAttributes" value="Modify Attributes" onClick="engine._viewModel.modifyAttributes()" />
+        <input type="button" id="buttonSave" class="buttonTopMenu" value="Save Characters" onClick="engine._viewModel.saveCharacters()"/>
         <input type="file" id="fileUpload" class="buttonTopMenu" name="file"/>
-        <input type="button" id="buttonLoad" class="buttonTopMenu" value="Load from file" onClick="loadCharacters()"/>
-        <a href="https://github.com/KofH/BattleSystem/issues/new" target="_blank"><input type="button" id="buttonBugReport" class="buttonTopMenu" value="Report a bug!" /></a>
+        <input type="button" id="buttonLoad" class="buttonTopMenu" value="Load from file" onClick="engine._viewModel.loadCharacters()"/>
+        <a href="https://github.com/KofH/BattleSystem/issues/new" target="_blank"><input type="button" id="buttonBugReport" class="buttonTopMenu" value="Report a bug!" /></a><br />
+		<input type="button" id="buttonStart" class="buttonTopMenu" value="Combat Start!" onclick="engine.start()"/>
+		<input type="button" id="buttonStop" class="buttonTopMenu" value="Combat Stop!" onclick="engine.stop()"/>
+
 	</div>
     <div id="infoFightersHeader">
         <h3>Info Fighters:</h3>
@@ -41,8 +42,8 @@
 		     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Magical Area</label>
 		     <br /><br />	     
 		     <footer class="newCharacterFooter">
-		         <input type="button" id="newCharacterNext" onClick="newCharacter()" value="Submit"/>
-		         <input type="button" id="newCharacterReset" onClick="newCharacterPromptReset()" value="Reset"/>
+		         <input type="button" id="newCharacterNext" onClick="engine._viewModel.newCharacter()" value="Submit"/>
+		         <input type="button" id="newCharacterReset" onClick="engine._viewModel.newCharacterPromptReset()" value="Reset"/>
 		     </footer>
 		 </fieldset> 
 	</div>

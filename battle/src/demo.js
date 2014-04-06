@@ -1,4 +1,4 @@
-var MAX_ALLIES = 4, MAX_ENEMIES = 6;
+/*var MAX_ALLIES = 4, MAX_ENEMIES = 6;
 var contAllies = 0, contEnemies = 0;
 characters = [];
 actions = {
@@ -235,4 +235,4 @@ showInfoFighters = function(){
 };
 test = function(){
 	document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
-}
+}*/

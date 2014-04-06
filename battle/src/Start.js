@@ -22,7 +22,7 @@ function(require) {
 		console.log("Enviroment -> RUN!");
 
 	//	this._addEventListeners();
-	//	this._engine.initialize();
+		this._engine.initialize();
 	//	this._engine.start();
 
 	//	this._windowResize();

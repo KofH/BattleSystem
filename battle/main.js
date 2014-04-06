@@ -1,6 +1,8 @@
 requirejs.config({
     baseUrl: '../battle/src',
     paths: {
+    	jquery:'../src/libs/jquery',
+    	underscore: '../src/libs/underscore'
     }
   });
 
