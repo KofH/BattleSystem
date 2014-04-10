@@ -9,8 +9,6 @@ define(function(require) {
 	 */
 	function ViewModel() {
 		this.model = new Model();
-		//document.getElementById("buttonFightersGenerator").onclick=this.fightersGenerator.bind(this);
-		//document.getElementById("buttonNewCharacter").onclick=this.newCharacterPrompt().bind(this);
 	}
 	
 	/********************************
