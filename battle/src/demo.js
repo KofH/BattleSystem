@@ -1,4 +1,4 @@
-var MAX_ALLIES = 4, MAX_ENEMIES = 6;
+/*var MAX_ALLIES = 4, MAX_ENEMIES = 6;
 var contAllies = 0, contEnemies = 0;
 characters = [];
 actions = {
@@ -73,49 +73,79 @@ loadCharacters = function(){
 	var file = document.getElementById("fileUpload").files[0];
 	filereader.readAsText(file,'utf8');
 };
-
+newCharacterPrompt = function(){
+	document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
+	document.getElementById('newCharacterAlly').focus();
+};
 newCharacter = function () {
-	var characterFaction = prompt("ally or enemy");
-	
-	if (characterFaction == "ally" || characterFaction == "enemy") {
-		var valid = false;
-		
-		if (contAllies < MAX_ALLIES && characterFaction == "ally") {
-			contAllies++;
-			valid = true;
-		}
-		else if (contEnemies < MAX_ENEMIES && characterFaction == "enemy"){
-			contEnemies++;
-			valid = true;
-		} else {
-			alert("Too many characters of this faction!")
-		}
-		
-		
-		if (valid) {
-			var name = prompt("Name of this Character");
-			
-		//	names[contAllies+contEnemies-1] = name;
-			characters[contAllies+contEnemies-1] = {
-					name: name,
-					strength: parseInt(prompt("Initial Strength")),
-					agility: parseInt(prompt("Initial Agility")),
-					inteligence: parseInt(prompt("Initial Inteligence")),
-					hp: 0,
-					wait: 0,
-					initiative: 0,
-					offense: 0,
-					defense: 0,
-					actions: ["attack"],
-					faction: characterFaction
-			}
-			calcSubAttributes();
-		}
+	document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
+	console.log("New Character");
+	var characterFaction;
+	if (document.getElementById('newCharacterAlly').checked){
+		characterFaction = document.getElementById('newCharacterAlly').value;
 	} else {
-		alert("ally or enemy please");
+		characterFaction = document.getElementById('newCharacterEnemy').value;
+	}
+	var valid = false;
+	
+	if (contAllies < MAX_ALLIES && characterFaction == "ally") {
+		contAllies++;
+		valid = true;
+	} else if (contEnemies < MAX_ENEMIES && characterFaction == "enemy") {
+		contEnemies++;
+		valid = true;
+	} else {
+		alert("Too many character of this faction!");
+	}
+	if (valid){
+		characters[contAllies+contEnemies-1] = {
+				name: document.getElementById('newCharacterName').value,
+				strength: parseInt(document.getElementById('newCharacterStrength').value),
+				agility: parseInt(document.getElementById('newCharacterAgility').value),
+				inteligence: parseInt(document.getElementById('newCharacterInteligence').value),
+				hp: 0,
+				wait: 0,
+				initiative: 0,
+				offense: 0,
+				defense: 0,
+				actions: [],
+				faction: characterFaction
+		}
+		newCharacterActions();
+		calcSubAttributes();
+		newCharacterPromptReset();
 	}
 };
-
+newCharacterActions = function (){
+	var contActions = 0;
+	if (document.getElementById("newCharacterActionAttack").checked) {
+		characters[contAllies+contEnemies-1].actions[contActions] = document.getElementById("newCharacterActionAttack").value;
+		contActions++;
+	}
+	if (document.getElementById("newCharacterActionDefense").checked) {
+		characters[contAllies+contEnemies-1].actions[contActions] = document.getElementById("newCharacterActionDefense").value;
+		contActions++;
+	}
+	if (document.getElementById("newCharacterActionAreaAttack").checked) {
+		characters[contAllies+contEnemies-1].actions[contActions] = document.getElementById("newCharacterActionAreaAttack").value;
+		contActions++;
+	}
+	
+};
+newCharacterPromptReset = function (){
+	if (document.getElementById("newCharacterAlly").checked){
+		document.getElementById("newCharacterAlly").checked = false;
+	}else if (document.getElementById("newCharacterEnemy").checked){
+		document.getElementById("newCharacterEnemy").checked = false;
+	}
+	document.getElementById("newCharacterName").value = "";
+	document.getElementById("newCharacterStrength").value = "";
+	document.getElementById("newCharacterAgility").value = "";
+	document.getElementById("newCharacterInteligence").value = "";
+	document.getElementById("newCharacterActionAttack").checked = false;
+	document.getElementById("newCharacterActionDefense").checked = false;
+	document.getElementById("newCharacterActionAreaAttack").checked = false;
+};
 fightersGenerator = function (){
 	for (var fighterAlly = 1; contAllies < MAX_ALLIES; contAllies++, fighterAlly++){
 		var name = "Ally" + fighterAlly;
@@ -177,6 +207,9 @@ calcSubAttributes = function (){ // Función a la que llamaremos para refrescar 
 	var contCalcSub = 0;
 	while (contCalcSub < characters.length) {
 		characters[contCalcSub].hp = characters[contCalcSub].strength * 3;
+		characters[contCalcSub].initiative = characters[contCalcSub].agility * 3;
+		characters[contCalcSub].offense = characters[contCalcSub].strength * 5;
+		characters[contCalcSub].defense = (characters[contCalcSub].strength + characters[contCalcSub].agility) * 3;
 		contCalcSub++;
 	}
 	showInfoFighters();
@@ -200,3 +233,6 @@ showInfoFighters = function(){
 
 	}
 };
+test = function(){
+	document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
+}*/

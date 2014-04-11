@@ -1,0 +1,113 @@
+/****************************************
+ *************** GENERAL ****************
+ ****************************************/
+*{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	font:normal 14px/16px Arial, Helvetica, Sans-serif;
+	margin: 0px;
+}
+/****************************************
+ *************** TOP MENU ***************
+ ****************************************/
+.bodyTopBar {
+	height: 25px;
+	clear: both;
+	max-width: 100%;
+	background-color:#CCC;
+}
+.buttonTopMenu{
+	height: 100%;
+	width: auto;
+	padding: 0px 10px 0px 10px;
+	border: 0px;
+}
+.buttonTopMenu:HOVER{
+	background-color: #888;
+	color: #FFF;
+}
+.buttonTopMenu:ACTIVE{
+	background-color: #888;
+	color: #000;
+}
+#buttonBugReport{
+	float:right;
+	background-color: #CCC;
+}
+/****************************************
+ *************** CONTENT ****************
+ ****************************************/
+#infoFightersHeader{
+	margin-left: 20px;
+	margin-top: 50px;
+}
+.infoFightersContent,li{
+	margin: 10px 0px 0px 10px;
+}
+.infoFightersContent,ul {
+	margin: 0px 0px 0px 10px;
+}
+/****************************************
+ ******** NEW CHARACTER PROMPT***********
+ ****************************************/
+.newCharacterPrompt{
+	display: none;
+}
+.newCharacterPrompt.Displayed{
+	display:block;
+	width: 300px;
+	height: 300px;
+	position: fixed;
+	left: 40%;
+	top:10%;
+	text-align: left;
+    font:normal 12px/14px Arial, Helvetica, Sans-serif;
+    color: #444;
+    font-weight:bold;
+}
+.newCharacterPrompt fieldset {
+    padding-left: 25px;
+    background-color: #eff4f6;
+    border: 1px solid #C3D4DB;
+    border-radius: 5px;
+}
+.newCharacterPrompt input{
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+.newCharacterInputAttr{
+    width: 40px;
+    margin-bottom: 5px;
+}
+.newCharacterInputName{
+    width: 150px;
+    margin-bottom: 5px;
+}
+.newCharacterRadio{
+    display:inline-block;
+    text-align: right;
+    margin: 10px 0px -10px 55px;
+}
+.newCharacterLabel{
+    display: inline-block;
+    float: left;
+    clear: left;
+    width: 75px;
+    text-align: right;
+    margin: 3px 0px 5px 0px;
+}
+#newCharacterPrompt p {
+	text-align: center;
+	margin: 5px 0px 5px -20px;
+}
+.newCharacterCheckBox input{
+	margin: 0px 0px 5px 25px;
+}
+.newCharacterFooter input {
+    font-weight:bold;
+    margin: -15px 0px 7px 50px;
+    width: 55px;
+    text-align: center;
+}
