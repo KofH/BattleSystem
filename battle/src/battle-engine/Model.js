@@ -17,6 +17,17 @@ define(function(require) {
   					model.get("activeArray").push(model);
   				}
   			})
+  			
+  			this.on("change:hp", function(model){
+  				if(model.get("hp") <= 0){
+  					alert(model.get("name") + " has fainted!");
+  					model.set({wait:Infinity});
+  					if(model.get("faction") == "ally")
+  						model.get("model").contAllies--;
+  					else
+  						model.get("model").contEnemies--;
+  				}
+  			})
   		}
   	});
   	
@@ -101,7 +112,8 @@ define(function(require) {
 					defense: characters[i].defense,
 					actions: characters[i].actions,
 					faction: characters[i].faction,
-					activeArray: self.activeCharacters
+					activeArray: self.activeCharacters,
+					model: self
 				});
 			}
 			self.showInfoFighters();			
@@ -156,7 +168,8 @@ define(function(require) {
 					defense: 0,
 					actions: [],
 					faction: characterFaction,
-					activeArray: self.activeCharacters
+					activeArray: self.activeCharacters,
+					model: self
 			});
 			
 			
