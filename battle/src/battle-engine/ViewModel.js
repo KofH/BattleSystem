@@ -18,11 +18,6 @@ define(function(require) {
 		this.model.step();
 		console.log("ViewModel - STEP!");
 	};*/
-	
-		ViewModel.prototype.fightersGenerator = function(){
-			this.model.fightersGenerator();
-		};
-		
 		ViewModel.prototype.newCharacterPrompt = function(){
 			this.model.newCharacterPrompt();
 		};

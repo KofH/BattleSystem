@@ -165,43 +165,6 @@ define(function(require) {
 			this.newCharacterPromptReset();
 		}
 	};	
-	
-	Model.prototype.fightersGenerator = function (){
-		for (var fighterAlly = 1; contAllies < MAX_ALLIES; contAllies++, fighterAlly++){
-			var name = "Ally" + fighterAlly;
-			characters[contAllies] = {
-					name: name,
-					strength: 1,
-					agility: 1,
-					inteligence: 1,
-					hp: 0,
-					wait: 0,
-					initiative: 0,
-					attack: 0,
-					defense: 0,
-					faction: "ally"
-			};
-			calcSubAttributes();
-		}
-		
-		for (var fighterEnemy = 1; contEnemies < MAX_ENEMIES; contEnemies++, fighterEnemy++){
-			var name = "Enemy" + fighterEnemy;
-	        characters[MAX_ALLIES + contEnemies] = {
-	        	name: name,
-	    		strength: 1,
-				agility: 1,
-				inteligence: 1,
-				hp: 0,
-				wait: 0,
-				initiative: 0,
-				attack: 0,
-				defense: 0,
-				faction: "enemy"
-	        };
-	        calcSubAttributes();
-		}
-	};
-	
 	Model.prototype.modifyAttributes = function () {
 		var searchFighter = prompt("Which character do you want to change?"), contSearch = 0, found = true;
 		while (searchFighter != this.characters[contSearch].get("name") && found) {
