@@ -34,7 +34,7 @@ define(function(require) {
 					var target = model.searchCharacter();
 					var damage = model.active.get("strength") * 2;
 					alert("Damage " + damage);
-					model.characters[target].set({hp: model.characters[target].get("hp") - damage});
+					model.characters[target].set({hp: model.characters[target].get("hp") - (damage - model.characters[target].get("defense")});
 					alert("Character HP: " + model.characters[target].get("hp"));
 					model.active.set({wait: 50});
 				},
@@ -59,7 +59,7 @@ define(function(require) {
 					var damage = model.active.inteligence / factionObj;
 					for (var contSearch = 0; contSearch < model.characters.length; contSearch++) {
 						if (model.characters[contSearch].get("faction") == factionObjetiveSelected) {
-							model.characters[contSearch].set({hp: characters[contSearch].get("hp")-damage});
+							model.characters[contSearch].set({hp: characters[contSearch].get("hp")-(damage - model.characters[contSearch].get("defense"))});
 						}
 					}
 					alert("Area Attack!");

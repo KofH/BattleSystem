@@ -41,10 +41,18 @@ define(function(require) {
   
   Engine.prototype.stop = function () {
     this._on = false;
+    this._viewModel.stop();
   };
   
   Engine.prototype.start = function () {
     this._on = true;
+    this._viewModel.start();
+  };
+  
+  Engine.prototype.tick = function(){
+	  this._on = true;
+	  this._step();
+	  this._on = false;
   };
   
   Engine.prototype.renderize = function () {
