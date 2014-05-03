@@ -34,7 +34,7 @@ define(function(require) {
 					var target = model.searchCharacter();
 					var damage = model.active.get("strength") * 2;
 					alert("Damage " + damage);
-					model.characters[target].set({hp: model.characters[target].get("hp") - (damage - model.characters[target].get("defense")});
+					model.characters[target].set({hp: model.characters[target].get("hp") - (damage - model.characters[target].get("defense"))});
 					alert("Character HP: " + model.characters[target].get("hp"));
 					model.active.set({wait: 50});
 				},
