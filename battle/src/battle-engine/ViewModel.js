@@ -22,6 +22,10 @@ define(function(require) {
 			this.model.newCharacterPrompt();
 		};
 		
+		ViewModel.prototype.loadAndSavePrompt = function(){
+			this.model.loadAndSavePrompt();
+		};
+		
 		ViewModel.prototype.modifyAttributes = function(){
 			this.model.modifyAttributes();
 		};

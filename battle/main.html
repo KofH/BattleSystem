@@ -11,22 +11,27 @@
 
 
 <body>
+	<div id="header" style="background-color:#FFA500; padding: 5px;">
+		<h1 style="margin-bottom:0;">Battle System</h1>
+	</div>
 	<div id="topMenu" class="bodyTopBar">
+		<input type="button" id="buttonLoadAndSave" class="buttonTopMenu" value="Load / Save" onclick="engine._viewModel.loadAndSavePrompt()" />
         <input type="button" id="buttonNewCharacter" class="buttonTopMenu" value="New Character" onclick="engine._viewModel.newCharacterPrompt()" />
-        <input type="button" class="buttonTopMenu" id="buttonModifyAttributes" value="Modify Attributes" onClick="engine._viewModel.modifyAttributes()" />
-        <input type="button" id="buttonSave" class="buttonTopMenu" value="Save Characters" onClick="engine._viewModel.saveCharacters()"/>
-        <input type="file" id="fileUpload" class="buttonTopMenu" name="file"/>
-        <input type="button" id="buttonLoad" class="buttonTopMenu" value="Load from file" onClick="engine._viewModel.loadCharacters()"/>
+        <input type="button" id="buttonModifyAttributes" class="buttonTopMenu" value="Modify Attributes" onClick="engine._viewModel.modifyAttributes()" />
+        
         <a href="https://github.com/KofH/BattleSystem/issues/new" target="_blank"><input type="button" id="buttonBugReport" class="buttonTopMenu" value="Report a bug!" /></a><br />
-		<input type="button" id="buttonStart" class="buttonTopMenu" value="Combat Start!" onclick="engine.start()"/>
+		<!-- <input type="button" id="buttonStart" class="buttonTopMenu" value="Combat Start!" onclick="engine.start()"/>
 		<input type="button" id="buttonStop" class="buttonTopMenu" value="Combat Stop!" onclick="engine.stop()"/>
 		<input type="button" id="buttonStep" class="buttonTopMenu" value="STEP" onclick="engine.tick()"/>
-
+-->
 	</div>
-    <div id="infoFightersHeader">
-        <h3>Info Fighters:</h3>
-        <div class="infoFightersContent" id="infoFightersContent"></div>
-    </div>
+	<div id="infoFightersHeader">
+		<h3>Characters List:</h3>
+		<div class="infoFightersContent" id="infoFightersContent"></div>
+	</div>
+    <!--///////////////////////////////////// 
+    /////////////////PROMPTS/////////////////
+    //////////////////////////////////////-->
 	<div class="newCharacterPrompt" id="newCharacterPrompt">
 		 <fieldset>
 		  <legend>New Character</legend>
@@ -47,6 +52,14 @@
 		     </footer>
 		 </fieldset> 
 	</div>
+	<div id="loadAndSavePrompt" class="loadAndSavePrompt">
+		<fieldset>
+			<legend>Load / Save Characters</legend>
+			<input type="file" id="fileUpload" class="" name="file"/>
+			<input type="button" id="buttonLoad" class="" value="Send File" onClick="engine._viewModel.loadCharacters()"/><br /><br />
+			<input type="button" id="buttonSave" class="" value="Save Characters" onclick="engine._viewModel.saveCharacters()" />
+		</fieldset>
+	</div>
 </body>
-
+	<!-- <progress value="50" max="100" id="test"></progress>-->
 </html>

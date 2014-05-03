@@ -122,6 +122,10 @@ define(function(require) {
 		document.getElementById('newCharacterAlly').focus();
 	};
 	
+	Model.prototype.loadAndSavePrompt = function(){
+		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
+	};
+	
 	Model.prototype.newCharacter = function () {
 		document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
 		console.log("New Character");
