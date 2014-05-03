@@ -13,7 +13,7 @@ define(function(require) {
    * @classDescription lalala
    */
   function Engine() {
-    this.TIME_INTERVAL = 1000; // ms
+	  this.TIME_INTERVAL = 1000; // ms
       this._on = false;
 //    this._canvas = null;
     
@@ -80,6 +80,11 @@ define(function(require) {
     		console.log("combat!");
     		this._viewModel.model.active = this._viewModel.model.activeCharacters.pop();
     		this._viewModel.model.execute(this._viewModel.model);
+    		if(this._viewModel.model.contAllies == 0 || this._viewModel.model.contEnemies == 0){
+    			this.on = false
+    			alert("Combat ended!!");
+    			this.stop();
+    		}
     	}
     	this.on = false;
     }
