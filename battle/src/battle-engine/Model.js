@@ -8,26 +8,75 @@ define(function(require) {
   	var	Backbone = require('libs/backbone');
   	
   	var Character = Backbone.Model.extend({
-  		initialize: function(){
-  			alert("Character " + this.get("name") + " created! ");
+  		
+  		defaults: {
+			strength: 1,
+			agility: 1,
+			intelligence: 1
+			},
+			
+  		initialize: function(model){
   			
-  			this.on("change:wait", function(model){
-  				if(model.get("wait") <= 0){
-  					alert(model.get("name") + " is ready for action!");
-  					model.get("activeArray").push(model);
+  			{ ///////////////  Actions  /////////////////////////
+  	
+  				var actions = [];
+  				if (document.getElementById("newCharacterActionAttack").checked) {
+  					actions.push(document.getElementById("newCharacterActionAttack").value)
   				}
-  			})
+  				
+  				if (document.getElementById("newCharacterActionDefense").checked) {
+  					actions.push(document.getElementById("newCharacterActionDefense").value);
+  				}
+  				
+  				if (document.getElementById("newCharacterActionAreaAttack").checked) {
+  					actions.push(document.getElementById("newCharacterActionAreaAttack").value);
+  				}
+  				model.actions = actions;
+  			}
+			
+  			{ ///////////////  Sub Attributes //////////////////////
+  			
+  				model.hp = model.strength * 3;
+				model.initiative = model.agility * 3;
+				model.offense = model.strength * 5;
+				model.defense = (model.strength + model.agility) * 3;
+  				
+  			}
+  			
+  			this.set({id:this.get("name")});
+  			alert("Character " + this.get("name") + " created! ");  
   			
   			this.on("change:hp", function(model){
-  				if(model.get("hp") <= 0){
-  					alert(model.get("name") + " has fainted!");
-  					model.set({wait:Infinity});
-  					if(model.get("faction") == "ally")
-  						model.get("model").contAllies--;
-  					else
-  						model.get("model").contEnemies--;
+  				if(model.hp <= 0){
+  					alert(model.name + " has fainted!");
+  					model.wait = Infinity;
   				}
   			})
+  			
+  			this.on("change:wait", function(model){
+  				if (model.wait<= 0)
+  					alert(model.name + " is ready for action!");
+  			})
+  		}
+	  	
+  	});
+  	
+  	var Characters = Backbone.Collection.extend({
+  		model: Character,  	
+  	
+  		initialize: function(model){    ////////////// FUTURE USE
+	  		/*this.on("add", function(character){
+	  		 * 
+	  		});
+	  		
+	  		this.on("change:hp", function(character){
+  				
+  			});
+  			
+  			this.on("change:wait", function(model, character){
+  				
+  			});*/
+  			
   		}
   	});
   	
@@ -36,8 +85,7 @@ define(function(require) {
 		this.MAX_ENEMIES = 6;
 		this.contAllies = 0;
 		this.contEnemies = 0;
-		
-		this.characters = [];
+		this.characters = new Characters();
 		this.activeCharacters = [];
 		this.active = {};
 		this.actions = {
@@ -156,7 +204,8 @@ define(function(require) {
 		}
 		if (valid){
 			var self = this;
-			this.characters[this.contAllies+this.contEnemies-1] = new Character({
+	//		this.characters[this.contAllies+this.contEnemies-1] = new Character({
+			var character = new Character({
 					name: document.getElementById('newCharacterName').value,
 					strength: parseInt(document.getElementById('newCharacterStrength').value),
 					agility: parseInt(document.getElementById('newCharacterAgility').value),
@@ -173,8 +222,9 @@ define(function(require) {
 			});
 			
 			
-			this.newCharacterActions();
-			this.calcSubAttributes();
+	//		this.newCharacterActions();
+	//		this.calcSubAttributes();
+			this.characters.add(character);
 			this.newCharacterPromptReset();
 		}
 	};	
@@ -245,26 +295,6 @@ define(function(require) {
 	        contSearch++
 		}
 	    return -1;
-	};
-	
-	Model.prototype.newCharacterActions = function (){
-		var contActions = 0;
-		var actions = [];
-		if (document.getElementById("newCharacterActionAttack").checked) {
-			actions[contActions] = document.getElementById("newCharacterActionAttack").value;
-			contActions++;
-		}
-		if (document.getElementById("newCharacterActionDefense").checked) {
-			actions[contActions] = document.getElementById("newCharacterActionDefense").value;
-			contActions++;
-		}
-		if (document.getElementById("newCharacterActionAreaAttack").checked) {
-			actions[contActions] = document.getElementById("newCharacterActionAreaAttack").value;
-			contActions++;
-		}
-		
-		this.characters[this.contAllies+this.contEnemies-1].set({actions: actions});
-		
 	};
 	
 
