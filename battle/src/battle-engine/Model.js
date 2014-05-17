@@ -8,26 +8,87 @@ define(function(require) {
   	var	Backbone = require('libs/backbone');
   	
   	var Character = Backbone.Model.extend({
-  		initialize: function(){
-  			alert("Character " + this.get("name") + " created! ");
+  		
+  		defaults: {
+			wait: 100
+			},
+			
+  		initialize: function(model){
   			
-  			this.on("change:wait", function(model){
-  				if(model.get("wait") <= 0){
-  					alert(model.get("name") + " is ready for action!");
-  					model.get("activeArray").push(model);
+  			{ ///////////////  Actions  /////////////////////////
+  	
+  				var actions = [];
+  				if (document.getElementById("newCharacterActionAttack").checked) {
+  					actions.push(document.getElementById("newCharacterActionAttack").value)
   				}
+  				
+  				if (document.getElementById("newCharacterActionDefense").checked) {
+  					actions.push(document.getElementById("newCharacterActionDefense").value);
+  				}
+  				
+  				if (document.getElementById("newCharacterActionAreaAttack").checked) {
+  					actions.push(document.getElementById("newCharacterActionAreaAttack").value);
+  				}
+  				this.set({actions: actions});
+  				
+  			}
+  			
+  			this.set({id:this.get("name")});
+  			alert("Character " + this.get("name") + " created! ");  
+  			
+  			//////////////////    Subattributes
+  			
+  			this.on("change:strength", function(character){
+  				character.set({hp: character.get("strength") * 3});   	/////////////// CORRECTO
+  				character.set({offense: character.get("strength") * 5}); 
+  				character.set({defense: (character.get("strength") + character.get("agility")) * 3});
   			})
   			
-  			this.on("change:hp", function(model){
-  				if(model.get("hp") <= 0){
-  					alert(model.get("name") + " has fainted!");
-  					model.set({wait:Infinity});
-  					if(model.get("faction") == "ally")
-  						model.get("model").contAllies--;
-  					else
-  						model.get("model").contEnemies--;
+  			this.on("change:agility", function(character){
+  				character.set({initiative : character.get("agility") * 3});
+  				character.set({defense: (character.get("strength") + character.get("agility")) * 3});
+  			})
+  			
+  			this.on("change:inteligence", function(character){
+  			})
+  			
+  			//////////////////       Turn
+  			
+  			this.on("change:wait", function(character){
+  				if (character.get("wait")<= 0)
+  					alert(character.get("name") + " is ready for action!");
+  			})
+  			
+  			//////////////////      Death
+  			this.on("change:hp", function(character){
+  				if(character.get("hp") <= 0){
+  					alert(character.get("name") + " has fainted!");
+  					character.set({wait: Infinity});
   				}
   			})
+  		}
+	  	
+  	});
+  	
+  	var Characters = Backbone.Collection.extend({
+  		model: Character,  	
+  	
+  		initialize: function(model){   
+  			
+  			////////////// FUTURE USE
+	  		
+  			/*this.on("add", function(character){
+	  		 * 
+	  		});
+	  		
+	  		this.on("change:hp", function(character){
+  				
+  			});
+  			
+  			this.on("change:wait", function(model, character){
+  				
+  			});*/
+
   		}
   	});
   	
@@ -36,9 +97,7 @@ define(function(require) {
 		this.MAX_ENEMIES = 6;
 		this.contAllies = 0;
 		this.contEnemies = 0;
-		
-		this.characters = [];
-		this.activeCharacters = [];
+		this.characters = new Characters();
 		this.active = {};
 		this.actions = {
 				attack: function(model){
@@ -89,34 +148,11 @@ define(function(require) {
 	Model.prototype.loadCharacters = function(){
 		var filereader = new FileReader();
 		var self = this;
-		var characters;
+
 		filereader.onloadend = function (){
-			characters = [];
-			characters = JSON.parse(filereader.result);
-			self.contAllies = 0;
-			self.contEnemies = 0;
-			for (var i = 0; i < characters.length; i++){
-				if (characters[i].faction == "ally")
-					self.contAllies++;
-				else
-					self.contEnemies++;
-				self.characters[i]=new Character({
-					name: characters[i].name,
-					strength: characters[i].strength,
-					agility: characters[i].agility,
-					inteligence: characters[i].inteligence,
-					hp: characters[i].hp,
-					wait: characters[i].wait,
-					initiative: characters[i].initiative,
-					offense: characters[i].offense,
-					defense: characters[i].defense,
-					actions: characters[i].actions,
-					faction: characters[i].faction,
-					activeArray: self.activeCharacters,
-					model: self
-				});
-			}
-			self.showInfoFighters();			
+			self.characters = new Characters(JSON.parse(filereader.result));
+			self.contAllies = self.characters.where({faction: "ally"}).length;
+			self.contEnemies = self.characters.where({faction: "enemy"}).length;
 		}
 
 		var file = document.getElementById("fileUpload").files[0];
@@ -155,46 +191,34 @@ define(function(require) {
 			alert("Too many character of this faction!");
 		}
 		if (valid){
-			var self = this;
-			this.characters[this.contAllies+this.contEnemies-1] = new Character({
+			var character = new Character({
 					name: document.getElementById('newCharacterName').value,
-					strength: parseInt(document.getElementById('newCharacterStrength').value),
-					agility: parseInt(document.getElementById('newCharacterAgility').value),
-					inteligence: parseInt(document.getElementById('newCharacterInteligence').value),
-					hp: 0,
-					wait: 100,
-					initiative: 0,
-					offense: 0,
-					defense: 0,
-					actions: [],
-					faction: characterFaction,
-					activeArray: self.activeCharacters,
-					model: self
+					faction: characterFaction
+			});
+
+			this.characters.add(character);
+			
+			character.set({
+				strength: parseInt(document.getElementById('newCharacterStrength').value),
+				agility: parseInt(document.getElementById('newCharacterAgility').value),
+				inteligence: parseInt(document.getElementById('newCharacterInteligence').value),
 			});
 			
-			
-			this.newCharacterActions();
-			this.calcSubAttributes();
 			this.newCharacterPromptReset();
 		}
 	};	
+	
 	Model.prototype.modifyAttributes = function () {
-		var searchFighter = prompt("Which character do you want to change?"), contSearch = 0, found = true;
-		while (searchFighter != this.characters[contSearch].get("name") && found) {
-			if (contSearch > MAX_ALLIES + MAX_ENEMIES) { //Control de ERRORES en el caso de que no encuentre nada
-				found = false;
-			}		
-			contSearch++
-		}
+		var searchFighter = prompt("Which character do you want to change?");
+		var character =  this.characters.get(searchFighter);
 		
-		if (found) {
+		if (character != undefined) {
 			modAttr = prompt("What Attribute do you want to modify? strength, agility or inteligence");
-			this.characters[contSearch].set({modAttr: parseInt(prompt("Insert the New Value"))});
-			console.log(modAttr + " for " + this.characters[contSearch].get("name") + " is now " + this.characters[contSearch].get(modAttr));
+			character.set({modAttr: parseInt(prompt("Insert the New Value"))});
+			console.log(modAttr + " for " + character.get("name") + " is now " + character.get(modAttr));
 		} else {
 			console.log("Fighter Not Found!")
 		}
-		this.calcSubAttributes();
 	};
 	
 	
@@ -220,10 +244,11 @@ define(function(require) {
 	
 	Model.prototype.turn = function(){
 		for (var i = 0; i < this.characters.length; i++){
-			var newWait = this.characters[i].get("wait") - this.characters[i].get("initiative");
+			var newWait = this.characters.at(i).get("wait") - this.characters.at(1).get("initiative");
 			if (newWait < 0) newWait = 0;
-			this.characters[i].set({wait:newWait});
+			this.characters.at(i).set({wait:newWait});
 		}
+		
 	}
 	
 	Model.prototype.execute = function(model){
@@ -237,49 +262,8 @@ define(function(require) {
 	 ********************************/
 	
 	Model.prototype.searchCharacter = function(){
-		var searchCharacter = prompt("Choose your target"), contSearch = 0, found = true;
-		while (contSearch < this.characters.length) {
-			if (searchCharacter == this.characters[contSearch].get("name")){
-				return contSearch;
-	        }
-	        contSearch++
-		}
-	    return -1;
-	};
-	
-	Model.prototype.newCharacterActions = function (){
-		var contActions = 0;
-		var actions = [];
-		if (document.getElementById("newCharacterActionAttack").checked) {
-			actions[contActions] = document.getElementById("newCharacterActionAttack").value;
-			contActions++;
-		}
-		if (document.getElementById("newCharacterActionDefense").checked) {
-			actions[contActions] = document.getElementById("newCharacterActionDefense").value;
-			contActions++;
-		}
-		if (document.getElementById("newCharacterActionAreaAttack").checked) {
-			actions[contActions] = document.getElementById("newCharacterActionAreaAttack").value;
-			contActions++;
-		}
-		
-		this.characters[this.contAllies+this.contEnemies-1].set({actions: actions});
-		
-	};
-	
-
-	Model.prototype.calcSubAttributes = function (){ // Función a la que llamaremos para refrescar los subatributos
-		var contCalcSub = 0;
-		while (contCalcSub < this.characters.length) {
-			this.characters[contCalcSub].set({
-				hp: this.characters[contCalcSub].get("strength") * 3,
-				initiative: this.characters[contCalcSub].get("agility") * 3,
-				offense: this.characters[contCalcSub].get("strength") * 5,
-				defense: (this.characters[contCalcSub].get("strength") + this.characters[contCalcSub].get("agility")) * 3,
-			});
-			contCalcSub++;
-		}
-		this.showInfoFighters();
+		var searchCharacter = prompt("Choose your target");
+	    return this.characters.get(searchCharacter);
 	};
 	
 	
@@ -291,10 +275,10 @@ define(function(require) {
 		for (var i = 0; i < this.characters.length; i++) {		
 			
 			var item = document.createElement("li");
-			item.innerHTML = this.characters[i].get("name");
+			item.innerHTML = this.characters.at(i).get("name");
 			
 			var str = document.createElement("ul");
-			str.innerHTML = "Wait: " + this.characters[i].get("wait");
+			str.innerHTML = "Wait: " + this.characters.at(i).get("wait");
 			item.appendChild(str);
 			items.appendChild(item);
 
