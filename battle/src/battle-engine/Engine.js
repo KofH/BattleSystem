@@ -54,7 +54,9 @@ define(function(require) {
   };
   
   Engine.prototype._step = function () {
-    if (this._on) {
+	  this._viewModel.model.showInfoFighters();
+   
+	  if (this._on) {
     	this._viewModel.model.turn();
     	this._viewModel.model.showInfoFighters();
     	while (this._viewModel.model.characters.where({wait: 0}).length > 0){

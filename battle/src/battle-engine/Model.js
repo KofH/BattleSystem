@@ -148,33 +148,11 @@ define(function(require) {
 	Model.prototype.loadCharacters = function(){
 		var filereader = new FileReader();
 		var self = this;
-		var characters;
+
 		filereader.onloadend = function (){
-			characters = [];
-			characters = JSON.parse(filereader.result);
-			self.contAllies = 0;
-			self.contEnemies = 0;
-			for (var i = 0; i < characters.length; i++){
-				if (characters[i].faction == "ally")
-					self.contAllies++;
-				else
-					self.contEnemies++;
-				self.characters[i]=new Character({
-					name: characters[i].name,
-					strength: characters[i].strength,
-					agility: characters[i].agility,
-					inteligence: characters[i].inteligence,
-					hp: characters[i].hp,
-					wait: characters[i].wait,
-					initiative: characters[i].initiative,
-					offense: characters[i].offense,
-					defense: characters[i].defense,
-					actions: characters[i].actions,
-					faction: characters[i].faction,
-					model: self
-				});
-			}
-			self.showInfoFighters();			
+			self.characters = new Characters(JSON.parse(filereader.result));
+			self.contAllies = self.characters.where({faction: "ally"}).length;
+			self.contEnemies = self.characters.where({faction: "enemy"}).length;
 		}
 
 		var file = document.getElementById("fileUpload").files[0];
@@ -213,7 +191,6 @@ define(function(require) {
 			alert("Too many character of this faction!");
 		}
 		if (valid){
-
 			var character = new Character({
 					name: document.getElementById('newCharacterName').value,
 					faction: characterFaction
@@ -233,7 +210,6 @@ define(function(require) {
 	
 	Model.prototype.modifyAttributes = function () {
 		var searchFighter = prompt("Which character do you want to change?");
-		
 		var character =  this.characters.get(searchFighter);
 		
 		if (character != undefined) {
