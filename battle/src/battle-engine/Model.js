@@ -94,6 +94,7 @@ define(function(require) {
 					strength: characters[i].strength,
 					agility: characters[i].agility,
 					inteligence: characters[i].inteligence,
+					ap: characters[i].ap,
 					hp: characters[i].hp,
 					wait: characters[i].wait,
 					initiative: characters[i].initiative,
@@ -156,6 +157,7 @@ define(function(require) {
 					strength: parseInt(document.getElementById('newCharacterStrength').value),
 					agility: parseInt(document.getElementById('newCharacterAgility').value),
 					inteligence: parseInt(document.getElementById('newCharacterInteligence').value),
+					ap: parseInt(document.getElementById('newCharacterAP').value),
 					hp: 0,
 					wait: 100,
 					initiative: 0,
@@ -207,6 +209,7 @@ define(function(require) {
 		document.getElementById("newCharacterStrength").value = "";
 		document.getElementById("newCharacterAgility").value = "";
 		document.getElementById("newCharacterInteligence").value = "";
+		document.getElementById("newCharacterAP").value = "";
 		document.getElementById("newCharacterActionAttack").checked = false;
 		document.getElementById("newCharacterActionDefense").checked = false;
 		document.getElementById("newCharacterActionAreaAttack").checked = false;
@@ -304,10 +307,16 @@ define(function(require) {
 			int.innerHTML = "Inteligence: " + this.characters[i].get("inteligence");
 			item.appendChild(int);
 			
+						
 			var hp = document.createElement("ul");
 			hp.innerHTML = "HP: " + this.characters[i].get("hp");
 			hp.style.color="#088A08";
 			item.appendChild(hp);
+			
+			var ap = document.createElement("ul");
+			ap.innerHTML = "AP: " + this.characters[i].get("ap");
+			ap.style.color="#2E2EFE";
+			item.appendChild(ap);
 			
 			var wait = document.createElement("ul");
 			wait.innerHTML = "Wait: " + this.characters[i].get("wait");
