@@ -153,6 +153,7 @@ define(function(require) {
 			self.characters = new Characters(JSON.parse(filereader.result));
 			self.contAllies = self.characters.where({faction: "ally"}).length;
 			self.contEnemies = self.characters.where({faction: "enemy"}).length;
+			self.modifyCharactersDataList();
 		}
 
 		var file = document.getElementById("fileUpload").files[0];
@@ -257,7 +258,7 @@ define(function(require) {
 	
 	Model.prototype.turn = function(){
 		for (var i = 0; i < this.characters.length; i++){
-			var newWait = this.characters.at(i).get("wait") - this.characters.at(1).get("initiative");
+			var newWait = this.characters.at(i).get("wait") - this.characters.at(i).get("initiative");
 			if (newWait < 0) newWait = 0;
 			this.characters.at(i).set({wait:newWait});
 		}
