@@ -216,6 +216,10 @@ define(function(require) {
 		}
 	};	
 	
+	Model.prototype.modifyCharactersPrompt = function(){
+		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');		
+	};
+	
 	Model.prototype.modifyAttributes = function () {
 		var searchFighter = prompt("Which character do you want to change?");
 		var character =  this.characters.get(searchFighter);

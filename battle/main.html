@@ -19,7 +19,7 @@
 		<div id="topMenu" class="bodyTopBar">
 			<input type="button" id="buttonLoadAndSave" class="buttonTopMenu" value="Load / Save" onclick="engine._viewModel.loadAndSavePrompt()" />
 	        <input type="button" id="buttonNewCharacter" class="buttonTopMenu" value="New Character" onclick="engine._viewModel.newCharacterPrompt()" />
-	        <input type="button" id="buttonModifyAttributes" class="buttonTopMenu" value="Modify Attributes" onClick="engine._viewModel.modifyAttributes()" />
+	        <input type="button" id="buttonModifyAttributes" class="buttonTopMenu" value="Modify Attributes" onClick="engine._viewModel.modifyCharactersPrompt()" />
 		</div>
 		<div id="infoFightersHeader">
 			<h3>Characters List:</h3>
@@ -71,19 +71,31 @@
 		</fieldset>
 	</div>
 	<div id="modifyCharactersPrompt" class="modifyCharactersPrompt">
-		<input list="characters" />
-		<datalist id="characters">
-			<option id="dataListCharacter0" value="">
-			<option id="dataListCharacter1" value="">
-			<option id="dataListCharacter2" value="">
-			<option id="dataListCharacter3" value="">
-			<option id="dataListCharacter4" value="">
-			<option id="dataListCharacter5" value="">
-			<option id="dataListCharacter6" value="">
-			<option id="dataListCharacter7" value="">
-			<option id="dataListCharacter8" value="">
-			<option id="dataListCharacter9" value="">			
-		</datalist>
+		<fieldset>
+			<legend>Modify Character</legend>
+			<label>Character: </label><input list="characters" size="15ex" />
+			<datalist id="characters">
+				<option id="dataListCharacter0" value="">
+				<option id="dataListCharacter1" value="">
+				<option id="dataListCharacter2" value="">
+				<option id="dataListCharacter3" value="">
+				<option id="dataListCharacter4" value="">
+				<option id="dataListCharacter5" value="">
+				<option id="dataListCharacter6" value="">
+				<option id="dataListCharacter7" value="">
+				<option id="dataListCharacter8" value="">
+				<option id="dataListCharacter9" value="">			
+			</datalist><br /><br /><hr><br />
+			<label class="newCharacterLabel">Strength: </label> <input class="newCharacterInputAttr" type="number" id="newCharacterStrength" size="5" name="newCharacter"/><br />
+		    <label class="newCharacterLabel">Agility: </label> <input class="newCharacterInputAttr" type="number" id="newCharacterAgility" name="newCharacter"/><br />
+		    <label class="newCharacterLabel">Inteligence: </label> <input class="newCharacterInputAttr" type="number" id="newCharacterInteligence" /><br />
+		    <label class="newCharacterLabel">AP: </label> <input class="newCharacterInputAttr" type="number" id="newCharacterAP" /><br />  
+			<footer class="modifyCharactersFooter">
+				<input type="button" id="modifyCharacterSubmit" onClick="" value="Submit" />
+				<input type="button" id="modifyCharacterClose" onClick="" value="Close" />
+			</footer>
+		</fieldset>
+
 	</div>
 </body>
 	<!-- <progress value="50" max="100" id="test"></progress>-->
