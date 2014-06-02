@@ -208,6 +208,7 @@ define(function(require) {
 				strength: parseInt(document.getElementById('newCharacterStrength').value),
 				agility: parseInt(document.getElementById('newCharacterAgility').value),
 				inteligence: parseInt(document.getElementById('newCharacterInteligence').value),
+				ap: parseInt(document.getElementById('newCharacterAP').value),
 			});
 			
 			this.newCharacterPromptReset();
