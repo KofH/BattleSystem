@@ -157,12 +157,18 @@ define(function(require) {
 
 		var file = document.getElementById("fileUpload").files[0];
 		filereader.readAsText(file,'utf8');
+		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
+	};
+	
+	Model.prototype.loadAndSavePrompt = function(){
+		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
 	};
 	
 	Model.prototype.saveCharacters = function(){
 		var serialization = JSON.stringify(this.characters);
 		var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
 		window.open(dataurl);
+		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
 	};
 	
 	Model.prototype.newCharacterPrompt = function(){
@@ -268,9 +274,14 @@ define(function(require) {
 	
 	
 	Model.prototype.showInfoFighters = function(){
-		var items = document.getElementById("infoFightersContent");
-		while (items.hasChildNodes()) {
-			items.removeChild(items.firstChild);
+		var allies = document.getElementById("infoFightersAllies");
+		var enemies = document.getElementById("infoFightersEnemies");
+		
+		while (allies.hasChildNodes()) {
+			allies.removeChild(allies.firstChild);
+		}
+		while (enemies.hasChildNodes()) {
+			enemies.removeChild(enemies.firstChild);
 		}
 		for (var i = 0; i < this.characters.length; i++) {		
 			
@@ -278,10 +289,39 @@ define(function(require) {
 			item.innerHTML = this.characters.at(i).get("name");
 			
 			var str = document.createElement("ul");
-			str.innerHTML = "Wait: " + this.characters.at(i).get("wait");
+			str.innerHTML = "Strength: " + this.characters.at(i).get("strength");
 			item.appendChild(str);
-			items.appendChild(item);
-
+			
+			var agi = document.createElement("ul");
+			agi.innerHTML = "Agility: " + this.characters.at(i).get("agility");
+			item.appendChild(agi);
+			
+			var int = document.createElement("ul");
+			int.innerHTML = "Inteligence: " + this.characters.at(i).get("inteligence");
+			item.appendChild(int);
+			
+						
+			var hp = document.createElement("ul");
+			hp.innerHTML = "HP: " + this.characters.at(i).get("hp");
+			hp.style.color="#088A08";
+			item.appendChild(hp);
+			
+			var ap = document.createElement("ul");
+			ap.innerHTML = "AP: " + this.characters.at(i).get("ap");
+			ap.style.color="#2E2EFE";
+			item.appendChild(ap);
+			
+			var wait = document.createElement("ul");
+			wait.innerHTML = "Wait: " + this.characters.at(i).get("wait");
+			wait.style.color="#8A0886";
+			item.appendChild(wait);
+			
+			if (this.characters.at(i).get("faction") == "ally") {
+				allies.appendChild(item);
+			}
+			else {
+				enemies.appendChild(item);
+			}
 		}
 	};
 	
