@@ -24,7 +24,7 @@ define(function(require) {
 		
 		ViewModel.prototype.loadAndSavePrompt = function(){
 			this.model.loadAndSavePrompt();
-		}
+		};
 		
 		ViewModel.prototype.modifyAttributes = function(){
 			this.model.modifyAttributes();

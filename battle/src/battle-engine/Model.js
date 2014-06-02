@@ -34,7 +34,7 @@ define(function(require) {
   			}
   			
   			this.set({id:this.get("name")});
-  			alert("Character " + this.get("name") + " created! ");  
+  			alert("Character " + this.get("name") + " created! ");
   			
   			//////////////////    Subattributes
   			
@@ -211,6 +211,7 @@ define(function(require) {
 			});
 			
 			this.newCharacterPromptReset();
+			this.modifyCharactersDataList();
 		}
 	};	
 	
@@ -243,6 +244,7 @@ define(function(require) {
 		document.getElementById("newCharacterStrength").value = "";
 		document.getElementById("newCharacterAgility").value = "";
 		document.getElementById("newCharacterInteligence").value = "";
+		document.getElementById("newCharacterAP").value = "";
 		document.getElementById("newCharacterActionAttack").checked = false;
 		document.getElementById("newCharacterActionDefense").checked = false;
 		document.getElementById("newCharacterActionAreaAttack").checked = false;
@@ -255,13 +257,13 @@ define(function(require) {
 			this.characters.at(i).set({wait:newWait});
 		}
 		
-	}
+	};
 	
 	Model.prototype.execute = function(model){
 		var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
 				this.active.get("actions").toString());
 		this.actions[selectedAction](model);
-	}
+	};
 	
 	/********************************
 	 *      PRIVATE FUNCTIONS       *
@@ -322,6 +324,12 @@ define(function(require) {
 			else {
 				enemies.appendChild(item);
 			}
+		}
+	};
+	
+	Model.prototype.modifyCharactersDataList = function(){
+		for (var i = 0; i < this.characters.length; i++) {
+			document.getElementById("dataListCharacter" + i).value = this.characters.at(i).get("name");
 		}
 	};
 	
