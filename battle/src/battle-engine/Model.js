@@ -236,7 +236,7 @@ define(function(require) {
 	
 	
 	Model.prototype.test = function(){
-		document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
+		console.log("TEST FUNCTIONAL!");
 	};
 	
 	
@@ -269,6 +269,17 @@ define(function(require) {
 		var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
 				this.active.get("actions").toString());
 		this.actions[selectedAction](model);
+	};
+	
+	Model.prototype.modCharactersLoadAttr = function(){
+		for (var i = 0; i < this.characters.length; i++) {
+			if (document.getElementById("modifyCharacterSelected").value == this.characters.at(i).get("name")) {
+				document.getElementById("modCharactersStrength").value = this.characters.at(i).get("strength");
+				document.getElementById("modCharactersAgility").value = this.characters.at(i).get("agility");
+				document.getElementById("modCharactersInteligence").value = this.characters.at(i).get("inteligence");
+				document.getElementById("modCharactersAP").value = this.characters.at(i).get("ap");
+			}
+		}
 	};
 	
 	/********************************

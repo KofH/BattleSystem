@@ -58,7 +58,11 @@ define(function(require) {
 		ViewModel.prototype.start = function(){
 			document.getElementById("buttonStop").style.background="#CCC";
 			document.getElementById("buttonStart").style.background="#0F0";
-		}
+		};
+		
+		ViewModel.prototype.modCharactersLoadAttr = function(){
+			this.model.modCharactersLoadAttr();
+		};
 	/**
 	 * End class
 	 */

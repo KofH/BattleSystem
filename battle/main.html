@@ -73,8 +73,8 @@
 	<div id="modifyCharactersPrompt" class="modifyCharactersPrompt">
 		<fieldset>
 			<legend>Modify Character</legend>
-			<label>Character: </label><input list="characters" size="15ex" />
-			<datalist id="characters">
+			<label>Character: </label><input id="modifyCharacterSelected" onchange="engine._viewModel.modCharactersLoadAttr()" type="text" list="modifyCharactersList" size="15ex" />
+			<datalist id="modifyCharactersList" >
 				<option id="dataListCharacter0" value="">
 				<option id="dataListCharacter1" value="">
 				<option id="dataListCharacter2" value="">
@@ -86,10 +86,10 @@
 				<option id="dataListCharacter8" value="">
 				<option id="dataListCharacter9" value="">			
 			</datalist><br /><br /><hr><br />
-			<label class="newCharacterLabel">Strength: </label> <input class="newCharacterInputAttr" type="number" id="newCharacterStrength" size="5" name="newCharacter"/><br />
-		    <label class="newCharacterLabel">Agility: </label> <input class="newCharacterInputAttr" type="number" id="newCharacterAgility" name="newCharacter"/><br />
-		    <label class="newCharacterLabel">Inteligence: </label> <input class="newCharacterInputAttr" type="number" id="newCharacterInteligence" /><br />
-		    <label class="newCharacterLabel">AP: </label> <input class="newCharacterInputAttr" type="number" id="newCharacterAP" /><br />  
+			<label class="newCharacterLabel">Strength: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersStrength" size="5" name="modCharacter"/><br />
+		    <label class="newCharacterLabel">Agility: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersAgility" name="modCharacter"/><br />
+		    <label class="newCharacterLabel">Inteligence: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersInteligence" name="modCharacter"/><br />
+		    <label class="newCharacterLabel">AP: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersAP" name="modCharacter" /><br />  
 			<footer class="modifyCharactersFooter">
 				<input type="button" id="modifyCharacterSubmit" onClick="" value="Submit" />
 				<input type="button" id="modifyCharacterClose" onClick="" value="Close" />
