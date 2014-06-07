@@ -22,8 +22,12 @@ define(function(require) {
 			this.model.newCharacterPrompt();
 		};
 		
-		ViewModel.prototype.modifyAttributes = function(){
-			this.model.modifyAttributes();
+		ViewModel.prototype.loadAndSavePrompt = function(){
+			this.model.loadAndSavePrompt();
+		};
+		
+		ViewModel.prototype.modifyCharactersPrompt = function(){
+			this.model.modifyCharactersPrompt();
 		};
 		
 		ViewModel.prototype.saveCharacters = function(){
@@ -54,7 +58,11 @@ define(function(require) {
 		ViewModel.prototype.start = function(){
 			document.getElementById("buttonStop").style.background="#CCC";
 			document.getElementById("buttonStart").style.background="#0F0";
-		}
+		};
+		
+		ViewModel.prototype.modCharactersLoadAttr = function(){
+			this.model.modCharactersLoadAttr();
+		};
 	/**
 	 * End class
 	 */

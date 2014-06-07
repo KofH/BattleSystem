@@ -34,7 +34,7 @@ define(function(require) {
   			}
   			
   			this.set({id:this.get("name")});
-  			alert("Character " + this.get("name") + " created! ");  
+  			alert("Character " + this.get("name") + " created! ");
   			
   			//////////////////    Subattributes
   			
@@ -153,16 +153,23 @@ define(function(require) {
 			self.characters = new Characters(JSON.parse(filereader.result));
 			self.contAllies = self.characters.where({faction: "ally"}).length;
 			self.contEnemies = self.characters.where({faction: "enemy"}).length;
+			self.modifyCharactersDataList();
 		}
 
 		var file = document.getElementById("fileUpload").files[0];
 		filereader.readAsText(file,'utf8');
+		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
+	};
+	
+	Model.prototype.loadAndSavePrompt = function(){
+		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
 	};
 	
 	Model.prototype.saveCharacters = function(){
 		var serialization = JSON.stringify(this.characters);
 		var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
 		window.open(dataurl);
+		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
 	};
 	
 	Model.prototype.newCharacterPrompt = function(){
@@ -202,11 +209,17 @@ define(function(require) {
 				strength: parseInt(document.getElementById('newCharacterStrength').value),
 				agility: parseInt(document.getElementById('newCharacterAgility').value),
 				inteligence: parseInt(document.getElementById('newCharacterInteligence').value),
+				ap: parseInt(document.getElementById('newCharacterAP').value),
 			});
 			
 			this.newCharacterPromptReset();
+			this.modifyCharactersDataList();
 		}
 	};	
+	
+	Model.prototype.modifyCharactersPrompt = function(){
+		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');		
+	};
 	
 	Model.prototype.modifyAttributes = function () {
 		var searchFighter = prompt("Which character do you want to change?");
@@ -223,7 +236,7 @@ define(function(require) {
 	
 	
 	Model.prototype.test = function(){
-		document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
+		console.log("TEST FUNCTIONAL!");
 	};
 	
 	
@@ -237,6 +250,7 @@ define(function(require) {
 		document.getElementById("newCharacterStrength").value = "";
 		document.getElementById("newCharacterAgility").value = "";
 		document.getElementById("newCharacterInteligence").value = "";
+		document.getElementById("newCharacterAP").value = "";
 		document.getElementById("newCharacterActionAttack").checked = false;
 		document.getElementById("newCharacterActionDefense").checked = false;
 		document.getElementById("newCharacterActionAreaAttack").checked = false;
@@ -244,18 +258,29 @@ define(function(require) {
 	
 	Model.prototype.turn = function(){
 		for (var i = 0; i < this.characters.length; i++){
-			var newWait = this.characters.at(i).get("wait") - this.characters.at(1).get("initiative");
+			var newWait = this.characters.at(i).get("wait") - this.characters.at(i).get("initiative");
 			if (newWait < 0) newWait = 0;
 			this.characters.at(i).set({wait:newWait});
 		}
 		
-	}
+	};
 	
 	Model.prototype.execute = function(model){
 		var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
 				this.active.get("actions").toString());
 		this.actions[selectedAction](model);
-	}
+	};
+	
+	Model.prototype.modCharactersLoadAttr = function(){
+		for (var i = 0; i < this.characters.length; i++) {
+			if (document.getElementById("modifyCharacterSelected").value == this.characters.at(i).get("name")) {
+				document.getElementById("modCharactersStrength").value = this.characters.at(i).get("strength");
+				document.getElementById("modCharactersAgility").value = this.characters.at(i).get("agility");
+				document.getElementById("modCharactersInteligence").value = this.characters.at(i).get("inteligence");
+				document.getElementById("modCharactersAP").value = this.characters.at(i).get("ap");
+			}
+		}
+	};
 	
 	/********************************
 	 *      PRIVATE FUNCTIONS       *
@@ -268,9 +293,14 @@ define(function(require) {
 	
 	
 	Model.prototype.showInfoFighters = function(){
-		var items = document.getElementById("infoFightersContent");
-		while (items.hasChildNodes()) {
-			items.removeChild(items.firstChild);
+		var allies = document.getElementById("infoFightersAllies");
+		var enemies = document.getElementById("infoFightersEnemies");
+		
+		while (allies.hasChildNodes()) {
+			allies.removeChild(allies.firstChild);
+		}
+		while (enemies.hasChildNodes()) {
+			enemies.removeChild(enemies.firstChild);
 		}
 		for (var i = 0; i < this.characters.length; i++) {		
 			
@@ -278,10 +308,45 @@ define(function(require) {
 			item.innerHTML = this.characters.at(i).get("name");
 			
 			var str = document.createElement("ul");
-			str.innerHTML = "Wait: " + this.characters.at(i).get("wait");
+			str.innerHTML = "Strength: " + this.characters.at(i).get("strength");
 			item.appendChild(str);
-			items.appendChild(item);
-
+			
+			var agi = document.createElement("ul");
+			agi.innerHTML = "Agility: " + this.characters.at(i).get("agility");
+			item.appendChild(agi);
+			
+			var int = document.createElement("ul");
+			int.innerHTML = "Inteligence: " + this.characters.at(i).get("inteligence");
+			item.appendChild(int);
+			
+						
+			var hp = document.createElement("ul");
+			hp.innerHTML = "HP: " + this.characters.at(i).get("hp");
+			hp.style.color="#088A08";
+			item.appendChild(hp);
+			
+			var ap = document.createElement("ul");
+			ap.innerHTML = "AP: " + this.characters.at(i).get("ap");
+			ap.style.color="#2E2EFE";
+			item.appendChild(ap);
+			
+			var wait = document.createElement("ul");
+			wait.innerHTML = "Wait: " + this.characters.at(i).get("wait");
+			wait.style.color="#8A0886";
+			item.appendChild(wait);
+			
+			if (this.characters.at(i).get("faction") == "ally") {
+				allies.appendChild(item);
+			}
+			else {
+				enemies.appendChild(item);
+			}
+		}
+	};
+	
+	Model.prototype.modifyCharactersDataList = function(){
+		for (var i = 0; i < this.characters.length; i++) {
+			document.getElementById("dataListCharacter" + i).value = this.characters.at(i).get("name");
 		}
 	};
 	
