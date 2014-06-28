@@ -63,6 +63,9 @@ define(function(require) {
 		ViewModel.prototype.modCharactersLoadAttr = function(){
 			this.model.modCharactersLoadAttr();
 		};
+		ViewModel.prototype.modCharactersSaveAttr = function(){
+			this.model.modCharactersSaveAttr();
+		};
 	/**
 	 * End class
 	 */

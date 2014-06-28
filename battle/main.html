@@ -91,8 +91,8 @@
 		    <label class="newCharacterLabel">Inteligence: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersInteligence" name="modCharacter"/><br />
 		    <label class="newCharacterLabel">AP: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersAP" name="modCharacter" /><br />  
 			<footer class="modifyCharactersFooter">
-				<input type="button" id="modifyCharacterSubmit" onClick="" value="Submit" />
-				<input type="button" id="modifyCharacterClose" onClick="" value="Close" />
+				<input type="button" id="modifyCharacterSubmit" onClick="engine._viewModel.modCharactersSaveAttr()" value="Submit" />
+				<input type="button" id="modifyCharacterClose" onClick="engine._viewModel.modifyCharactersPrompt()" value="Close" />
 			</footer>
 		</fieldset>
 

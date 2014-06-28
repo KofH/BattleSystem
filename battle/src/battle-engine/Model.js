@@ -104,8 +104,8 @@ define(function(require) {
 					var target = model.searchCharacter();
 					var damage = model.active.get("strength") * 2;
 					alert("Damage " + damage);
-					model.characters[target].set({hp: model.characters[target].get("hp") - (damage - model.characters[target].get("defense"))});
-					alert("Character HP: " + model.characters[target].get("hp"));
+					model.characters.get(target).set({hp: model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"))});
+					alert("Character HP: " + model.characters.get(target).get("hp"));
 					model.active.set({wait: 50});
 				},
 				
@@ -218,7 +218,9 @@ define(function(require) {
 	};	
 	
 	Model.prototype.modifyCharactersPrompt = function(){
-		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');		
+		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
+		document.getElementById('modifyCharacterSelected').focus();
+		
 	};
 	
 	Model.prototype.modifyAttributes = function () {
@@ -280,6 +282,16 @@ define(function(require) {
 				document.getElementById("modCharactersAP").value = this.characters.at(i).get("ap");
 			}
 		}
+	};
+	/**
+	 * 
+	 */
+	Model.prototype.modCharactersSaveAttr = function(){
+		this.characters._byId[document.getElementById("modifyCharacterSelected").value].set({strength: document.getElementById("modCharactersStrength").value});
+		this.characters._byId[document.getElementById("modifyCharacterSelected").value].set({agility: document.getElementById("modCharactersAgility").value});
+		this.characters._byId[document.getElementById("modifyCharacterSelected").value].set({inteligence: document.getElementById("modCharactersInteligence").value});
+		this.characters._byId[document.getElementById("modifyCharacterSelected").value].set({ap: document.getElementById("modCharactersAP").value});
+		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
 	};
 	
 	/********************************
