@@ -103,9 +103,13 @@ define(function(require) {
 				attack: function(model){
 					var target = model.searchCharacter();
 					var damage = model.active.get("strength") * 2;
-					alert("Damage " + damage);
-					model.characters.get(target).set({hp: model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"))});
-					alert("Character HP: " + model.characters.get(target).get("hp"));
+					if (damage > model.characters.get(target).get("defense")) {
+						alert("Damage " + damage);
+						model.characters.get(target).set({hp: model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"))});
+						alert("Character HP: " + model.characters.get(target).get("hp"));
+					} else {
+						alert("Damage absorbed!");
+					}
 					model.active.set({wait: 50});
 				},
 				
