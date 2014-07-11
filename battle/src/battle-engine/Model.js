@@ -240,11 +240,16 @@ define(function(require) {
 		}
 	};
 	
-	
 	Model.prototype.test = function(){
-		console.log("TEST FUNCTIONAL!");
-	};
-	
+		var options = document.getElementById("characterActions");
+		var item = document.createElement("input");
+		item.id = "selectedAction";
+		item.type = "button";
+		item.value = "test";
+		item.name = "TesT";
+		item.onclick = function(){ alert("Hola");};
+		options.appendChild(item)
+		};
 	
 	Model.prototype.newCharacterPromptReset = function (){
 		if (document.getElementById("newCharacterAlly").checked){
@@ -272,9 +277,23 @@ define(function(require) {
 	};
 	
 	Model.prototype.execute = function(model){
-		var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
-				this.active.get("actions").toString());
+		var selectedAction;
+		var actions = document.getElementById("characterActions");
+		var item = document.createElement("input");
+		item.id = "selectedAction";
+		item.type = "button";
+		item.value = this.characters._byId.Raspi.attributes.actions[0];
+		item.onclick = function(){
+			alert(document.getElementById("selectedAction").value);
+			console.log(document.getElementById("selectedAction").value);
+			selectedAction = document.getElementById("selectedAction").value;
+			return selectedAction;
+		};
+		actions.appendChild(item);
 		this.actions[selectedAction](model);
+		//var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
+		//		this.active.get("actions").toString());
+		//this.actions[selectedAction](model);
 	};
 	
 	Model.prototype.modCharactersLoadAttr = function(){
