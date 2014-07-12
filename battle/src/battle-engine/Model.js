@@ -278,7 +278,7 @@ define(function(require) {
 	var selectedAction = null;
 	
 	Model.prototype.execute = function(model){
-		while (selectedAction == null) { //set a delay!
+		while (selectedAction == null) {
 			var actions = document.getElementById("characterActions");
 			var item = document.createElement("input");
 				item.id = "selectedAction";
@@ -288,6 +288,7 @@ define(function(require) {
 					selectedAction = document.getElementById("selectedAction").value;
 				};
 				actions.appendChild(item);
+				sleep();//CHECK THIS LINE!
 		};
 		this.actions[selectedAction](model);
 		//var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
