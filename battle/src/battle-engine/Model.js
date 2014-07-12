@@ -280,6 +280,9 @@ define(function(require) {
 	Model.prototype.execute = function(model){
 		while (selectedAction == null) {
 			var actions = document.getElementById("characterActions");
+			while (actions.hasChildNodes()) {
+				actions.removeChild(actions.firstChild);
+			};
 			var item = document.createElement("input");
 				item.id = "selectedAction";
 				item.type = "button";
@@ -288,7 +291,7 @@ define(function(require) {
 					selectedAction = document.getElementById("selectedAction").value;
 				};
 				actions.appendChild(item);
-				sleep();//CHECK THIS LINE!
+				sleep(1000);//CHECK THIS LINE!
 		};
 		this.actions[selectedAction](model);
 		//var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
