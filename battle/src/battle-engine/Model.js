@@ -275,21 +275,20 @@ define(function(require) {
 		}
 		
 	};
+	var selectedAction = null;
 	
 	Model.prototype.execute = function(model){
-		var selectedAction;
-		var actions = document.getElementById("characterActions");
-		var item = document.createElement("input");
-		item.id = "selectedAction";
-		item.type = "button";
-		item.value = this.characters._byId.Raspi.attributes.actions[0];
-		item.onclick = function(){
-			alert(document.getElementById("selectedAction").value);
-			console.log(document.getElementById("selectedAction").value);
-			selectedAction = document.getElementById("selectedAction").value;
-			return selectedAction;
+		while (selectedAction == null) { //set a delay!
+			var actions = document.getElementById("characterActions");
+			var item = document.createElement("input");
+				item.id = "selectedAction";
+				item.type = "button";
+				item.value = this.characters._byId.Raspi.attributes.actions[0];
+				item.onclick = function(){
+					selectedAction = document.getElementById("selectedAction").value;
+				};
+				actions.appendChild(item);
 		};
-		actions.appendChild(item);
 		this.actions[selectedAction](model);
 		//var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
 		//		this.active.get("actions").toString());
