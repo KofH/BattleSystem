@@ -112,7 +112,7 @@ define(function(require) {
 		this.actions = {
 				attack: function(model){
 					var target = model.searchCharacter();
-					var damage = model.active.get("strength") * 2;
+					var damage = model.active.get("offense") * 2;
 					if (damage > model.characters.get(target).get("defense")) {
 						alert("Damage " + damage);
 						model.characters.get(target).set({hp: model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"))});

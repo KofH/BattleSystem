@@ -64,9 +64,12 @@ define(function(require) {
     		console.log("combat!");
     		this._viewModel.model.active = this._viewModel.model.characters.findWhere({wait: 0});
     		this._viewModel.model.execute(this._viewModel.model);
-    		if(this._viewModel.model.contAllies == 0 || this._viewModel.model.contEnemies == 0){
+    		var deadAllies = this._viewModel.model.characters.where({wait: Infinity, faction: "ally"}).length;
+			var deadEnemies = this._viewModel.model.characters.where({wait: Infinity, faction: "enemy"}).length;
+    		if(this._viewModel.model.contAllies == deadAllies || this._viewModel.model.contEnemies == deadEnemies){
     			this.on = false
     			alert("Combat ended!!");
+    			console.log("Combat Ended!");
     			this.stop();
     		}
     	}
