@@ -114,8 +114,13 @@ define(function(require) {
 					var target = model.searchCharacter();
 					var damage = model.active.get("offense") * 2;
 					if (damage > model.characters.get(target).get("defense")) {
-						alert("Damage " + damage);
-						model.characters.get(target).set({hp: model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"))});
+						//alert("Damage " + damage);
+						var realhp = model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"));
+						if (realhp < 0){
+							realhp = 0;
+						}
+						model.characters.get(target).set({hp: realhp});
+						alert("Damage " + (damage - model.characters.get(target).get("defense")));
 						alert("Character HP: " + model.characters.get(target).get("hp"));
 					} else {
 						alert("Damage absorbed!");
