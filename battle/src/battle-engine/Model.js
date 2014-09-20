@@ -10,7 +10,8 @@ define(function(require) {
   	var Character = Backbone.Model.extend({
   		
   		defaults: {
-			wait: 100
+			wait: 100,
+			actions: []
 			},
 			
   		initialize: function(model){
@@ -21,13 +22,22 @@ define(function(require) {
   				if (document.getElementById("newCharacterActionAttack").checked) {
   					actions.push(document.getElementById("newCharacterActionAttack").value)
   				}
-  				
+  				else if (this.get("actions").indexOf("attack") >= 0){
+					actions.push("attack");
+  				}
+					
   				if (document.getElementById("newCharacterActionDefense").checked) {
   					actions.push(document.getElementById("newCharacterActionDefense").value);
+  				}
+  				else if (this.get("actions").indexOf("defPosition") >= 0){
+					actions.push("defPosition");
   				}
   				
   				if (document.getElementById("newCharacterActionAreaAttack").checked) {
   					actions.push(document.getElementById("newCharacterActionAreaAttack").value);
+  				}
+  				else if (this.get("actions").indexOf("areaAttack") >= 0){
+					actions.push("areaAttack");
   				}
   				this.set({actions: actions});
   				
@@ -155,6 +165,7 @@ define(function(require) {
 
 		filereader.onloadend = function (){
 			self.characters = new Characters(JSON.parse(filereader.result));
+			
 			self.contAllies = self.characters.where({faction: "ally"}).length;
 			self.contEnemies = self.characters.where({faction: "enemy"}).length;
 			self.modifyCharactersDataList();
