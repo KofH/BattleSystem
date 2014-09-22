@@ -6,7 +6,7 @@ define(function(require) {
 	 */
 	
   	var	Backbone = require('libs/backbone');
-  	
+  
   	var Character = Backbone.Model.extend({
   		
   		defaults: {
@@ -112,18 +112,23 @@ define(function(require) {
 		this.actions = {
 				attack: function(model){
 					var target = model.searchCharacter();
-					var damage = model.active.get("offense") * 2;
-					if (damage > model.characters.get(target).get("defense")) {
-						//alert("Damage " + damage);
-						var realhp = model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"));
-						if (realhp < 0){
-							realhp = 0;
-						}
-						model.characters.get(target).set({hp: realhp});
-						alert("Damage " + (damage - model.characters.get(target).get("defense")));
-						alert("Character HP: " + model.characters.get(target).get("hp"));
-					} else {
-						alert("Damage absorbed!");
+					if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
+					  alert(target + " dodged the attack!");
+					}
+					else{
+					  var damage = model.active.get("offense") * 2;
+	          if (damage > model.characters.get(target).get("defense")) {
+	            //alert("Damage " + damage);
+	            var realhp = model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"));
+	            if (realhp < 0){
+	              realhp = 0;
+	            }
+	            model.characters.get(target).set({hp: realhp});
+	            alert("Damage " + (damage - model.characters.get(target).get("defense")));
+	            alert("Character HP: " + model.characters.get(target).get("hp"));
+	          } else {
+	            alert("Damage absorbed!");
+	          }
 					}
 					model.active.set({wait: 50});
 				},
