@@ -18,8 +18,9 @@ define(function(require) {
   	  
   		defaults: {
   			wait: 100,
-  			actions: [],
-  			weapons: ["Shortsword"]
+  			weapon: "",
+  			armor: "",
+  			actions: []
 			},
 			
   		initialize: function(model){
@@ -48,6 +49,17 @@ define(function(require) {
 					actions.push("areaAttack");
   				}
   				this.set({actions: actions});
+  				
+  			}
+  			{//////////////////// INVENTORY ////////////////////
+  				
+  				if (this.get("weapon") === "") {
+  					this.set({weapon: document.getElementById("weaponList").value});
+				}
+  				
+  				if (this.get("armor") === ""){
+  					this.set({armor: document.getElementById("armorList").value});
+  				}
   				
   			}
   			
@@ -220,8 +232,10 @@ define(function(require) {
 	};
 	
 	Model.prototype.newCharacterPrompt = function(){
+		this.newCharacterPromptReset();
 		document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
 		document.getElementById('newCharacterAlly').focus();
+		this.selectEquipment();
 	};
 	
 	Model.prototype.newCharacter = function () {
@@ -303,6 +317,8 @@ define(function(require) {
 		document.getElementById("newCharacterActionAttack").checked = false;
 		document.getElementById("newCharacterActionDefense").checked = false;
 		document.getElementById("newCharacterActionAreaAttack").checked = false;
+		document.getElementById("weaponList").value = "";
+		document.getElementById("armorList").value = "";
 	};
 	
 	Model.prototype.turn = function(){
@@ -406,6 +422,29 @@ define(function(require) {
 	Model.prototype.modifyCharactersDataList = function(){
 		for (var i = 0; i < this.characters.length; i++) {
 			document.getElementById("dataListCharacter" + i).value = this.characters.at(i).get("name");
+		}
+	};
+
+	Model.prototype.selectEquipment = function(){
+		var weaponSelect = document.getElementById('weaponSelect');
+		while (weaponSelect.hasChildNodes()) {
+			weaponSelect.removeChild(weaponSelect.firstChild);
+		}
+		while (armorSelect.hasChildNodes()) {
+			armorSelect.removeChild(armorSelect.firstChild);
+		}
+		
+		for(var i = 0; i < this.weapons.weaponList.length; i++) {
+		    var opt = document.createElement('option');
+		    opt.innerHTML = this.weapons.weaponList.at(i).get("name");
+		    opt.value = opt.innerHTML;
+		    weaponSelect.appendChild(opt);
+		}
+		for(var i = 0; i < this.armors.armorList.length; i++) {
+		    var opt = document.createElement('option');
+		    opt.innerHTML = this.armors.armorList.at(i).get("name");
+		    opt.value = opt.innerHTML;
+		    armorSelect.appendChild(opt);
 		}
 	};
 	
