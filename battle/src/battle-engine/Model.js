@@ -8,6 +8,7 @@ define(function(require) {
   	var	Backbone = require('libs/backbone');
   	var Weapons = require('battle-engine/Items/Weapons');
   	var Armors = require('battle-engine/Items/Armors');
+  	var Actions = require('battle-engine/Actions/Actions');
     
   	var Character = Backbone.Model.extend({
   	  
@@ -142,8 +143,9 @@ define(function(require) {
 		this.characters = new Characters();
 		this.weapons = new Weapons();
 		this.armors = new Armors();
+		this.actions = new Actions();
 		this.active = {};
-		this.actions = {
+	/*	this.actions = {
 				attack: function(model){
 					var target = model.searchCharacter();
 					if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
@@ -191,7 +193,7 @@ define(function(require) {
 						}
 					}
 					alert("Area Attack!");
-				}
+				}*/
 		};
 
 	}
@@ -295,11 +297,6 @@ define(function(require) {
 		} else {
 			console.log("Fighter Not Found!")
 		}
-	};
-	
-	
-	Model.prototype.test = function(){
-		console.log("TEST FUNCTIONAL!");
 	};
 	
 	
