@@ -8,13 +8,18 @@ define(function(require) {
   	var	Backbone = require('libs/backbone');
   	var Weapons = require('battle-engine/Items/Weapons');
   	var Armors = require('battle-engine/Items/Armors');
-  
+    
   	var Character = Backbone.Model.extend({
-  		
+  	  
+  	  get: function(attr) {                  ////////////// Backbone getter fix
+  	      var value = Backbone.Model.prototype.get.call(this, attr);
+  	      return _.isFunction(value) ? value.call(this) : value;
+  	    },
+  	  
   		defaults: {
-			wait: 100,
-			actions: [],
-			weapons: ["Shortsword"]
+  			wait: 100,
+  			actions: [],
+  			weapons: ["Shortsword"]
 			},
 			
   		initialize: function(model){
@@ -49,21 +54,33 @@ define(function(require) {
   			this.set({id:this.get("name")});
   			alert("Character " + this.get("name") + " created! ");
   			
+  			
   			//////////////////    Subattributes
   			
-  			this.on("change:strength", function(character){
-  				character.set({hp: character.get("strength") * 3});   	/////////////// CORRECTO
-  				character.set({offense: character.get("strength") * 5}); 
-  				character.set({defense: (character.get("strength") + character.get("agility")) * 3});
-  			})
+  			var self = this;
   			
-  			this.on("change:agility", function(character){
-  				character.set({initiative : character.get("agility") * 3});
-  				character.set({defense: (character.get("strength") + character.get("agility")) * 3});
-  			})
-  			
-  			this.on("change:inteligence", function(character){
-  			})
+        this.set({
+          
+          maxHp: function(){
+            return this.get("strength") * 3;
+          },
+          
+          hp: function(){
+            return this.get("maxHp");
+          },
+          
+          initiative: function(){
+            return this.get("agility") * 3;
+          },
+          
+          offense: function(){
+            return this.get("strength") * 5;
+          },
+          
+          defense: function(){
+            return this.get("strength") + this.get("agility") * 3;
+          }
+          });
   			
   			//////////////////       Turn
   			
