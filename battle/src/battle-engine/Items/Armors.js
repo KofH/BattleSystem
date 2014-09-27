@@ -7,7 +7,10 @@ define(function(require) {
   var Armor = Backbone.Model.extend({
     defaults: {
       power: 0
-    }
+    },
+	initialize: function(Armors){
+		this.set({id:this.get("name")});
+	}
   });
   
   var ArmorList = Backbone.Collection.extend({
@@ -18,21 +21,20 @@ define(function(require) {
     this.armorList = new ArmorList();
     
     this.armorList.add(new Armor({
-      name: Leather,
+      name: "Leather",
       power: 6
     }));
         
     this.armorList.add(new Armor({
-      name: Mail,
+      name: "Mail",
       power: 8
     })); 
 
     this.armorList.add(new Armor({
-      name: Plate,
+      name: "Plate",
       power: 10
     }));
   }
-  
-  
+  return Armors;
 });
     

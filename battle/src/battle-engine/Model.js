@@ -6,12 +6,15 @@ define(function(require) {
 	 */
 	
   	var	Backbone = require('libs/backbone');
+  	var Weapons = require('battle-engine/Items/Weapons');
+  	var Armors = require('battle-engine/Items/Armors');
   
   	var Character = Backbone.Model.extend({
   		
   		defaults: {
 			wait: 100,
-			actions: []
+			actions: [],
+			weapons: ["Shortsword"]
 			},
 			
   		initialize: function(model){
@@ -108,6 +111,8 @@ define(function(require) {
 		this.contAllies = 0;
 		this.contEnemies = 0;
 		this.characters = new Characters();
+		this.weapons = new Weapons();
+		this.armors = new Armors();
 		this.active = {};
 		this.actions = {
 				attack: function(model){
