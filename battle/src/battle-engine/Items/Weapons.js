@@ -35,5 +35,6 @@ define(function(require) {
       power: 10
 	  }));
 	}
+
 	return Weapons;
 });

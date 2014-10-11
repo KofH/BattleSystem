@@ -3,7 +3,6 @@ define(function(require) {
   "use strict";
 
   var Backbone = require('libs/backbone');
-  
   var Action = Backbone.Model.extend({
     
     get: function(attr) {                  ////////////// Backbone getter fix
@@ -22,35 +21,37 @@ define(function(require) {
   
   function Actions(){
     this.actionList = new ActionList();
-    
     ////////////////    ATTACK
     
     this.actionList.add(new Action({
       name: "attack",
       
-      effect: function(model){
-        var target = model.searchCharacter();
-        if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
-          alert(target + " dodged the attack!");
-        }
-        else{
-          var damage = model.active.get("offense") * 2;
-          if (damage > model.characters.get(target).get("defense")) {
-            //alert("Damage " + damage);
-            var realhp = model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"));
-            if (realhp < 0){
-              realhp = 0;
-            }
-            model.characters.get(target).set({hp: realhp});
-            alert("Damage " + (damage - model.characters.get(target).get("defense")));
-            alert("Character HP: " + model.characters.get(target).get("hp"));
-          } else {
-            alert("Damage absorbed!");
+      effect: function () { 
+        return function(model){
+          //if (!model) { return effect; } // this is a ñapa
+          var target = model.searchCharacter();
+          if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
+            alert(target + " dodged the attack!");
           }
-        }
-        model.active.set({wait: 50});
+          else{
+            var damage = model.active.get("offense") * 2;
+            if (damage > model.characters.get(target).get("defense")) {
+              //alert("Damage " + damage);
+              var realhp = model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"));
+              if (realhp < 0){
+                realhp = 0;
+              }
+              model.characters.get(target).set({hp: realhp});
+              alert("Damage " + (damage - model.characters.get(target).get("defense")));
+              alert("Character HP: " + model.characters.get(target).get("hp"));
+            } else {
+              alert("Damage absorbed!");
+            }
+          }
+          model.active.set({wait: 50});
+        };
       }
-    }));
+  }));
     
     
     /////////////////// DEFENSIVE POSITION
@@ -58,12 +59,14 @@ define(function(require) {
     this.actionList.add(new Action({
       name: "defPosition",
       
-      effect: function(model){
+      effect: function() { 
+        return function(model){
         var defense = model.active.defense + 5;
         model.active.defense = defense;
         alert("Defense: " + defense);
         model.active.wait = 20;     
-      },
+      };
+    }
     }));
     
     
@@ -72,7 +75,8 @@ define(function(require) {
     this.actionList.add(new Action({
       name: "areaAttack",
       
-      effect: function(model){
+      effect: function() { 
+        return function(model){
         var factionObjetiveSelected = prompt("ally or enemy");
         var factionObj;
         if (factionObjetiveSelected == "ally") {
@@ -89,10 +93,10 @@ define(function(require) {
           }
         }
         alert("Area Attack!");
+      };
       }
     }));
-    
-  }
+  };
   
   return Actions;
 });

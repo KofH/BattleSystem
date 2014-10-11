@@ -16,7 +16,7 @@ define(function(require) {
   	      var value = Backbone.Model.prototype.get.call(this, attr);
   	      return _.isFunction(value) ? value.call(this) : value;
   	    },
-  	  
+  	 
   		defaults: {
   			wait: 100,
   			weapon: "",
@@ -114,8 +114,15 @@ define(function(require) {
   	});
   	
   	var Characters = Backbone.Collection.extend({
-  		model: Character,  	
-  	
+  		model: Character,  
+  		
+      clone: function(deep) {            ///////// Backbone deep cloning fix
+        if(deep) {
+          return new this.constructor(_.map(this.models, function(m) { return m.clone(); }));
+        }else{
+          return Backbone.Collection.prototype.clone();
+        }
+      },
   		initialize: function(model){   
   			
   			////////////// FUTURE USE
@@ -151,16 +158,15 @@ define(function(require) {
 	/********************************
 	 *       PUBLIC FUNCTIONS       *
 	 ********************************/
-	/*Model.prototype.step = function(){
-		console.log("Model  - STEP!");
-	};*/
+
 	
 	Model.prototype.loadCharacters = function(){
 		var filereader = new FileReader();
 		var self = this;
 
 		filereader.onloadend = function (){
-			self.characters = new Characters(JSON.parse(filereader.result));
+			self.defaultCharacters = new Characters(JSON.parse(filereader.result));
+			self.characters = self.defaultCharacters.clone(true); 
 			
 			self.contAllies = self.characters.where({faction: "ally"}).length;
 			self.contEnemies = self.characters.where({faction: "enemy"}).length;
@@ -230,6 +236,11 @@ define(function(require) {
 		}
 	};	
 	
+	Model.prototype.resetCharacters = function(){
+	  this.characters = this.defaultCharacters.clone(true);
+	  
+	};
+	
 	Model.prototype.modifyCharactersPrompt = function(){
 		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
 		document.getElementById('modifyCharacterSelected').focus();
@@ -280,7 +291,7 @@ define(function(require) {
 	Model.prototype.execute = function(model){
 		var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
 				this.active.get("actions").toString());
-		this.actions[selectedAction](model);
+		this.actions.actionList.get(selectedAction).get("effect")(model);
 	};
 	
 	Model.prototype.modCharactersLoadAttr = function(){
