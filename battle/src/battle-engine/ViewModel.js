@@ -46,10 +46,6 @@ define(function(require) {
 			this.model.newCharacterPromptReset();
 		};
 		
-		ViewModel.prototype.test = function(){
-			this.model.test();
-		};
-		
 		ViewModel.prototype.stop = function(){
 			document.getElementById("buttonStop").style.background="#F00";
 			document.getElementById("buttonStart").style.background="#CCC";

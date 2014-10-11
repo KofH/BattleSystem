@@ -145,56 +145,6 @@ define(function(require) {
 		this.armors = new Armors();
 		this.actions = new Actions();
 		this.active = {};
-	/*	this.actions = {
-				attack: function(model){
-					var target = model.searchCharacter();
-					if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
-					  alert(target + " dodged the attack!");
-					}
-					else{
-					  var damage = model.active.get("offense") * 2;
-	          if (damage > model.characters.get(target).get("defense")) {
-	            //alert("Damage " + damage);
-	            var realhp = model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"));
-	            if (realhp < 0){
-	              realhp = 0;
-	            }
-	            model.characters.get(target).set({hp: realhp});
-	            alert("Damage " + (damage - model.characters.get(target).get("defense")));
-	            alert("Character HP: " + model.characters.get(target).get("hp"));
-	          } else {
-	            alert("Damage absorbed!");
-	          }
-					}
-					model.active.set({wait: 50});
-				},
-				
-				defPosition: function(model){
-					var defense = model.active.defense + 5;
-					model.active.defense = defense;
-					alert("Defense: " + defense);
-					model.active.wait = 20;			
-				},
-				
-				areaAttack: function(model){
-					var factionObjetiveSelected = prompt("ally or enemy");
-					var factionObj;
-					if (factionObjetiveSelected == "ally") {
-						factionObj = model.contAllies;
-					} else if (factionObjetiveSelected == "enemy"){
-						factionObj = model.contEnemies;
-					} else {
-						alert("ERROR!");
-					}
-					var damage = model.active.inteligence / factionObj;
-					for (var contSearch = 0; contSearch < model.characters.length; contSearch++) {
-						if (model.characters[contSearch].get("faction") == factionObjetiveSelected) {
-							model.characters[contSearch].set({hp: characters[contSearch].get("hp")-(damage - model.characters[contSearch].get("defense"))});
-						}
-					}
-					alert("Area Attack!");
-				}*/
-		};
 
 	}
 	
