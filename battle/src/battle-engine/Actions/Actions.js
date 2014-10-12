@@ -5,9 +5,10 @@ define(function(require) {
   var Backbone = require('libs/backbone');
   var Action = Backbone.Model.extend({
     
-    get: function(attr) {                  ////////////// Backbone getter fix
+    get: function(attr, model) {                  ////////////// Backbone getter fix
       var value = Backbone.Model.prototype.get.call(this, attr);
-      return _.isFunction(value) ? value.call(this) : value;
+      return _.isFunction(value) ?
+             value.call(this, model) : value;
     },
     
     initialize : function(model){
@@ -25,13 +26,12 @@ define(function(require) {
     
     this.actionList.add(new Action({
       name: "attack",
-      
-      effect: function () { 
-        return function(model){
+   
+      effect: function(model){
           //if (!model) { return effect; } // this is a ñapa
           var target = model.searchCharacter();
           if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
-            alert(target + " dodged the attack!");
+            alert(target.get("name") + " dodged the attack!");
           }
           else{
             var damage = model.active.get("offense") * 2;
@@ -49,8 +49,8 @@ define(function(require) {
             }
           }
           model.active.set({wait: 50});
-        };
-      }
+        }
+      
   }));
     
     
@@ -59,14 +59,13 @@ define(function(require) {
     this.actionList.add(new Action({
       name: "defPosition",
       
-      effect: function() { 
-        return function(model){
+      effect: function(model){
         var defense = model.active.defense + 5;
         model.active.defense = defense;
         alert("Defense: " + defense);
         model.active.wait = 20;     
-      };
-    }
+      
+      }
     }));
     
     
@@ -75,8 +74,7 @@ define(function(require) {
     this.actionList.add(new Action({
       name: "areaAttack",
       
-      effect: function() { 
-        return function(model){
+      effect:function(model){
         var factionObjetiveSelected = prompt("ally or enemy");
         var factionObj;
         if (factionObjetiveSelected == "ally") {
@@ -93,7 +91,7 @@ define(function(require) {
           }
         }
         alert("Area Attack!");
-      };
+      
       }
     }));
   };

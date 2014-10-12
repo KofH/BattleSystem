@@ -9,12 +9,17 @@ define(function(require) {
   	var Weapons = require('battle-engine/Items/Weapons');
   	var Armors = require('battle-engine/Items/Armors');
   	var Actions = require('battle-engine/Actions/Actions');
-    
+  	
+  	var _calculated = function(thing){return thing};
+  	_calculated._isCalculated = true;
+  	
   	var Character = Backbone.Model.extend({
   	  
   	  get: function(attr) {                  ////////////// Backbone getter fix
-  	      var value = Backbone.Model.prototype.get.call(this, attr);
-  	      return _.isFunction(value) ? value.call(this) : value;
+  	     /// && value._isCalculated
+  	    var value = Backbone.Model.prototype.get.call(this, attr);
+  	      return _.isFunction(value) && value._isCalculated ?
+  	          value.call(this) : value;
   	    },
   	 
   		defaults: {
@@ -65,36 +70,37 @@ define(function(require) {
   			}
   			
   			this.set({id:this.get("name")});
-  			alert("Character " + this.get("name") + " created! ");
+  		//	alert("Character " + this.get("name") + " created! ");
   			
   			
   			//////////////////    Subattributes
   			
   			var self = this;
-  			
+
         this.set({
           
-          maxHp: function(){
-            return this.get("strength") * 3;
-          },
+          maxHp: _calculated(
+            this.get("strength") * 3
+          ),
           
-          hp: function(){
-            return this.get("maxHp");
-          },
+          initiative: _calculated(
+            this.get("agility") * 3
+          ),
           
-          initiative: function(){
-            return this.get("agility") * 3;
-          },
+          offense: _calculated(
+            this.get("strength") * 5
+          ),
           
-          offense: function(){
-            return this.get("strength") * 5;
-          },
-          
-          defense: function(){
-            return this.get("strength") + this.get("agility") * 3;
-          }
+          defense: _calculated(
+            this.get("strength") + this.get("agility") * 3
+          )
           });
-  			
+        
+  			this.set({
+  			  hp: _calculated(
+              this.get("maxHp")
+            )
+  			})
   			//////////////////       Turn
   			
   			this.on("change:wait", function(character){
@@ -147,6 +153,7 @@ define(function(require) {
 		this.MAX_ENEMIES = 6;
 		this.contAllies = 0;
 		this.contEnemies = 0;
+		this.defaultCharacters= new Characters;
 		this.characters = new Characters();
 		this.weapons = new Weapons();
 		this.armors = new Armors();
@@ -222,7 +229,7 @@ define(function(require) {
 					faction: characterFaction
 			});
 
-			this.characters.add(character);
+			
 			
 			character.set({
 				strength: parseInt(document.getElementById('newCharacterStrength').value),
@@ -230,6 +237,9 @@ define(function(require) {
 				inteligence: parseInt(document.getElementById('newCharacterInteligence').value),
 				ap: parseInt(document.getElementById('newCharacterAP').value),
 			});
+			
+			this.defaultCharacters.add(character);
+      this.characters.add(character.clone());
 			
 			this.newCharacterPromptReset();
 			this.modifyCharactersDataList();
@@ -291,7 +301,7 @@ define(function(require) {
 	Model.prototype.execute = function(model){
 		var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
 				this.active.get("actions").toString());
-		this.actions.actionList.get(selectedAction).get("effect")(model);
+		this.actions.actionList.get(selectedAction).get("effect", model);
 	};
 	
 	Model.prototype.modCharactersLoadAttr = function(){
