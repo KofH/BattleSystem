@@ -26,19 +26,26 @@ body{
 	max-width: 100%;
 	background-color:#CCC;
 }
-.buttonTopMenu{
+#topMenu > input, #topMenuRight > input, #buttonBugReport{
 	height: 100%;
 	width: auto;
-	padding: 0px 10	px 0px 10px;
+	padding: 0px 3px 0px 3px;
 	border: 0px;
 }
-.buttonTopMenu:HOVER{
+#topMenu > input:HOVER, #topMenuRight > input:HOVER, 
+#buttonBugReport:HOVER{
 	background-color: #888;
 	color: #FFF;
 }
-.buttonTopMenu:ACTIVE{
+#topMenu > input:ACTIVE, #topMenuRight > input:ACTIVE,
+#buttonBugReport:ACTIVE{
 	background-color: #888;
 	color: #000;
+}
+#buttonResetCharacters{
+	font-weight: bold;
+	float: right;
+	margin-right: 10px;
 }
 #buttonBugReport{
 	float:right;
@@ -160,10 +167,15 @@ body{
     font-weight:bold;
 }
 .loadAndSavePrompt fieldset{
-	padding: 5px 5px 5px 5px;
+	padding: 10px 15px 10px 15px;
     background-color: #eff4f6;
     border: 1px solid #C3D4DB;
     border-radius: 5px;
+}
+#loadAndSaveCharacters, #loadAndSaveWeapons{
+	margin-bottom: 5px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #C3D4DB;
 }
 /****************************************
  *******MODIFY CHARACTERS PROMPT*********

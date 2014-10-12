@@ -180,7 +180,7 @@ define(function(require) {
 			self.modifyCharactersDataList();
 		}
 
-		var file = document.getElementById("fileUpload").files[0];
+		var file = document.getElementById("fileUploadCharacters").files[0];
 		filereader.readAsText(file,'utf8');
 		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
 	};
@@ -388,8 +388,16 @@ define(function(require) {
 	};
 	
 	Model.prototype.modifyCharactersDataList = function(){
-		for (var i = 0; i < this.characters.length; i++) {
-			document.getElementById("dataListCharacter" + i).value = this.characters.at(i).get("name");
+		var x = document.getElementById("modifyCharactersList");
+		while (x.hasChildNodes()){
+			x.removeChild(x.firstChild);
+		}
+		
+		for(var i = 0; i < this.characters.length; i++){
+			var opt = document.createElement('option');
+			opt.innerHTML = this.characters.at(i).get("name");
+			opt.value = opt.innerHTML;
+			x.appendChild(opt);
 		}
 	};
 
