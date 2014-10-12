@@ -75,8 +75,8 @@ body{
 }
 .newCharacterPrompt.Displayed{
 	display:block;
-	width: 300px;
-	height: 300px;
+	width: auto;
+	max-width: 550px;
 	position: fixed;
 	left: 16%;
 	top:15%;
@@ -86,27 +86,23 @@ body{
     font-weight:bold;
 }
 .newCharacterPrompt fieldset {
-    padding-left: 25px;
+    padding: 0px 25px;
     background-color: #eff4f6;
     border: 1px solid #C3D4DB;
     border-radius: 5px;
 }
-.newCharacterPrompt input{
-    margin-left: 5px;
-    margin-bottom: 5px;
+#newCharacterPromptStats > input, #newCharacterPromptEquipment > input,
+#newCharacterPromptActions > input{
+	margin-left: 5px;
+	margin-bottom: 5px;	
 }
 .newCharacterInputAttr{
     width: 40px;
     margin-bottom: 5px;
 }
 .newCharacterInputName{
-    width: 150px;
+    width: auto;
     margin-bottom: 5px;
-}
-.newCharacterRadio{
-    display:inline-block;
-    text-align: right;
-    margin: 10px 0px -10px 55px;
 }
 .newCharacterLabel{
     display: inline-block;
@@ -118,18 +114,36 @@ body{
 }
 #newCharacterPrompt p {
 	text-align: center;
-	margin: 5px 0px 5px -20px;
+	margin: 5px 0px 0px 0px;
 }
-.newCharacterCheckBox input{
-	margin: 0px 0px 5px 25px;
+.newCharacterCheckBox{
+	margin: 0px 0px 5px 0px;
+	display: inline-block;
+	width: 160px
 }
-.newCharacterFooter input {
-    font-weight:bold;
-    margin: -15px 0px 7px 50px;
-    width: 55px;
-    text-align: center;
-    font: normal 12px/14px Arial, Helvetica, Sans-serif;
-    font-weight: bold;
+#newCharacterFooter{
+	text-align: center;
+	font: normal 12px/14px Arial, Helvetica, Sans-serif;
+	margin-bottom: 5px;
+}
+.newCharacterFooter{
+	margin: 0px 15px 5px 15px;
+	font-weight: bold;
+	width: 55px;
+}
+#newCharacterPromptFactions{
+	text-align: center;
+	margin-bottom: -10px;
+}
+#newCharacterPromptFactions > label{
+	margin: 0px 30px 0px 30px;
+}
+#newCharacterPromptStats, #newCharacterPromptEquipment {
+	display: inline-block;
+	vertical-align: top;
+}
+#actionList{
+	margin-right: -50px;
 }
 /****************************************
  ******** LOAD AND SAVE PROMPT***********

@@ -45,29 +45,46 @@
 		<div id="newCharacterPromptLeftPanel" style="float:left">
 			 <fieldset>
 			  <legend>New Character</legend>
-			     <label class="newCharacterRadio"><input type="radio" id="newCharacterAlly" value="ally" name="newCharacter" />Ally</label>
-			     <label class="newCharacterRadio"><input type="radio" id="newCharacterEnemy" value="enemy" name="newCharacter" />Enemy</label><br /><br />
-			     <label class="newCharacterLabel">Name:</label> <input class="newCharacterInputName"type="text" id="newCharacterName" name="newCharacter"/><br />
-			     <label class="newCharacterLabel">Strength:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterStrength" size="5" name="newCharacter"/><br />
-			     <label class="newCharacterLabel">Agility:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterAgility" name="newCharacter"/><br />
-			     <label class="newCharacterLabel">Inteligence:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterInteligence" /><br />
-			     <label class="newCharacterLabel">AP:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterAP" /><br />
-			      <p>Actions for New Character:</p>
-			     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAttack" value="attack"/>Melee Attack</label><br />
-			     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionDefense" value="defPosition"/>Defensive Position</label><br />
-			     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Magical Area</label>
-			     <br /><br />	     
-			     <footer class="newCharacterFooter">
-			         <input type="button" id="newCharacterNext" onClick="engine._viewModel.newCharacter()" value="Submit"/>
-			         <input type="button" id="newCharacterReset" onClick="engine._viewModel.newCharacterPromptReset()" value="Reset"/>
-			     </footer>
+			  	<div id="newCharacterPromptFactions">
+			  		<p>Faction</p>
+			  		<label class="newCharacterRadio"><input type="radio" id="newCharacterAlly" value="ally" name="newCharacter" />Ally</label>
+				    <label class="newCharacterRadio"><input type="radio" id="newCharacterEnemy" value="enemy" name="newCharacter" />Enemy</label><br /><br />
+			  	</div>
+			  	<div id="newCharacterPromptStats">
+			  		<p>Info & Stats</p><br />
+				    <label class="newCharacterLabel">Name:</label> <input class="newCharacterInputName"type="text" id="newCharacterName" name="newCharacter" size="15ex" /><br />
+				    <label class="newCharacterLabel">Strength:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterStrength" name="newCharacter"/><br />
+				    <label class="newCharacterLabel">Agility:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterAgility" name="newCharacter"/><br />
+				    <label class="newCharacterLabel">Inteligence:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterInteligence" /><br />
+				    <label class="newCharacterLabel">AP:</label> <input class="newCharacterInputAttr" type="number" id="newCharacterAP" />
+			    </div>
+			    <div id="newCharacterPromptEquipment">
+			    	<p>Equipment</p><br />
+				    <label class="newCharacterLabel">Weapon: </label><input id="weaponList" type="text" list="weaponSelect" size="15ex" />
+				    	<datalist id="weaponSelect"></datalist> <br />
+				    <label class="newCharacterLabel">Armor: </label><input id="armorList" type="text" list="armorSelect" size="15ex" />
+				    	<datalist id="armorSelect"></datalist>
+				    <label class="newCharacterLabel">Accessories: </label><input id="accessories" type="text" list="accessoriesSelect" size="15ex" />
+			    </div>
+			    <div id="newCharacterPromptActions"> 
+				     <p>Actions</p><br />
+				     <div id="actionList">
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAttack" value="attack"/>Melee Attack</label>
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionDefense" value="defPosition"/>Defensive Position</label>
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Magical Area</label>
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Steal</label>
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Fire Ball</label>
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Frost Bite</label>
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Roots</label>
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Mental Control</label>
+					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Blind</label>
+			    	 </div>
+			    </div><br />
+			    <div id="newCharacterFooter">
+			    	<input class="newCharacterFooter" type="button" id="newCharacterNext" onClick="engine._viewModel.newCharacter()" value="Submit"/>
+			        <input class="newCharacterFooter" type="button" id="newCharacterReset" onClick="engine._viewModel.newCharacterPromptReset()" value="Reset"/>
+			    </div>
 			 </fieldset>
-		</div> 
-		<div id="newCharacterPromptRightPanel" style="float:right">
-			<label>Weapons List: </label><input id="weaponList" type="text" list="weaponSelect" size="15ex" />
-			<datalist id="weaponSelect"></datalist><br />
-			<label>Armors List: </label><input id="armorList" type="text" list="armorSelect" size="15ex" />
-			<datalist id="armorSelect"></datalist>
 		</div>
 	</div>
 	<div id="loadAndSavePrompt" class="loadAndSavePrompt">
