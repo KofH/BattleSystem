@@ -318,10 +318,10 @@ define(function(require) {
 	 * 
 	 */
 	Model.prototype.modCharactersSaveAttr = function(){
-		this.characters._byId[document.getElementById("modifyCharacterSelected").value].set({strength: document.getElementById("modCharactersStrength").value});
-		this.characters._byId[document.getElementById("modifyCharacterSelected").value].set({agility: document.getElementById("modCharactersAgility").value});
-		this.characters._byId[document.getElementById("modifyCharacterSelected").value].set({inteligence: document.getElementById("modCharactersInteligence").value});
-		this.characters._byId[document.getElementById("modifyCharacterSelected").value].set({ap: document.getElementById("modCharactersAP").value});
+		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({strength: parseInt(document.getElementById("modCharactersStrength").value)});
+		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({agility: parseInt(document.getElementById("modCharactersAgility").value)});
+		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({inteligence: parseInt(document.getElementById("modCharactersInteligence").value)});
+		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({ap: parseInt(document.getElementById("modCharactersAP").value)});
 		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
 	};
 	
