@@ -177,6 +177,9 @@ body{
 	padding-bottom: 10px;
 	border-bottom: 1px solid #C3D4DB;
 }
+#buttonSaveCharacters, #buttonSaveWeapons, #buttonSaveArmors{
+	float: right;
+}
 /****************************************
  *******MODIFY CHARACTERS PROMPT*********
  ****************************************/

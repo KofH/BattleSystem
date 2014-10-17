@@ -66,7 +66,7 @@
 				    	<datalist id="weaponSelect"></datalist> <br />
 				    <label class="newCharacterLabel">Armor: </label><input id="armorList" type="text" list="armorSelect" size="15ex" />
 				    	<datalist id="armorSelect"></datalist>
-				    <label class="newCharacterLabel">Accessories: </label><input id="accessories" type="text" list="accessoriesSelect" size="15ex" />
+				    <!-- FUTURE USE <label class="newCharacterLabel">Accessories: </label><input id="accessories" type="text" list="accessoriesSelect" size="15ex" /> -->
 			    </div>
 			    <div id="newCharacterPromptActions"> 
 				     <p>Actions</p><br />
@@ -74,12 +74,6 @@
 					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAttack" value="attack"/>Melee Attack</label>
 					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionDefense" value="defPosition"/>Defensive Position</label>
 					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Magical Area</label>
-					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Steal</label>
-					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Fire Ball</label>
-					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Frost Bite</label>
-					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Roots</label>
-					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Mental Control</label>
-					     <label class="newCharacterCheckBox"><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Blind</label>
 			    	 </div>
 			    </div><br />
 			    <div id="newCharacterFooter">
@@ -96,18 +90,21 @@
 				<p>Characters:</p>
 				<input type="file" id="fileUploadCharacters" name="file"/>
 				<input type="button" id="buttonLoadCharacters"   value="Send File" onClick="engine._viewModel.loadCharacters()"/><br /><br />
+				<input type="text" id="saveCharactersFileName" value="characters" size="15ex" />.txt<a id="saveCharactersDownload"></a>
 				<input type="button" id="buttonSaveCharacters" value="Save Characters" onclick="engine._viewModel.saveCharacters()" />
 			</div>
 			<div id="loadAndSaveWeapons">
 				<p>Weapons:</p>
 				<input type="file" id="fileUploadWeapons" name="file"/>
 				<input type="button" id="buttonLoadWeapons"   value="Send File" onClick="engine._viewModel.saveWeapons()"/><br /><br />
-				<input type="button" id="buttonSaveWeapons" value="Save Weapons" onclick="engine._viewModel.saveWeapons()" />
+				<input type="text" id="saveWeaponsFileName" value="weapons" size="15ex" />.txt<a id="saveWeaponsDownload"></a>
+				<input type="button" id="buttonSaveWeapons" value="Save Weapons" onclick="engine._viewModel.saveWeapons()" /><br />
 			</div>
 			<div id="loadAndSaveArmors">
 				<p>Armors:</p>
 				<input type="file" id="fileUploadArmors" name="file"/>
 				<input type="button" id="buttonLoadArmors"   value="Send File" onClick="engine._viewModel.saveArmors()"/><br /><br />
+				<input type="text" id="saveArmorsFileName" value="armors" size="15ex" />.txt<a id="saveArmorsDownload"></a>
 				<input type="button" id="buttonSaveArmors" value="Save Armors" onclick="engine._viewModel.saveArmors()" />
 			</div>
 		</fieldset>

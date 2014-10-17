@@ -191,7 +191,10 @@ define(function(require) {
 	Model.prototype.saveCharacters = function(){
 		var serialization = JSON.stringify(this.characters);
 		var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
-		window.open(dataurl);
+		var x = document.getElementById("saveCharactersDownload");
+		x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
+		x.href = dataurl;
+		x.click();
 		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
 	};
 	
@@ -246,8 +249,9 @@ define(function(require) {
 	};	
 	
 	Model.prototype.resetCharacters = function(){
-	  this.characters = this.defaultCharacters.clone(true);
-	  
+		if (confirm('Are you sure you want to Reset Characters?')) {
+			this.characters = this.defaultCharacters.clone(true);
+		}	  
 	};
 	
 	Model.prototype.modifyCharactersPrompt = function(){
