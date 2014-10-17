@@ -10,16 +10,15 @@ define(function(require) {
   	var Armors = require('battle-engine/Items/Armors');
   	var Actions = require('battle-engine/Actions/Actions');
   	
-  	var _calculated = function(thing){return thing};
-  	_calculated._isCalculated = true;
+ // 	var _calculated = function(thing){return thing};
+ // 	_calculated._isCalculated = true;
   	
   	var Character = Backbone.Model.extend({
   	  
   	  get: function(attr) {                  ////////////// Backbone getter fix
   	     /// && value._isCalculated
   	    var value = Backbone.Model.prototype.get.call(this, attr);
-  	      return _.isFunction(value) && value._isCalculated ?
-  	          value.call(this) : value;
+  	      return _.isFunction(value) ? value.call(this) : value;
   	    },
   	 
   		defaults: {
@@ -79,27 +78,27 @@ define(function(require) {
 
         this.set({
           
-          maxHp: _calculated(
-            this.get("strength") * 3
-          ),
+          maxHp: function _calculated(){
+            return this.get("strength") * 3;
+          },
           
-          initiative: _calculated(
-            this.get("agility") * 3
-          ),
+          initiative: function _calculated(){
+           return  this.get("agility") * 3;
+          },
           
-          offense: _calculated(
-            this.get("strength") * 5
-          ),
+          offense: function _calculated(){
+           return this.get("strength") * 5;
+          },
           
-          defense: _calculated(
-            this.get("strength") + this.get("agility") * 3
-          )
+          defense: function _calculated(){
+            return this.get("strength") + this.get("agility") * 3;
+          }
           });
         
   			this.set({
-  			  hp: _calculated(
-              this.get("maxHp")
-            )
+  			  hp: function _calculated(){
+            return this.get("maxHp");
+  			}
   			})
   			//////////////////       Turn
   			
@@ -153,7 +152,7 @@ define(function(require) {
 		this.MAX_ENEMIES = 6;
 		this.contAllies = 0;
 		this.contEnemies = 0;
-		this.defaultCharacters= new Characters;
+		this.defaultCharacters = new Characters();
 		this.characters = new Characters();
 		this.weapons = new Weapons();
 		this.armors = new Armors();
@@ -257,6 +256,7 @@ define(function(require) {
 		
 	};
 	
+	/*         /////   NOT IN USE
 	Model.prototype.modifyAttributes = function () {
 		var searchFighter = prompt("Which character do you want to change?");
 		var character =  this.characters.get(searchFighter);
@@ -268,7 +268,7 @@ define(function(require) {
 		} else {
 			console.log("Fighter Not Found!")
 		}
-	};
+	}; */
 	
 	
 	Model.prototype.newCharacterPromptReset = function (){
