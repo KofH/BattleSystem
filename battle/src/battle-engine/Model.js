@@ -157,7 +157,9 @@ define(function(require) {
 		this.weapons = new Weapons();
 		this.armors = new Armors();
 		this.actions = new Actions();
+		
 		this.active = {};
+		this.selectedAction = "";
 
 	}
 	
@@ -302,11 +304,28 @@ define(function(require) {
 		
 	};
 	
-	Model.prototype.execute = function(model){
+	Model.prototype.selectTarget = function(){
+	  var target = this.actions.get(this.selectedAction).get("target") ;
+	  if (target === "character"){
+	    /// TODO showTargetCharacters
+	  }
+	  else if (target === "faction"){
+	    /// TODO showTargetFactions
+	  }
+	  else if (target === "self"){
+	    /// TODO apply action to self
+	  }
+	};
+	
+	Model.prototype.execute = function(){
+	  this.actions.actionList.get(this.selectedAction).get("effect", model);
+	}
+	
+	/*Model.prototype.execute = function(model){
 		var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
 				this.active.get("actions").toString());
 		this.actions.actionList.get(selectedAction).get("effect", model);
-	};
+	};*/
 	
 	Model.prototype.modCharactersLoadAttr = function(){
 		for (var i = 0; i < this.characters.length; i++) {

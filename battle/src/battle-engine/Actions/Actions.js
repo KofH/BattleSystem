@@ -26,7 +26,9 @@ define(function(require) {
     
     this.actionList.add(new Action({
       name: "attack",
-   
+      
+      target: "character",
+      
       effect: function(model){
           //if (!model) { return effect; } // this is a ñapa
           var target = model.searchCharacter();
@@ -59,6 +61,8 @@ define(function(require) {
     this.actionList.add(new Action({
       name: "defPosition",
       
+      target: "self",
+      
       effect: function(model){
         var defense = model.active.defense + 5;
         model.active.defense = defense;
@@ -73,6 +77,8 @@ define(function(require) {
     
     this.actionList.add(new Action({
       name: "areaAttack",
+      
+      target: "faction",
       
       effect:function(model){
         var factionObjetiveSelected = prompt("ally or enemy");
