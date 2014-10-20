@@ -114,6 +114,27 @@ define(function(require) {
   					character.set({wait: Infinity});
   				}
   			})
+  			{//////////////////		Show Target Character
+  				if (document.getElementById(this.get("name")) == null) {
+  					var allies = document.getElementById("targetCharactersAlly");
+  	  				var enemies = document.getElementById("targetCharactersEnemy");
+  	  				
+  	  				var input = document.createElement("input");
+  	  				input.type = "button";
+  	  				input.id = this.get("id");
+  	  				input.value = this.get("name");
+  	  				input.name = this.get("name");
+  	  				input.setAttribute("class","targetCharacters");
+  	  				input.setAttribute("disabled",true);
+  	  				
+  	  				if(this.get("faction") == "ally"){
+  	  					allies.appendChild(input);
+  	  				}
+  	  				else {
+  	  					enemies.appendChild(input);
+  	  				}
+				}
+  			}
   		}
 	  	
   	});

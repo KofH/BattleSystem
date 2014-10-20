@@ -188,7 +188,7 @@ body{
 	display: block;
 	margin-bottom: 20px;
 }
-.targetCharactersAlly, .targetCharactersEnemy{
+.targetCharacters{
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -210,11 +210,13 @@ body{
 	font-family:arial;
 	font-size:15px;
 	font-weight:bold;
-	padding:15px 24px;
+	padding:10px 0px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffffff;
+	width: 100px;
+	margin: 5px 10px;
 }
-.targetCharactersAlly:HOVER, .targetCharactersEnemy:HOVER{
+.targetCharacters:HOVER{
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
 	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
 	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
@@ -224,11 +226,11 @@ body{
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
 	background-color:#f6f6f6;
 }
-.targetCharactersAlly:ACTIVE, .targetCharactersEnemy:ACTIVE{
+.targetCharacters:ACTIVE{
 	position:relative;
 	top:1px;
 }
-.targetCharactersAlly:DISABLED{
+.targetCharacters:DISABLED{
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -250,8 +252,7 @@ body{
 	font-family:arial;
 	font-size:15px;
 	font-weight:bold;
-	padding:15px 24px;
-	text-decoration:none;
+	text-decoration:blink;
 	text-shadow:0px 1px 0px #ffffff;
 }
 #actionButtons input{
