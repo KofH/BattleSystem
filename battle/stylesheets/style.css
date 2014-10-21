@@ -5,17 +5,25 @@
 	margin: 0px;
 	padding: 0px;
 }
+html{height: 100%;}
 body{
 	font:normal 14px/16px Arial, Helvetica, Sans-serif;
 	margin: 0px;
+	height: 100%;
 }
 #leftPanel{
+	height: 80%;
 	width: 50%;
 	float: left;
 }
 #rightPanel{
+	height: 96%;
 	width: 50%;
 	float: right;
+}
+.header {
+	background-color: #FFA500;
+	padding: 5px;
 }
 /****************************************
  ************* MENU BUTTONS *************
@@ -55,7 +63,6 @@ body{
  *************** CONTENT ****************
  ****************************************/
 #infoFightersHeader{
-	background-color: #EEEEEEE;
 	height: 100%;
 	width: 100%;
 	margin-left: 2ex;
@@ -296,16 +303,19 @@ body{
 	top:1px;
 }
 #combatLog {
-	color: #848484;
-	margin: 1%;
-	height: 300px;
+	width: 49%;
+	height: 33%;
+	bottom: 1%;
+	position: absolute;
 }
 .combatLogTittle{
-	font: bold 16px Arial;
+	color: #848484;
+	font: bold 16px/16px Arial;
 	text-decoration: underline;
 }
 #combatLogContent{
-	height: 300px;
+	font: 12px Courier;
+	margin-left: 10px;
 	overflow-y: auto; 
 }
 /****************************************
