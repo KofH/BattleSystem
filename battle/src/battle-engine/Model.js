@@ -473,6 +473,10 @@ define(function(require) {
 		while(div.hasChildNodes()){
 			div.removeChild(div.firstChild);
 		}
+		var title = document.createElement("h2");
+		title.innerHTML = "What will " + this.active.get("name") + " do?";
+		div.appendChild(title);
+		
 		for( var i = 0; i < this.active.get("actions").length; i++){
 			var input = document.createElement("input");
 			input.type = "button";
