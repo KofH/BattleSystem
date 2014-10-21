@@ -102,10 +102,10 @@ define(function(require) {
   			})
   			//////////////////       Turn
   			
-  			this.on("change:wait", function(character){
+  			/*this.on("change:wait", function(character){
   				if (character.get("wait")<= 0)
   					alert(character.get("name") + " is ready for action!");
-  			})
+  			})*/
   			
   			//////////////////      Death
   			this.on("change:hp", function(character){
@@ -465,6 +465,19 @@ define(function(require) {
 		    opt.innerHTML = this.armors.armorList.at(i).get("name");
 		    opt.value = opt.innerHTML;
 		    armorSelect.appendChild(opt);
+		}
+	};
+	
+	Model.prototype.showActiveActions = function(){
+		var div = document.getElementById("actionButtons");
+		while(div.hasChildNodes()){
+			div.removeChild(div.firstChild);
+		}
+		for( var i = 0; i < this.active.get("actions").length; i++){
+			var input = document.createElement("input");
+			input.type = "button";
+			input.value = this.active.get("actions")[i];
+			div.appendChild(input);
 		}
 	};
 	

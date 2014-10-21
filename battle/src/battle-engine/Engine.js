@@ -60,7 +60,7 @@ define(function(require) {
     this._viewModel.model.showInfoFighters();
     if (this._waitCheck()){
       clearInterval(this._interval);
-      setTimeout(this._combat, 200);
+      this._combat();
     }
   }
   
@@ -71,14 +71,14 @@ define(function(require) {
   Engine.prototype._combat = function(){
     console.log("TURN!");
     this._viewModel.model.active = this._viewModel.model.characters.findWhere({wait: 0});
-    //TODO this._viewModel.model.showActions(this._viewModel.model.active);
+    this._viewModel.model.showActiveActions();
     console.log("What will " + this._viewModel.model.active.get("name") + " do?");
   }
   
   Engine.prototype._executeAction = function(){
     this._viewModel.model.execute();
     if(this._waitCheck()){
-      setTimeout(this._combat, 200);
+      this._combat();
     }
     else{
       this._initialize();
