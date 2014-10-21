@@ -34,6 +34,16 @@ define(function(require) {
       name: "Broadsword",
       power: 10
 	  }));
+
+	  this.weaponList.add(new Weapon({
+      name: "Rod",
+      power: 2
+	  }));
+
+	  this.weaponList.add(new Weapon({
+      name: "Dagger",
+      power: 4
+	  }));
 	}
 
 	return Weapons;
