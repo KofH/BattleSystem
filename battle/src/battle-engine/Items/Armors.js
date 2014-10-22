@@ -21,18 +21,23 @@ define(function(require) {
     this.armorList = new ArmorList();
     
     this.armorList.add(new Armor({
-      name: "Leather",
-      power: 6
+    	name: "Leather",
+    	power: 6
     }));
         
     this.armorList.add(new Armor({
-      name: "Mail",
-      power: 8
+    	name: "Mail",
+    	power: 8
     })); 
 
     this.armorList.add(new Armor({
-      name: "Plate",
-      power: 10
+    	name: "Plate",
+    	power: 10
+    }));
+    
+    this.armorList.add(new Armor({
+    	name: "Tunic",
+    	power: 4
     }));
   }
   return Armors;
