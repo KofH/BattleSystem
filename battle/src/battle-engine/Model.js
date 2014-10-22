@@ -126,6 +126,7 @@ define(function(require) {
   	  				input.name = this.get("name");
   	  				input.setAttribute("class","targetCharacters");
   	  				input.setAttribute("disabled",true);
+  	  				input.onclick = engine._viewModel.model.stepSelectTarget;
   	  				
   	  				if(this.get("faction") == "ally"){
   	  					allies.appendChild(input);
@@ -181,13 +182,13 @@ define(function(require) {
 		
 		this.active = {};
 		this.selectedAction = "";
-
+		this.selectedTarget = "";
 	}
 	
 	/********************************
 	 *       PUBLIC FUNCTIONS       *
 	 ********************************/
-
+	var self = this;
 	
 	Model.prototype.loadCharacters = function(){
 		var filereader = new FileReader();
@@ -481,8 +482,31 @@ define(function(require) {
 			var input = document.createElement("input");
 			input.type = "button";
 			input.value = this.active.get("actions")[i];
+			input.onclick = this.stepSelectAction;
 			div.appendChild(input);
 		}
+	};
+	
+	Model.prototype.stepSelectAction = function(){
+		var x = engine._viewModel.model;
+		x.selectedAction = this.value;
+		console.log(this.value + "  selected!");
+		
+		for (var i = 0; i < x.characters.length; i++) {
+			document.getElementById(x.characters.at(i).get("name")).disabled = false;
+		}
+	};
+	
+	Model.prototype.stepSelectTarget = function(){
+		var x = engine._viewModel.model;
+		x.selectedTarget = this.id;
+		console.log(this.id + " selected!");
+		
+		for (var i = 0; i < x.characters.length; i++) {
+			document.getElementById(x.characters.at(i).get("name")).disabled = true;
+		}
+		
+		//TODO Call execute function
 	};
 	
 	/**
