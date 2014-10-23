@@ -187,9 +187,16 @@ body{
 #buttonSaveCharacters, #buttonSaveWeapons, #buttonSaveArmors{
 	float: right;
 }
-#targetCharacters, #actionButtons{
+#targetCharacters{
+	display: inline-flex;
 	margin: 1%;
-	height: 200px;
+	height: auto;
+	max-height: 200px;
+}
+#targetFactions, #actionButtons{
+	display: block;
+	text-align: center;
+	margin: 1%;
 }
 #targetCharactersAlly, #targetCharactersEnemy{
 	display: block;

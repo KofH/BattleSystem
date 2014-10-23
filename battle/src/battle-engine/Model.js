@@ -136,6 +136,37 @@ define(function(require) {
   	  				}
 				}
   			}
+  			{//////////////////		Show Faction Buttons
+  				if (document.getElementById("factionAlly") == null) {
+					var targetAllies = document.getElementById("targetFactions");
+					
+					var input = document.createElement("input");
+					input.type = "button";
+					input.id = "factionAlly";
+					input.value = "Allies";
+					input.name = "ally";
+					input.setAttribute("class","targetCharacters");
+					input.setAttribute("disabled",true);
+					input.onclick = engine._viewModel.model.stepSelectTarget;
+					
+					targetAllies.appendChild(input);
+					
+				} else if (document.getElementById("factionEnemy") == null) {
+					var targetEnemies = document.getElementById("targetFactions");
+					
+					var input = document.createElement("input");
+					input.type = "button";
+					input.id = "factionEnemy";
+					input.value = "Enemies";
+					input.name = "enemy";
+					input.setAttribute("class","targetCharacters");
+					input.setAttribute("disabled",true);
+					input.onclick = engine._viewModel.model.stepSelectTarget;
+					
+					targetEnemies.appendChild(input);
+					
+				}
+  			}
   		}
 	  	
   	});
@@ -188,7 +219,6 @@ define(function(require) {
 	/********************************
 	 *       PUBLIC FUNCTIONS       *
 	 ********************************/
-	var self = this;
 	
 	Model.prototype.loadCharacters = function(){
 		var filereader = new FileReader();
@@ -326,17 +356,21 @@ define(function(require) {
 		
 	};
 	
-	Model.prototype.selectTarget = function(){
-	  var target = this.actions.get(this.selectedAction).get("target") ;
-	  if (target === "character"){
-	    /// TODO showTargetCharacters
-	  }
-	  else if (target === "faction"){
-	    /// TODO showTargetFactions
-	  }
-	  else if (target === "self"){
-	    /// TODO apply action to self
-	  }
+	Model.prototype.selectTargetButtonEnable = function(x){
+		var target = this.actions.actionList.get(this.selectedAction).get("target");
+		
+		if (target === "character"){
+			for (var i = 0; i < x.characters.length; i++) {
+				document.getElementById(x.characters.at(i).get("name")).disabled = false;
+			}
+		}
+		else if (target === "faction"){
+			document.getElementById("factionAlly").disabled = false;
+			document.getElementById("factionEnemy").disabled = false;
+		}
+		else if (target === "self"){
+			document.getElementById(this.active.get("name")).disabled = false;
+		}
 	};
 	
 	Model.prototype.execute = function(){
@@ -492,9 +526,7 @@ define(function(require) {
 		x.selectedAction = this.value;
 		console.log(this.value + "  selected!");
 		
-		for (var i = 0; i < x.characters.length; i++) {
-			document.getElementById(x.characters.at(i).get("name")).disabled = false;
-		}
+		engine._viewModel.model.selectTargetButtonEnable(x);
 	};
 	
 	Model.prototype.stepSelectTarget = function(){
@@ -504,6 +536,13 @@ define(function(require) {
 		
 		for (var i = 0; i < x.characters.length; i++) {
 			document.getElementById(x.characters.at(i).get("name")).disabled = true;
+		}
+		document.getElementById("factionAlly").disabled = true;
+		document.getElementById("factionEnemy").disabled = true;
+		
+		var div = document.getElementById("actionButtons");
+		while(div.hasChildNodes()){
+			div.removeChild(div.firstChild);
 		}
 		
 		//TODO Call execute function
