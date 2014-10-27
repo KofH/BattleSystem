@@ -31,23 +31,24 @@ define(function(require) {
       
       effect: function(model){
           //if (!model) { return effect; } // this is a ñapa
-          var target = model.searchCharacter();
+          //var target = model.searchCharacter();
+    	  var target = model.selectedTarget;
           if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
-            alert(target.get("name") + " dodged the attack!");
+            console.log(target.get("name") + " dodged the attack!");
           }
           else{
             var damage = model.active.get("offense") * 2;
             if (damage > model.characters.get(target).get("defense")) {
-              //alert("Damage " + damage);
+              //console.log("Damage " + damage);
               var realhp = model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"));
               if (realhp < 0){
                 realhp = 0;
               }
               model.characters.get(target).set({hp: realhp});
-              alert("Damage " + (damage - model.characters.get(target).get("defense")));
-              alert("Character HP: " + model.characters.get(target).get("hp"));
+              console.log("Damage " + (damage - model.characters.get(target).get("defense")));
+              console.log("Character HP: " + model.characters.get(target).get("hp"));
             } else {
-              alert("Damage absorbed!");
+              console.log("Damage absorbed!");
             }
           }
           model.active.set({wait: 50});

@@ -110,7 +110,7 @@ define(function(require) {
   			//////////////////      Death
   			this.on("change:hp", function(character){
   				if(character.get("hp") <= 0){
-  					alert(character.get("name") + " has fainted!");
+  					console.log(character.get("name") + " has fainted!");
   					character.set({wait: Infinity});
   				}
   			})
@@ -277,7 +277,7 @@ define(function(require) {
 			this.contEnemies++;
 			valid = true;
 		} else {
-			alert("Too many character of this faction!");
+			console.log("Too many character of this faction!");
 		}
 		if (valid){
 			var character = new Character({
@@ -373,8 +373,8 @@ define(function(require) {
 		}
 	};
 	
-	Model.prototype.execute = function(){
-	  this.actions.actionList.get(this.selectedAction).get("effect", model);
+	Model.prototype.execute = function(x){
+	  this.actions.actionList.get(this.selectedAction).get("effect", x);
 	}
 	
 	/*Model.prototype.execute = function(model){
@@ -545,7 +545,8 @@ define(function(require) {
 			div.removeChild(div.firstChild);
 		}
 		
-		//TODO Call execute function
+		x.execute(x);
+		engine.initialize();
 	};
 	
 	/**
