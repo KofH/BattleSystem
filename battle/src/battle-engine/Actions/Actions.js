@@ -96,9 +96,20 @@ define(function(require) {
           if (model.characters.at(contSearch).get("faction") == factionObjetiveSelected) {
             model.characters.at(contSearch).set({hp: characters.at(contSearch).get("hp")-(damage - model.characters.at(contSearch).get("defense"))});
           }
-        }
-        alert("Area Attack!");
+        }      
+      }
+    }));
+    
+    this.actionList.add(new Action({
+      name: "changeFormation",
       
+      target: "self",
+      
+      effect:function(model){
+        if(model.active.get("formation") == "vanguard")
+          model.active.set({formation: "rearguard"});
+        else model.active.set({formation: "vanguard"});
+        model.active.set({wait: 40});
       }
     }));
   };

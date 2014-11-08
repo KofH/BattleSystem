@@ -53,6 +53,13 @@ define(function(require) {
   				else if (this.get("actions").indexOf("areaAttack") >= 0){
   				  actions.push("areaAttack");
   				}
+  				
+  				if (document.getElementById("newCharacterActionChangeFormation").checked) {
+            actions.push(document.getElementById("newCharacterActionChangeFormation").value);
+          }
+          else if (this.get("actions").indexOf("changeFormation") >= 0){
+            actions.push("changeFormation");
+          }
   				this.set({actions: actions});
   				
   			}
