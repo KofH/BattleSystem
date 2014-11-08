@@ -573,6 +573,11 @@ define(function(require) {
 	  this.turnCount++;
 	}
 	
+	Model.prototype.loadTurn = function(i){
+	  this.characters = this.turns[i];
+	  this.turnCount = i;
+	}
+	
 	/**
 	 * End class
 	 */
