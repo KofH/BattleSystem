@@ -230,6 +230,8 @@ define(function(require) {
 		this.active = {};
 		this.selectedAction = "";
 		this.selectedTarget = "";
+		this.turns = [];
+		this.turnCount = 0;
 	}
 	
 	/********************************
@@ -367,7 +369,7 @@ define(function(require) {
 			if (newWait < 0) newWait = 0;
 			this.characters.at(i).set({wait:newWait});
 		}
-		
+		this.saveTurn();
 	};
 	
 	Model.prototype.selectTargetButtonEnable = function(x){
@@ -565,6 +567,11 @@ define(function(require) {
 		if(engine._waitCheck()) { engine._combat(); }
 		else { engine._on = true; }
 	};
+	
+	Model.prototype.saveTurn = function(){
+	  this.turns[this.turnCount] = this.characters.clone(true);
+	  this.turnCount++;
+	}
 	
 	/**
 	 * End class
