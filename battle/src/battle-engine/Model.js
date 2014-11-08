@@ -9,7 +9,7 @@ define(function(require) {
   	var Weapons = require('battle-engine/Items/Weapons');
   	var Armors = require('battle-engine/Items/Armors');
   	var Actions = require('battle-engine/Actions/Actions');
-  	
+
  // 	var _calculated = function(thing){return thing};
  // 	_calculated._isCalculated = true;
   	
@@ -37,30 +37,39 @@ define(function(require) {
   					actions.push(document.getElementById("newCharacterActionAttack").value)
   				}
   				else if (this.get("actions").indexOf("attack") >= 0){
-					actions.push("attack");
+  				  actions.push("attack");
   				}
 					
   				if (document.getElementById("newCharacterActionDefense").checked) {
   					actions.push(document.getElementById("newCharacterActionDefense").value);
   				}
   				else if (this.get("actions").indexOf("defPosition") >= 0){
-					actions.push("defPosition");
+  				  actions.push("defPosition");
   				}
   				
   				if (document.getElementById("newCharacterActionAreaAttack").checked) {
   					actions.push(document.getElementById("newCharacterActionAreaAttack").value);
   				}
   				else if (this.get("actions").indexOf("areaAttack") >= 0){
-					actions.push("areaAttack");
+  				  actions.push("areaAttack");
   				}
   				this.set({actions: actions});
   				
   			}
+  			
+  			{//////////////////// FORMATION ////////////////////
+  			  
+  			  if (document.getElementById('newCharacterVanguard').checked)
+  			    this.set({formation:"vanguard"});
+  			  else
+  			    this.set({formation:"rearguard"});
+  			}
+  			
   			{//////////////////// INVENTORY ////////////////////
   				
   				if (this.get("weapon") === "") {
   					this.set({weapon: document.getElementById("weaponList").value});
-				}
+  				}
   				
   				if (this.get("armor") === ""){
   					this.set({armor: document.getElementById("armorList").value});
@@ -78,28 +87,28 @@ define(function(require) {
 
         this.set({
           
-          maxHp: function _calculated(){
+          maxHp: function (){
             return this.get("strength") * 3;
           },
           
-          initiative: function _calculated(){
+          initiative: function (){
            return  this.get("agility") * 3;
           },
           
-          offense: function _calculated(){
+          offense: function (){
            return this.get("strength") * 5;
           },
           
-          defense: function _calculated(){
+          defense: function (){
             return this.get("strength") + this.get("agility") * 3;
           }
-          });
+        });
         
   			this.set({
-  			  hp: function _calculated(){
+  			  hp: function (){
             return this.get("maxHp");
-  			}
-  			})
+  			  }
+  			});
   			//////////////////       Turn
   			
   			/*this.on("change:wait", function(character){
@@ -113,7 +122,7 @@ define(function(require) {
   					console.log(character.get("name") + " has fainted!");
   					character.set({wait: Infinity});
   				}
-  			})
+  			});
   			{//////////////////		Show Target Character
   				if (document.getElementById(this.get("name")) == null) {
   					var allies = document.getElementById("targetCharactersAlly");
@@ -134,38 +143,38 @@ define(function(require) {
   	  				else {
   	  					enemies.appendChild(input);
   	  				}
-				}
+  				}
   			}
   			{//////////////////		Show Faction Buttons
   				if (document.getElementById("factionAlly") == null) {
-					var targetAllies = document.getElementById("targetFactions");
-					
-					var input = document.createElement("input");
-					input.type = "button";
-					input.id = "factionAlly";
-					input.value = "Allies";
-					input.name = "ally";
-					input.setAttribute("class","targetCharacters");
-					input.setAttribute("disabled",true);
-					input.onclick = engine._viewModel.model.stepSelectTarget;
-					
-					targetAllies.appendChild(input);
-					
-				} else if (document.getElementById("factionEnemy") == null) {
-					var targetEnemies = document.getElementById("targetFactions");
-					
-					var input = document.createElement("input");
-					input.type = "button";
-					input.id = "factionEnemy";
-					input.value = "Enemies";
-					input.name = "enemy";
-					input.setAttribute("class","targetCharacters");
-					input.setAttribute("disabled",true);
-					input.onclick = engine._viewModel.model.stepSelectTarget;
-					
-					targetEnemies.appendChild(input);
-					
-				}
+  					var targetAllies = document.getElementById("targetFactions");
+  					
+  					var input = document.createElement("input");
+  					input.type = "button";
+  					input.id = "factionAlly";
+  					input.value = "Allies";
+  					input.name = "ally";
+  					input.setAttribute("class","targetCharacters");
+  					input.setAttribute("disabled",true);
+  					input.onclick = engine._viewModel.model.stepSelectTarget;
+  					
+  					targetAllies.appendChild(input);
+  					
+  				} else if (document.getElementById("factionEnemy") == null) {
+  					var targetEnemies = document.getElementById("targetFactions");
+  					
+  					var input = document.createElement("input");
+  					input.type = "button";
+  					input.id = "factionEnemy";
+  					input.value = "Enemies";
+  					input.name = "enemy";
+  					input.setAttribute("class","targetCharacters");
+  					input.setAttribute("disabled",true);
+  					input.onclick = engine._viewModel.model.stepSelectTarget;
+  					
+  					targetEnemies.appendChild(input);
+  					
+  				}
   			}
   		}
 	  	
@@ -285,8 +294,6 @@ define(function(require) {
 					faction: characterFaction
 			});
 
-			
-			
 			character.set({
 				strength: parseInt(document.getElementById('newCharacterStrength').value),
 				agility: parseInt(document.getElementById('newCharacterAgility').value),

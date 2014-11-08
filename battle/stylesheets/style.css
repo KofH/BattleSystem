@@ -121,7 +121,7 @@ body{
 .newCharacterLabel{
     display: inline-block;
     float: left;
-    clear: left;
+    //clear: left;
     width: 75px;
     text-align: right;
     margin: 3px 0px 5px 0px;
@@ -145,14 +145,14 @@ body{
 	font-weight: bold;
 	width: 55px;
 }
-#newCharacterPromptFactions{
+#newCharacterPromptFactions, #newCharacterPromptFormation{
 	text-align: center;
 	margin-bottom: -10px;
 }
-#newCharacterPromptFactions > label{
+#newCharacterPromptFactions > label, #newCharacterPromptFormation > label{
 	margin: 0px 30px 0px 30px;
 }
-#newCharacterPromptStats, #newCharacterPromptEquipment {
+#newCharacterPromptStats, #newCharacterPromptEquipment{
 	display: inline-block;
 	vertical-align: top;
 }
