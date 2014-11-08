@@ -34,7 +34,7 @@ define(function(require) {
           //var target = model.searchCharacter();
     	  var target = model.selectedTarget;
           if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
-            console.log(target.get("name") + " dodged the attack!");
+            console.log(target + " dodged the attack!");
           }
           else{
             var damage = model.active.get("offense") * 2;

@@ -56,12 +56,15 @@ define(function(require) {
   
   Engine.prototype._step = function() {
     this._viewModel.model.showInfoFighters();
-    this._viewModel.model.turn();
-    this._viewModel.model.showInfoFighters();
-    if (this._waitCheck()){
-      clearInterval(this._interval);
-      this._combat();
+    if(this._on){
+      this._viewModel.model.turn();
+      this._viewModel.model.showInfoFighters();
+      if (this._waitCheck()){
+        this._on = false;
+        this._combat();
+      }
     }
+    
   }
   
   Engine.prototype._waitCheck = function(){

@@ -546,7 +546,10 @@ define(function(require) {
 		}
 		
 		x.execute(x);
-		engine.initialize();
+		x.showInfoFighters();
+		
+		if(engine._waitCheck()) { engine._combat(); }
+		else { engine._on = true; }
 	};
 	
 	/**
