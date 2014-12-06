@@ -136,32 +136,6 @@ define(function(require) {
 		var searchCharacter = prompt("Choose your target");
 	    return this.characters.get(searchCharacter);
 	};
-
-	Model.prototype.showActiveActions = function(){ //TODO to viewmodel
-		var div = document.getElementById("actionButtons");
-		while(div.hasChildNodes()){
-			div.removeChild(div.firstChild);
-		}
-		var title = document.createElement("h2");
-		title.innerHTML = "What will " + this.active.get("name") + " do?";
-		div.appendChild(title);
-		
-		for( var i = 0; i < this.active.get("actions").length; i++){
-			var input = document.createElement("input");
-			input.type = "button";
-			input.value = this.active.get("actions")[i];
-			input.onclick = this.stepSelectAction;
-			div.appendChild(input);
-		}
-	};
-	
-	Model.prototype.stepSelectAction = function(){
-		var x = engine._viewModel.model;
-		x.selectedAction = this.value;
-		console.log(this.value + "  selected!");
-		
-		engine._viewModel.model.selectTargetButtonEnable(x);
-	};
 	
 	Model.prototype.stepSelectTarget = function(){
 		var x = engine._viewModel.model;

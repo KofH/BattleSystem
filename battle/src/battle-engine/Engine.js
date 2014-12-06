@@ -4,6 +4,7 @@ define(function(require) {
   // INCLUDES
     var ViewModel = require('battle-engine/ViewModel');
     var Model = require('battle-engine/Model');
+    var EventManager = require('battle-engine/EventManager');
   /**
    * Constructor
    * @classDescription lalala
@@ -13,6 +14,7 @@ define(function(require) {
       this._on = false;
       this._viewModel = new ViewModel();
       this._model = new Model();
+      this._eventManager = new EventManager();
   }
   
   /********************
@@ -24,6 +26,7 @@ define(function(require) {
    */
   Engine.prototype.initialize = function () {
     this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
+    this._configureEvents();
   };
   
   Engine.prototype.stop = function () {
@@ -52,12 +55,13 @@ define(function(require) {
    * PRIVATE FUNCTIONS *
    *********************/
   Engine.prototype._configureEvents = function () {
+    this._eventManager.setViewModel(this.viewModel);
   };
   
   Engine.prototype._newCharacterPrompt = function(){
     this._viewModel.newCharacterPrompt();
     this._viewModel.selectEquipment(this._model.weapons.weaponList,
-        this._model.armors.armorList);
+    this._model.armors.armorList);
   }
   
   Engine.prototype._newCharacter = function(){
@@ -71,6 +75,7 @@ define(function(require) {
   
   Engine.prototype._step = function() {
     this._viewModel.showInfoFighters(this._model.characters.characterList);
+    this.generateButtons(this._model.characters.characterList);
     if(this._on){
       this._model.turn();
       this._viewModel.showInfoFighters(this._model.characters.characterList);
@@ -84,9 +89,12 @@ define(function(require) {
   Engine.prototype._loadCharacters = function(){  //TODO filereader.onloadend() concurrency
     var characters = this._model.loadCharacters(this._viewModel.getCharactersFile());
     this._viewModel.loadCharacters(characters);
+  }
+  
+  Engine.prototype.generateButtons = function(characters){
     for (var i = 0; i < characters.length; i++){
-      this._viewModel.characterButton(characters.at(i).attributes, this._model.stepSelectTarget());
-      this._viewModel.factionButton(characters.at(i).get("faction"), this._model.stepSelectTarget());
+      this._viewModel.characterButton(characters.at(i).attributes, this._model.stepSelectTarget);
+      this._viewModel.factionButton(characters.at(i).get("faction"), this._model.stepSelectTarget);
     }
   }
   
@@ -131,10 +139,18 @@ define(function(require) {
   
   Engine.prototype._combat = function(){
     console.log("TURN!");
-    this._viewModel.model.active = this._viewModel.model.characters.findWhere({wait: 0});
-    this._viewModel.model.showActiveActions();
-    console.log("What will " + this._viewModel.model.active.get("name") + " do?");
+    this._model.active = this._model.characters.characterList.findWhere({wait: 0});
+    this._viewModel.showActiveActions(this._model.active);
+    console.log("What will " + this._model.active.get("name") + " do?");
   }
+  
+
+  Engine.prototype.stepSelectAction = function(){
+    this._model.selectedAction = this.value;
+    console.log(this.value + "  selected!");
+    
+    engine._model.selectTargetButtonEnable(x);
+  };
   
   Engine.prototype._executeAction = function(){
     this._viewModel.model.execute();

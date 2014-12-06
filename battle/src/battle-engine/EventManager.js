@@ -8,8 +8,8 @@ define(function(require) {
 	 * Constructor
 	 */
 	function EventManager() {
-	//	this._canvas = null;
-	//	this._viewModel = null;
+		this._canvas = null;
+		this._viewModel = null;
 	//	this._keyboard = new KeyBoardManager();
 	//	this._mouse = new MouseManager();
 	}
@@ -24,20 +24,20 @@ define(function(require) {
 	};
 
 	EventManager.prototype.setCanvas = function(canvas) {
-	//	this._canvas = canvas;
+		this._canvas = canvas;
 	//	this._keyboard.setCanvas(canvas);
 	//	this._mouse.setCanvas(canvas);
 	};
 
 	EventManager.prototype.setViewModel = function(viewModel) {
-	//	this._viewModel = viewModel;
+		this._viewModel = viewModel;
 	//	this._keyboard.setViewModel(viewModel);
 	//	this._mouse.setViewModel(viewModel);
 	};
 	/********************************
 	 *      PRIVATE FUNCTIONS       *
 	 ********************************/
-
+	
 	/**
 	 * End class
 	 */

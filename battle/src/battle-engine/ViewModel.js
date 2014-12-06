@@ -169,12 +169,30 @@ define(function(require) {
     return data;
   };
   
+  ViewModel.prototype.showActiveActions = function(character){ //TODO to viewmodel
+    var div = document.getElementById("actionButtons");
+    while(div.hasChildNodes()){
+      div.removeChild(div.firstChild);
+    }
+    var title = document.createElement("h2");
+    title.innerHTML = "What will " + character.get("name") + " do?";
+    div.appendChild(title);
+    
+    for( var i = 0; i < character.get("actions").length; i++){
+      var input = document.createElement("input");
+      input.type = "button";
+      input.value = character.get("actions")[i];
+      input.onclick = Engine.stepSelectAction;
+      div.appendChild(input);
+    }
+  };
+  
   ViewModel.prototype.characterButton = function(data, callback){
-    if (document.getElementById(this.get("name")) == null) {
+    if (document.getElementById(data.name) == null) {
       var allies = document.getElementById("targetCharactersAlly");
       var enemies = document.getElementById("targetCharactersEnemy");
         
-      var input = this.createCharacterButton(data.name, data.name, data.name,
+      var input = this.createBtt(data.name, data.name, data.name,
           callback);
         
         if(data.faction == "ally"){
@@ -189,15 +207,15 @@ define(function(require) {
   ViewModel.prototype.factionButton = function(faction, callback){
     if (faction == "ally" && document.getElementById("factionAlly") == null){
       var targetAllies = document.getElementById("targetFactions");
-      targetAllies.appendChild(createBtt("factionAlly", "Allies", "ally", callback));
+      targetAllies.appendChild(this.createBtt("factionAlly", "Allies", "ally", callback));
     }
     else if (faction == "enemy" && document.getElementById("factionEnemy") == null){
       var targetEnemies = document.getElementById("targetFactions");
-      targetEnemies.appendChild(createBtt("factionEnemy", "Enemies", "enemy", callback));
+      targetEnemies.appendChild(this.createBtt("factionEnemy", "Enemies", "enemy", callback));
     }
   }
   
-  ViewModel.prototype.createCharacterButton = function(id, val, name, callback) {
+  ViewModel.prototype.createBtt = function(id, val, name, callback) {
     var input = document.createElement("input");
     input.type = "button";
     input.id = id;
