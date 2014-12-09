@@ -254,7 +254,7 @@ define(function(require) {
       x.appendChild(opt);
     }
   };
-  
+  /*
   ViewModel.prototype.stop = function() {
     document.getElementById("buttonStop").style.background = "#F00";
     document.getElementById("buttonStart").style.background = "#CCC";
@@ -263,7 +263,7 @@ define(function(require) {
   ViewModel.prototype.start = function() {
     document.getElementById("buttonStop").style.background = "#CCC";
     document.getElementById("buttonStart").style.background = "#0F0";
-  };
+  };*/
   
   ViewModel.prototype.getCharactersFile = function() {
     return document.getElementById("fileUploadCharacters").files[0];

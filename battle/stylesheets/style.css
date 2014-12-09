@@ -1,7 +1,7 @@
 /****************************************
  *************** GENERAL ****************
  ****************************************/
-*{
+/**{
 	margin: 0px;
 	padding: 0px;
 }
@@ -10,7 +10,7 @@ body{
 	font:normal 14px/16px Arial, Helvetica, Sans-serif;
 	margin: 0px;
 	height: 100%;
-}
+}*/
 #leftPanel{
 	height: 80%;
 	width: 50%;
@@ -21,9 +21,13 @@ body{
 	width: 50%;
 	float: right;
 }
-.header {
-	background-color: #FFA500;
-	padding: 5px;
+.panelBattleSystem{
+	margin-bottom: 0px;
+}
+.battleSystemHeader {
+	margin: 0px;
+	padding-left: 5px;
+	font-weight: bold;
 }
 /****************************************
  ************* MENU BUTTONS *************
@@ -32,9 +36,14 @@ body{
 	height: 25px;
 	clear: both;
 	max-width: 100%;
-	background-color:#CCC;
 }
-#topMenu > input, #topMenuRight > input, #buttonBugReport{
+.noPadding{
+	padding:0px;
+}
+.noMargin{
+	margin: 0px;
+}
+/*#topMenu > input, #topMenuRight > input, #buttonBugReport{
 	height: 100%;
 	width: auto;
 	padding: 0px 3px 0px 3px;
@@ -58,11 +67,11 @@ body{
 #buttonBugReport{
 	float:right;
 	background-color: #CCC;
-}
+}*/
 /****************************************
  *************** CONTENT ****************
  ****************************************/
-#infoFightersHeader{
+/*infoFightersHeader{
 	height: 100%;
 	width: 100%;
 	margin-left: 2ex;
@@ -84,7 +93,10 @@ body{
 /****************************************
  ******** NEW CHARACTER PROMPT***********
  ****************************************/
-.newCharacterPrompt{
+ .newCharacterAttr{
+ 	width: 15ex;
+ }
+/*.newCharacterPrompt{
 	display: none;
 }
 .newCharacterPrompt.Displayed{
@@ -118,13 +130,13 @@ body{
     width: auto;
     margin-bottom: 5px;
 }
-.newCharacterLabel{
+/*.newCharacterLabel{
     display: inline-block;
     float: left;
-    //clear: left;
+    clear: left;
     width: 75px;
     text-align: right;
-    margin: 3px 0px 5px 0px;
+    margin: 3px 0px 0px 0px;
 }
 #newCharacterPrompt p {
 	text-align: center;
@@ -148,21 +160,21 @@ body{
 #newCharacterPromptFactions, #newCharacterPromptFormation{
 	text-align: center;
 	margin-bottom: -10px;
-}
+}/*
 #newCharacterPromptFactions > label, #newCharacterPromptFormation > label{
 	margin: 0px 30px 0px 30px;
-}
-#newCharacterPromptStats, #newCharacterPromptEquipment{
+}*/
+/*#newCharacterPromptStats, #newCharacterPromptEquipment{
 	display: inline-block;
 	vertical-align: top;
-}
-#actionList{
+}*/
+/*#actionList{
 	margin-right: -50px;
 }
 /****************************************
  ******** LOAD AND SAVE PROMPT***********
  ****************************************/
- .loadAndSavePrompt {display: none;}
+ /*.loadAndSavePrompt {display: none;}
  .loadAndSavePrompt.Displayed{
 	display:block;
 	width: auto;
@@ -309,27 +321,11 @@ body{
 #actionButtons input:ACTIVE{
 	position:relative;
 	top:1px;
-}
-#combatLog {
-	width: 49%;
-	height: 33%;
-	bottom: 1%;
-	position: absolute;
-}
-.combatLogTittle{
-	color: #848484;
-	font: bold 16px/16px Arial;
-	text-decoration: underline;
-}
-#combatLogContent{
-	font: 12px Courier;
-	margin-left: 10px;
-	overflow-y: auto; 
-}
+}*/
 /****************************************
  *******MODIFY CHARACTERS PROMPT*********
  ****************************************/
-.modifyCharactersPrompt{display: none;}
+/*.modifyCharactersPrompt{display: none;}
 .modifyCharactersPrompt.Displayed{
 	display: block;
 	width: auto;
@@ -352,7 +348,7 @@ body{
 	margin: 5px 8% 5px 13%;
 	font: normal 12px/14px Arial, Helvetica, Sans-serif;
 	font-weight: bold;		
-}
+}*/
 
 /* 
 #test {

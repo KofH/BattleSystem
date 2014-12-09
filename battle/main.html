@@ -2,65 +2,239 @@
 <html>
 	<head>
 		<title>Battle System</title>
+		<link href="dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+        <link href="dist/css/ripples.min.css" type="text/css" rel="stylesheet">
+        <link href="dist/css/material-wfont.min.css" type="text/css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 		<script defer data-main="../battle/main" src="src/libs/require.js" type="text/javascript"></script>
 	</head>
-	
-	
-	<LINK href="stylesheets/style.css" rel="stylesheet" type="text/css">
-
 
 <body>
-	<div class="header">
-		<h1>Battle System</h1>
+	<div class="panel panel-info panelBattleSystem">
+	    <div class="panel-heading">
+	        <h3 class="panel-title battleSystemHeader">Battle System</h3>
+	    </div>
 	</div>
-
-	<div id="leftPanel">
-		<div id="topMenu" class="bodyTopBar">
-			<input type="button" id="buttonLoadAndSave" value="Load / Save" onClick="engine._viewModel.loadAndSavePrompt()" />
-	        <input type="button" id="buttonNewCharacter" value="New Character" onClick="engine._newCharacterPrompt()" />
-	        <input type="button" id="buttonModifyAttributes" value="Modify Attributes" onClick="engine._viewModel.modifyCharactersPrompt()" />
-	        <!-- FLOAT RIGHT -->
-	        <input type="button" id="buttonResetCharacters" value="Reset Characters" onClick="engine._model.resetCharacters()" />
-		</div>
-		<div id="infoFightersHeader">
-			<h2>Info Characters:</h2>
-			<div id="infoFightersAlliesTitle" class="infoFightersContentTitle">Allies</div>
-			<div id="infoFightersAllies" class="infoFightersContent"></div><br /><br />
-			<div id="infoFightersEnemiesTitle" class="infoFightersContentTitle">Enemies</div>
-			<div id="infoFightersEnemies" class="infoFightersContent"></div>
-		</div>
-	</div>
-	<div id="rightPanel">
-		<div id="topMenuRight" class="bodyTopBar">
-			<input type="button" id="buttonStart" value="Combat Start!" onClick="engine.start()"/>
-			<input type="button" id="buttonStop" value="Combat Stop!" onClick="engine.stop()"/>
-			<input type="button" id="buttonStep" value="STEP" onClick="engine.tick()"/>
-			<a href="https://github.com/KofH/BattleSystem/issues/new" target="_blank"><input type="button" id="buttonBugReport" value="Report a bug!" /></a><br />
-		</div>
-		<div id="targetCharacters">
-			<h2>Target Characters:</h2>
-			<div id="targetCharactersAlly">
-				<p>Allies</p>
-			</div>
-			<div id="targetCharactersEnemy">
-				<p>Enemies</p>
+	<div class="panel panel-default">
+	    <div class="panel-heading noPadding">
+		    <div class="btn-group btn-group-justified noMargin">
+		    	<a class="btn btn-flat btn-default noMargin mdi-file-attachment" type="button" data-toggle="modal" data-target="#buttonLoadAndSave">Load / Save</a>
+		    	<a class="btn btn-flat btn-default noMargin mdi-social-person-add" type="button" data-toggle="modal" data-target="#newCharacterDialog">New Character</a>
+		    	<a class="btn btn-flat btn-default noMargin mdi-image-edit" type="button" data-toggle="modal" data-target="#modifyCharacters">Modify Attributes</a>
+		    	<a href="javascript:void(0)" class="btn btn-flat btn-warning noMargin mdi-av-replay" type="button" id="buttonResetCharacters" value=" Reset Characters" onClick="engine._model.resetCharacters()">Reset Characters</a>
+		    	<a href="javascript:void(0)" class="btn btn-flat btn-success noMargin mdi-av-play-arrow" type="button" id="buttonStart" value="Combat Start!" onClick="engine.start()">Start Combat</a>
+		    	<a href="javascript:void(0)" class="btn btn-flat btn-danger noMargin mdi-av-stop" type="button" id="buttonStop" value="Combat Stop!" onClick="engine.stop()">Stop Combat</a>
+		    	<a href="javascript:void(0)" class="btn btn-flat btn-info noMargin mdi-av-skip-next" type="button" id="buttonStep" value="STEP" onClick="engine.tick()">Step</a>
 			</div>
 		</div>
-		<div id="targetFactions">
-			<p>Factions</p>
-		</div>
-		<div id="actionButtons"></div>
-		<div id="combatLog">
-			<p class="combatLogTittle">Combat Log:</p>
-			<div id="combatLogContent"></div>
-		</div>
+	    <div class="panel-body">
+	        <div id="leftPanel">
+				<div id="infoFightersHeader">
+					<span class="label label-primary">Info Fighters</span>
+					<div id="infoFightersAlliesTitle" class="infoFightersContentTitle">Allies</div>
+					<div id="infoFightersAllies" class="infoFightersContent"></div><br /><br />
+					<div id="infoFightersEnemiesTitle" class="infoFightersContentTitle">Enemies</div>
+					<div id="infoFightersEnemies" class="infoFightersContent"></div>
+				</div>
+			</div>
+			<div id="rightPanel">
+				<div id="targetCharacters">
+					<span class="label label-danger">Battlefield</span>
+					<div id="targetCharactersAlly">
+						<p>Allies</p>
+					</div>
+					<div id="targetCharactersEnemy">
+						<p>Enemies</p>
+					</div>
+				</div>
+				<div id="targetFactions">
+					<p>Factions</p>
+				</div>
+				<div id="actionButtons"></div>
+			</div>
+	    </div>
 	</div>
+	
 
     <!--///////////////////////////////////// 
-    /////////////////PROMPTS/////////////////
+    /////////////////DIALOGS/////////////////
     //////////////////////////////////////-->
-	<div class="newCharacterPrompt" id="newCharacterPrompt">
+    <!-- NEW CHARACTER -->
+	<div id="newCharacterDialog" class="modal fade" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h4 class="modal-title mdi-social-person-add">New Character</h4>
+	      </div>
+	      <div class="modal-body">
+	      <div class="form-group">
+	      	<!-- DIALOG CONTENT -->
+	      	<div class="form-group">
+	      		<h4>Info & Stats</h4>
+		      	<label class="col-lg-2 control-label noMargin">Faction</label>
+	            <div class="col-lg-10">
+	                <div class="radio radio-primary">
+	                    <label>
+	                        <input type="radio" name="newCharacterFaction" id="newCharacterAlly" value="ally" checked="">
+	                        Ally
+	                    </label>
+	                </div>
+	                <div class="radio radio-primary">
+	                    <label>
+	                        <input type="radio" name="newCharacterFaction" id="newCharacterEnemy" value="enemy">
+	                        Enemy
+	                    </label>
+	                </div>
+	            </div>
+            </div>
+            <div class="form-group">
+	            <label for="inputName" class="col-lg-2 control-label">Name:</label>
+	            <div class="col-lg-10">
+	                <input type="text" class="form-control" id="newCharacterName" name="newCharacter" size="15ex" placeholder="Name"><br />
+	            </div>
+	            <label for="inputStrength" class="col-lg-2 control-label noMargin">Strength:</label>
+	            <div class="col-lg-10">
+	                <input type="number" class="form-control" id="newCharacterStrength" name="newCharacter" placeholder=""><br />
+	            </div>
+	            <label for="inputAgility" class="col-lg-2 control-label noMargin">Agility:</label>
+	            <div class="col-lg-10">
+	                <input type="number" class="form-control" id="newCharacterAgility" name="newCharacter" size="15ex" placeholder=""><br />
+	            </div>
+	            <label for="inputIntelligence" class="col-lg-2 control-label noMargin">Intelligence:</label>
+	            <div class="col-lg-10">
+	                <input type="number" class="form-control" id="newCharacterIntelligence" name="newCharacter" size="15ex" placeholder=""><br />
+	            </div>
+	            <label for="inputAp" class="col-lg-2 control-label noMargin">AP:</label>
+	            <div class="col-lg-10">
+	                <input type="number" class="form-control" id="newCharacterAp" name="newCharacter" size="15ex" placeholder=""><br />
+	            </div>
+        	</div>
+        	<div class="form-group">
+			<div class="sample">
+			<h4>Equipment</h4><br />
+			<label>Weapon:</label>
+			  <select class="form-control" id="weaponSelect" placeholder="Your favorite pastry"></select>
+			  <br /><label>Armor:</label>
+			  <select class="form-control" id="armorSelect" placeholder="Your favorite pastry"></select>
+			</div>
+        	<!--	<label>Equipment</label><br />
+				    <label>Weapon: </label><input id="weaponList" type="text" list="weaponList" size="15ex" />
+				    	<datalist id="weaponSelect"></datalist> <br />
+				    <label>Armor: </label><input id="armorList" type="text" list="armorSelect" size="15ex" />
+				    	<datalist id="armorSelect"></datalist>
+	     FUTURE USE <label>Accessories: </label><input id="accessories" type="text" list="accessoriesSelect" size="15ex" /> -->
+        	</div>	
+        	<div class="form-group">
+	            <h4>Formation</h4>
+                <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" name="newCharacterPosition" id="newCharacterVanguard" value="vanguard" checked="">
+                        Vanguard
+                    </label>
+                </div>
+                <div class="radio radio-primary">
+                    <label>
+                        <input type="radio" name="newCharacterPosition" id="newCharacterRearguard" value="rearguard">
+                        Rearguard
+                    </label>
+                </div>
+            </div>
+            <div class="form-group"> 
+			     <h4>Actions</h4>
+			     <div class="checkbox" id="actionList">
+				     <label><input type="checkbox" id="newCharacterActionAttack" value="attack"/>Melee Attack</label>
+				     <label><input type="checkbox" id="newCharacterActionDefense" value="defPosition"/>Defensive Position</label>
+				     <label><input type="checkbox" id="newCharacterActionAreaAttack" value="areaAttack"/>Magical Area</label>
+				     <label><input type="checkbox" id="newCharacterActionChangeFormation" value="changeFormation" checked=""/>Change Formation</label>
+		    	 </div>
+		    </div>
+        	<!-- END DIALOG CONTENT -->
+		</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button class="btn btn-success mdi-navigation-check" data-dismiss="modal" id="newCharacterNext" onClick="engine._newCharacter()">Submit</button>
+	        <button class="btn btn-primary mdi-av-replay" data-dismiss="modal" id="newCharacterReset" onClick="engine._viewModel.newCharacterPromptReset()">Reset</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- LOAD AND SAVE -->
+	<div id="buttonLoadAndSave" class="modal fade" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h4 class="modal-title mdi-file-attachment">Load & Save</h4>
+	      </div>
+	      <div class="modal-body">
+	        <!-- DIALOG CONTENT -->
+	        <div id="loadAndSaveCharacters" class="form-group">
+	            <label for="inputFile" class="col-lg-2 control-label">Characters:</label>
+	            <div class="col-lg-10">
+	                <input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
+	                <input type="file" name="file" id="fileUploadCharacters" multiple="">
+	                <a class="btn btn-success mdi-file-file-upload" type="button" id="buttonLoadCharacters" onClick="engine._loadCharacters()" data-dismiss="modal">Send File</a>
+	                <input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveCharactersFileName"><a id="saveCharactersDownload"></a>
+	                <a class="btn btn-info mdi-file-file-download" type="button" id="buttonSaveCharacters" data-dismiss="modal" onClick="engine._saveCharacters()">Save Characters</a>
+	            </div>
+	            <div class="list-group">
+	            	<div class="list-group-separator"></div>
+	            </div>
+	            <label for="inputFile" class="col-lg-2 control-label">Armors:</label>
+	            <div class="col-lg-10">
+	                <input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
+	                <input type="file" name="file" id="fileUploadArmors" multiple="">
+	                <a class="btn btn-success mdi-file-file-upload" type="button" id="buttonLoadArmors"   value="Send File" onClick="engine._loadArmors()" data-dismiss="modal">Send File</a>
+	                <input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveArmorsFileName"><a id="saveArmorsDownload"></a>
+	                <a class="btn btn-info mdi-file-file-download" type="button" id="buttonSaveArmors" data-dismiss="modal" onClick="engine._saveArmors()" data-dismiss="modal">Save Armors</a>
+	            </div>
+	            <div class="list-group">
+	            <div class="list-group-separator"></div>
+	            </div>
+	            <label for="inputFile" class="col-lg-2 control-label">Weapons:</label>
+	            <div class="col-lg-10">
+	                <input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
+	                <input type="file" name="file" id="fileUploadWeapons" multiple="">
+	                <a class="btn btn-success mdi-file-file-upload" type="button" id="buttonLoadWeapons"   value="Send File" onClick="engine._loadWeapons()" data-dismiss="modal">Send File</a>
+	                <input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveWeaponsFileName"><a id="saveWeaponsDownload"></a>
+	                <a class="btn btn-info mdi-file-file-download" type="button" id="buttonSaveWeapons" data-dismiss="modal" onClick="engine._saveWeapons()" data-dismiss="modal">Save Weapons</a>
+	            </div>
+	        </div>
+	        <!-- END DIALOG CONTENT -->
+	      </div>
+	      <div class="modal-footer">
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- MODIFY CHARACTERS -->
+	<div id="modifyCharacters" class="modal fade" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content col-xs-8">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	        <h4 class="modal-title mdi-image-edit">Modify Character</h4>
+	      </div>
+	      <div class="modal-body">
+			<label>Character: </label><input id="modifyCharacterSelected" onchange="engine._viewModel.modCharactersLoadAttr()" type="text" list="modifyCharactersList" size="15ex" />
+		    	<datalist id="modifyCharactersList"></datalist><br /><br /><hr><br />
+		    	<div class="col-xs-10">
+			    	<div class="col-xs-5">
+		                <label>Strength: </label><input class="form-control" type="number" id="modCharactersStrength" name="modCharacter"/><br />
+					    <label>Agility: </label> <input class="form-control" type="number" id="modCharactersAgility" name="modCharacter"/><br />
+					    <label>Intelligence: </label> <input class="form-control" type="number" id="modCharactersInteligence" name="modCharacter"/><br />
+					    <label>AP: </label> <input class="form-control" type="number" id="modCharactersAP" name="modCharacter" /><br />
+		            </div>
+	            </div>
+	      </div>
+	      <div class="modal-footer col-xs">
+	        <button class="btn btn-success mdi-image-edit" data-dismiss="modal" onClick="engine._modCharactersSaveAttr()">Submit</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- <div class="newCharacterPrompt" id="newCharacterPrompt">
 		<div id="newCharacterPromptLeftPanel" style="float:left">
 			 <fieldset>
 			  <legend>New Character</legend>
@@ -83,7 +257,7 @@
 				    	<datalist id="weaponSelect"></datalist> <br />
 				    <label class="newCharacterLabel">Armor: </label><input id="armorList" type="text" list="armorSelect" size="15ex" />
 				    	<datalist id="armorSelect"></datalist>
-				    <!-- FUTURE USE <label class="newCharacterLabel">Accessories: </label><input id="accessories" type="text" list="accessoriesSelect" size="15ex" /> -->
+				    <!-- FUTURE USE <label class="newCharacterLabel">Accessories: </label><input id="accessories" type="text" list="accessoriesSelect" size="15ex" />
 			    </div>
 			    <div id="newCharacterPromptFormation">
 			    	<p>Formation</p>	
@@ -131,7 +305,7 @@
 				<input type="button" id="buttonSaveArmors" value="Save Armors" onClick="engine._saveArmors()" />
 			</div>
 		</fieldset>
-	</div>
+	</div> 
 	<div id="modifyCharactersPrompt" class="modifyCharactersPrompt">
 		<fieldset>
 			<legend>Modify Character</legend>
@@ -147,7 +321,18 @@
 			</footer>
 		</fieldset>
 
-	</div>
+	</div>-->
+	
+	<script src="src/libs/jquery.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+ 	<script src="dist/js/ripples.min.js"></script>
+    <script src="dist/js/material.min.js"></script>
+    <script>
+    	$(document).ready(function() {
+        	$.material.init();
+        });
+	</script>
+	
 </body>
 	<!-- <progress value="50" max="100" id="test"></progress>-->
 </html>
