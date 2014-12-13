@@ -1,26 +1,55 @@
 define(function(require) {
   "use strict";
-  // INCLUDES
-  // var Model = require('battle-engine/Model');
 
-  
   /**
    * Constructor
    */
-  function ViewModel() {
-    // this.model = new Model();
-  }
+  function View() {
+    this._buttonAction = function(){};
+    this._buttonTarget = function(){};
+  };
 
   /*****************************************************************************
    * PUBLIC FUNCTIONS *
    ****************************************************************************/
-  /*
-   * ViewModel.prototype.step = function(){ this.model.step();
-   * console.log("ViewModel - STEP!"); };
-   */
+  
+   /*View.prototype.step = function(){
+      
+    };
+    //*/
 
-  ViewModel.prototype.showInfoFighters = function(characters) { 
+  View.prototype.initialize = function(engine){
+    this._buttonAction = engine.stepSelectAction.bind(engine);
+    this._buttonTarget = engine.stepSelectTarget.bind(engine);
     
+    document.getElementById("buttonLoadAndSave").onclick = this.loadAndSavePrompt;
+    document.getElementById("buttonNewCharacter").onclick = engine._newCharacterPrompt.bind(engine);
+    document.getElementById("buttonModifyAttributes").onclick = this.modifyCharactersPrompt;
+    document.getElementById("buttonResetCharacters").onclick = engine._resetCharacters.bind(engine);
+    document.getElementById("buttonStart").onclick = engine.start.bind(engine);
+    document.getElementById("buttonStop").onclick = engine.stop.bind(engine);
+    document.getElementById("buttonStep").onclick = engine.tick.bind(engine);
+    document.getElementById("newCharacterNext").onclick = engine._newCharacter.bind(engine);
+    document.getElementById("newCharacterReset").onclick = this.newCharacterPromptReset;
+    document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine);
+    document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);
+    document.getElementById("buttonLoadWeapons").onclick = engine._loadWeapons.bind(engine);
+    document.getElementById("buttonSaveWeapons").onclick = engine._saveWeapons.bind(engine);
+    document.getElementById("buttonLoadArmors").onclick = engine._loadArmors.bind(engine);
+    document.getElementById("buttonSaveArmors" ).onclick = engine._saveArmors.bind(engine);
+    document.getElementById("modifyCharacterSubmit").onclick = engine.modCharactersSaveAttr.bind(engine);
+    //document.getElementById("modifyCharacterClose").onclick = this; //TODO
+  }; 
+  
+  View.prototype.get = function(param){
+    return document.getElementById(param);
+  };
+  
+  View.prototype.askReset = function(){
+    return confirm('Are you sure you want to Reset Characters?');
+  };
+  
+  View.prototype.showInfoFighters = function(characters) { 
     var allies = document.getElementById("infoFightersAllies");
     var enemies = document.getElementById("infoFightersEnemies");
 
@@ -70,7 +99,7 @@ define(function(require) {
     }
   };
   
-  ViewModel.prototype.selectEquipment = function(weapons, armors) {
+  View.prototype.selectEquipment = function(weapons, armors) {
     var weaponSelect = document.getElementById('weaponSelect'); //Can be omitted?
     var armorSelect = document.getElementById('armorSelect');   //Can be omitted?
     while (weaponSelect.hasChildNodes()) {
@@ -94,7 +123,7 @@ define(function(require) {
     }
   };
   
-  ViewModel.prototype.newCharacterPromptReset = function() {
+  View.prototype.newCharacterPromptReset = function() {
     if (document.getElementById("newCharacterAlly").checked) {
       document.getElementById("newCharacterAlly").checked = false;
     } else if (document.getElementById("newCharacterEnemy").checked) {
@@ -112,22 +141,22 @@ define(function(require) {
     document.getElementById("armorList").value = "";
   };
 
-  ViewModel.prototype.newCharacterPrompt = function() {
+  View.prototype.newCharacterPrompt = function() {
     this.newCharacterPromptReset();
     document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
     document.getElementById('newCharacterAlly').focus();
   };
 
-  ViewModel.prototype.loadAndSavePrompt = function() {
+  View.prototype.loadAndSavePrompt = function() {
     document.getElementById('loadAndSavePrompt').classList.toggle('Displayed'); 
   };
 
-  ViewModel.prototype.modifyCharactersPrompt = function() {
+  View.prototype.modifyCharactersPrompt = function() {
     document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
     document.getElementById('modifyCharacterSelected').focus();
   };
 
-  ViewModel.prototype.saveCharacters = function(serialization) {
+  View.prototype.saveCharacters = function(serialization) {
     var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
     var x = document.getElementById("saveCharactersDownload");
     x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
@@ -136,13 +165,13 @@ define(function(require) {
     document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
   };
 
-  ViewModel.prototype.loadCharacters = function(characters) {
+  View.prototype.loadCharacters = function(characters) {
     this.modifyCharactersDataList(characters);
     document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
   };
 
   
-  ViewModel.prototype.newCharacter = function() {
+  View.prototype.newCharacter = function() {
     document.getElementById('newCharacterPrompt').classList.toggle('Displayed')
     var data = {};
     data.name = document.getElementById('newCharacterName').value;    //NAME
@@ -169,7 +198,7 @@ define(function(require) {
     return data;
   };
   
-  ViewModel.prototype.showActiveActions = function(character){ //TODO to viewmodel
+  View.prototype.showActiveActions = function(character){ 
     var div = document.getElementById("actionButtons");
     while(div.hasChildNodes()){
       div.removeChild(div.firstChild);
@@ -182,19 +211,17 @@ define(function(require) {
       var input = document.createElement("input");
       input.type = "button";
       input.value = character.get("actions")[i];
-      input.onclick = Engine.stepSelectAction;
+      input.onclick = this._buttonAction.bind(input, input);
       div.appendChild(input);
     }
   };
   
-  ViewModel.prototype.characterButton = function(data, callback){
+  View.prototype.characterButton = function(data, callback){
     if (document.getElementById(data.name) == null) {
       var allies = document.getElementById("targetCharactersAlly");
       var enemies = document.getElementById("targetCharactersEnemy");
         
-      var input = this.createBtt(data.name, data.name, data.name,
-          callback);
-        
+      var input = this.createBtt(data.name, data.name, data.name);
         if(data.faction == "ally"){
           allies.appendChild(input);
         }
@@ -204,18 +231,18 @@ define(function(require) {
     }
   };
   
-  ViewModel.prototype.factionButton = function(faction, callback){
+  View.prototype.factionButton = function(faction, callback){
     if (faction == "ally" && document.getElementById("factionAlly") == null){
       var targetAllies = document.getElementById("targetFactions");
-      targetAllies.appendChild(this.createBtt("factionAlly", "Allies", "ally", callback));
+      targetAllies.appendChild(this.createBtt("factionAlly", "Allies", "ally"));
     }
     else if (faction == "enemy" && document.getElementById("factionEnemy") == null){
       var targetEnemies = document.getElementById("targetFactions");
-      targetEnemies.appendChild(this.createBtt("factionEnemy", "Enemies", "enemy", callback));
+      targetEnemies.appendChild(this.createBtt("factionEnemy", "Enemies", "enemy"));
     }
-  }
+  };
   
-  ViewModel.prototype.createBtt = function(id, val, name, callback) {
+  View.prototype.createBtt = function(id, val, name) {
     var input = document.createElement("input");
     input.type = "button";
     input.id = id;
@@ -223,43 +250,33 @@ define(function(require) {
     input.name = name;
     input.setAttribute("class","targetCharacters");
     input.setAttribute("disabled",true);
-    input.onclick = callback;
+    input.onclick = this._buttonTarget.bind(input,input);
+    
     return input;
   };
   
-  ViewModel.prototype.getSelectedActions = function(){  //TODO PROCEDURAL
+  View.prototype.getSelectedActions = function(){  //TODO PROCEDURAL
     var actions = [];
     if (document.getElementById("newCharacterActionAttack").checked) {
       actions.push(document.getElementById("newCharacterActionAttack").value)
-    }
-    else if (this.get("actions").indexOf("attack") >= 0){
-      actions.push("attack");
     }
     
     if (document.getElementById("newCharacterActionDefense").checked) {
       actions.push(document.getElementById("newCharacterActionDefense").value);
     }
-    else if (this.get("actions").indexOf("defPosition") >= 0){
-      actions.push("defPosition");
-    }
     
     if (document.getElementById("newCharacterActionAreaAttack").checked) {
       actions.push(document.getElementById("newCharacterActionAreaAttack").value);
-    }
-    else if (this.get("actions").indexOf("areaAttack") >= 0){
-      actions.push("areaAttack");
     }
     
     if (document.getElementById("newCharacterActionChangeFormation").checked) {
       actions.push(document.getElementById("newCharacterActionChangeFormation").value);
     }
-    else if (this.get("actions").indexOf("changeFormation") >= 0){
-      actions.push("changeFormation");
-    }
-    return actions;
-  }
 
-  ViewModel.prototype.modifyCharactersDataList = function(characters){ 
+    return actions;
+  };
+
+  View.prototype.modifyCharactersDataList = function(characters){ 
     var x = document.getElementById("modifyCharactersList");
     while (x.hasChildNodes()){
       x.removeChild(x.firstChild);
@@ -272,22 +289,51 @@ define(function(require) {
       x.appendChild(opt);
     }
   };
-  
-  ViewModel.prototype.stop = function() {
+    
+  View.prototype.stop = function() {
     document.getElementById("buttonStop").style.background = "#F00";
     document.getElementById("buttonStart").style.background = "#CCC";
   };
 
-  ViewModel.prototype.start = function() {
+  View.prototype.start = function() {
     document.getElementById("buttonStop").style.background = "#CCC";
     document.getElementById("buttonStart").style.background = "#0F0";
   };
   
-  ViewModel.prototype.getCharactersFile = function() {
+  View.prototype.getCharactersFile = function() {
     return document.getElementById("fileUploadCharacters").files[0];
-  }
+  };
+  
+  View.prototype.selectTargetButtonEnable = function(target, characters, active){    
+    if (target === "character"){
+      for (var i = 0; i < characters.length; i++) {
+        document.getElementById(characters.at(i).get("name")).disabled = false;
+      }
+    }
+    else if (target === "faction"){
+      document.getElementById("factionAlly").disabled = false;
+      document.getElementById("factionEnemy").disabled = false;
+    }
+    else if (target === "self"){
+      document.getElementById(active.get("name")).disabled = false;
+    }
+  };
+  
+  View.prototype.disableButtons = function(characters){
+    for (var i = 0; i < characters.length; i++) {
+      document.getElementById(characters.at(i).get("name")).disabled = true;
+    }
+    document.getElementById("factionAlly").disabled = true;
+    document.getElementById("factionEnemy").disabled = true;
+    
+    var div = document.getElementById("actionButtons");
+    while(div.hasChildNodes()){
+      div.removeChild(div.firstChild);
+    }
+  };
+  
   /**
    * End class
    */
-  return ViewModel;
+  return View;
 });

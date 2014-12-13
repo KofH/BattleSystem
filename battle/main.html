@@ -17,11 +17,11 @@
 
 	<div id="leftPanel">
 		<div id="topMenu" class="bodyTopBar">
-			<input type="button" id="buttonLoadAndSave" value="Load / Save" onClick="engine._viewModel.loadAndSavePrompt()" />
-	        <input type="button" id="buttonNewCharacter" value="New Character" onClick="engine._newCharacterPrompt()" />
-	        <input type="button" id="buttonModifyAttributes" value="Modify Attributes" onClick="engine._viewModel.modifyCharactersPrompt()" />
+			<input type="button" id="buttonLoadAndSave" value="Load / Save"/>
+	        <input type="button" id="buttonNewCharacter" value="New Character"/>
+	        <input type="button" id="buttonModifyAttributes" value="Modify Attributes"/>
 	        <!-- FLOAT RIGHT -->
-	        <input type="button" id="buttonResetCharacters" value="Reset Characters" onClick="engine._model.resetCharacters()" />
+	        <input type="button" id="buttonResetCharacters" value="Reset Characters"/>
 		</div>
 		<div id="infoFightersHeader">
 			<h2>Info Characters:</h2>
@@ -33,9 +33,9 @@
 	</div>
 	<div id="rightPanel">
 		<div id="topMenuRight" class="bodyTopBar">
-			<input type="button" id="buttonStart" value="Combat Start!" onClick="engine.start()"/>
-			<input type="button" id="buttonStop" value="Combat Stop!" onClick="engine.stop()"/>
-			<input type="button" id="buttonStep" value="STEP" onClick="engine.tick()"/>
+			<input type="button" id="buttonStart" value="Combat Start!"/>
+			<input type="button" id="buttonStop" value="Combat Stop!"/>
+			<input type="button" id="buttonStep" value="STEP"/>
 			<a href="https://github.com/KofH/BattleSystem/issues/new" target="_blank"><input type="button" id="buttonBugReport" value="Report a bug!" /></a><br />
 		</div>
 		<div id="targetCharacters">
@@ -79,7 +79,7 @@
 			    </div>
 			    <div id="newCharacterPromptEquipment">
 			    	<p>Equipment</p><br />
-				    <label class="newCharacterLabel">Weapon: </label><input id="weaponList" type="text" list="weaponList" size="15ex" />
+				    <label class="newCharacterLabel">Weapon: </label><input id="weaponList" type="text" list="weaponSelect" size="15ex" />
 				    	<datalist id="weaponSelect"></datalist> <br />
 				    <label class="newCharacterLabel">Armor: </label><input id="armorList" type="text" list="armorSelect" size="15ex" />
 				    	<datalist id="armorSelect"></datalist>
@@ -100,8 +100,8 @@
 			    	 </div>
 			    </div><br />
 			    <div id="newCharacterFooter">
-			    	<input class="newCharacterFooter" type="button" id="newCharacterNext" onClick="engine._newCharacter()" value="Submit"/>
-			        <input class="newCharacterFooter" type="button" id="newCharacterReset" onClick="engine._viewModel.newCharacterPromptReset()" value="Reset"/>
+			    	<input class="newCharacterFooter" type="button" id="newCharacterNext" value="Submit"/>
+			        <input class="newCharacterFooter" type="button" id="newCharacterReset" value="Reset"/>
 			    </div>
 			 </fieldset>
 		</div>
@@ -112,38 +112,38 @@
 			<div id="loadAndSaveCharacters">
 				<p>Characters:</p>
 				<input type="file" id="fileUploadCharacters" name="file"/>
-				<input type="button" id="buttonLoadCharacters"   value="Send File" onClick="engine._loadCharacters()"/><br /><br />
+				<input type="button" id="buttonLoadCharacters"   value="Send File"/><br /><br />
 				<input type="text" id="saveCharactersFileName" value="characters" size="15ex" />.txt<a id="saveCharactersDownload"></a>
-				<input type="button" id="buttonSaveCharacters" value="Save Characters" onClick="engine._saveCharacters()" />
+				<input type="button" id="buttonSaveCharacters" value="Save Characters"/>
 			</div>
 			<div id="loadAndSaveWeapons">
 				<p>Weapons:</p>
 				<input type="file" id="fileUploadWeapons" name="file"/>
-				<input type="button" id="buttonLoadWeapons"   value="Send File" onClick="engine._loadWeapons()"/><br /><br />
+				<input type="button" id="buttonLoadWeapons"   value="Send File"/><br /><br />
 				<input type="text" id="saveWeaponsFileName" value="weapons" size="15ex" />.txt<a id="saveWeaponsDownload"></a>
-				<input type="button" id="buttonSaveWeapons" value="Save Weapons" onClick="engine._saveWeapons()" /><br />
+				<input type="button" id="buttonSaveWeapons" value="Save Weapons"/><br />
 			</div>
 			<div id="loadAndSaveArmors">
 				<p>Armors:</p>
 				<input type="file" id="fileUploadArmors" name="file"/>
-				<input type="button" id="buttonLoadArmors"   value="Send File" onClick="engine._loadArmors()"/><br /><br />
+				<input type="button" id="buttonLoadArmors"   value="Send File"/><br /><br />
 				<input type="text" id="saveArmorsFileName" value="armors" size="15ex" />.txt<a id="saveArmorsDownload"></a>
-				<input type="button" id="buttonSaveArmors" value="Save Armors" onClick="engine._saveArmors()" />
+				<input type="button" id="buttonSaveArmors" value="Save Armors"/>
 			</div>
 		</fieldset>
 	</div>
 	<div id="modifyCharactersPrompt" class="modifyCharactersPrompt">
 		<fieldset>
 			<legend>Modify Character</legend>
-			<label>Character: </label><input id="modifyCharacterSelected" onchange="engine._viewModel.modCharactersLoadAttr()" type="text" list="modifyCharactersList" size="15ex" />
+			<label>Character: </label><input id="modifyCharacterSelected" onchange="engine._View.modCharactersLoadAttr()" type="text" list="modifyCharactersList" size="15ex" />
 				    	<datalist id="modifyCharactersList"></datalist><br /><br /><hr><br />
 			<label class="newCharacterLabel">Strength: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersStrength" size="5" name="modCharacter"/><br />
 		    <label class="newCharacterLabel">Agility: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersAgility" name="modCharacter"/><br />
 		    <label class="newCharacterLabel">Intelligence: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersInteligence" name="modCharacter"/><br />
 		    <label class="newCharacterLabel">AP: </label> <input class="newCharacterInputAttr" type="number" id="modCharactersAP" name="modCharacter" /><br />  
 			<footer class="modifyCharactersFooter">
-				<input type="button" id="modifyCharacterSubmit" onClick="engine._modCharactersSaveAttr()" value="Submit" />
-				<input type="button" id="modifyCharacterClose" onClick="engine._modifyCharactersPrompt()" value="Close" />
+				<input type="button" id="modifyCharacterSubmit" value="Submit" />
+				<input type="button" id="modifyCharacterClose" value="Close" />
 			</footer>
 		</fieldset>
 

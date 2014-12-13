@@ -395,7 +395,7 @@
 
     // Return an object containing all the attributes that have changed, or
     // false if there are no changed attributes. Useful for determining what
-    // parts of a view need to be updated and/or what attributes need to be
+    // parts of a View need to be updated and/or what attributes need to be
     // persisted to the server. Unset attributes will be set to undefined.
     // You can also pass an attributes object to diff against the model,
     // determining if there *would be* a change.
@@ -988,13 +988,13 @@
   // DOM. This might be a single item, an entire list, a sidebar or panel, or
   // even the surrounding frame which wraps your whole app. Defining a chunk of
   // UI as a **View** allows you to define your DOM events declaratively, without
-  // having to worry about render order ... and makes it easy for the view to
+  // having to worry about render order ... and makes it easy for the View to
   // react to specific changes in the state of your models.
 
   // Creating a Backbone.View creates its initial element outside of the DOM,
   // if an existing element is not provided...
   var View = Backbone.View = function(options) {
-    this.cid = _.uniqueId('view');
+    this.cid = _.uniqueId('View');
     options || (options = {});
     _.extend(this, _.pick(options, viewOptions));
     this._ensureElement();
@@ -1005,7 +1005,7 @@
   // Cached regex to split keys for `delegate`.
   var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
-  // List of view options to be merged as properties.
+  // List of View options to be merged as properties.
   var viewOptions = ['model', 'collection', 'el', 'id', 'attributes', 'className', 'tagName', 'events'];
 
   // Set up all inheritable **Backbone.View** properties and methods.
@@ -1015,7 +1015,7 @@
     tagName: 'div',
 
     // jQuery delegate for element lookup, scoped to DOM elements within the
-    // current view. This should be preferred to global lookups where possible.
+    // current View. This should be preferred to global lookups where possible.
     $: function(selector) {
       return this.$el.find(selector);
     },
@@ -1024,14 +1024,14 @@
     // initialization logic.
     initialize: function(){},
 
-    // **render** is the core function that your view should override, in order
+    // **render** is the core function that your View should override, in order
     // to populate its element (`this.el`), with the appropriate HTML. The
     // convention is for **render** to always return `this`.
     render: function() {
       return this;
     },
 
-    // Remove this view by taking the element out of the DOM, and removing any
+    // Remove this View by taking the element out of the DOM, and removing any
     // applicable Backbone.Events listeners.
     remove: function() {
       this.$el.remove();
@@ -1039,7 +1039,7 @@
       return this;
     },
 
-    // Change the view's element (`this.el` property), including event
+    // Change the View's element (`this.el` property), including event
     // re-delegation.
     setElement: function(element, delegate) {
       if (this.$el) this.undelegateEvents();
@@ -1059,7 +1059,7 @@
     //       'click .open':       function(e) { ... }
     //     }
     //
-    // pairs. Callbacks will be bound to the view, with `this` set properly.
+    // pairs. Callbacks will be bound to the View, with `this` set properly.
     // Uses event delegation for efficiency.
     // Omitting the selector binds the event to `this.el`.
     // This only works for delegate-able events: not `focus`, `blur`, and
@@ -1085,7 +1085,7 @@
       return this;
     },
 
-    // Clears all callbacks previously bound to the view with `delegateEvents`.
+    // Clears all callbacks previously bound to the View with `delegateEvents`.
     // You usually don't need to use this, but may wish to if you have multiple
     // Backbone views attached to the same DOM element.
     undelegateEvents: function() {
@@ -1586,7 +1586,7 @@
     return child;
   };
 
-  // Set up inheritance for the model, collection, router, view and history.
+  // Set up inheritance for the model, collection, router, View and history.
   Model.extend = Collection.extend = Router.extend = View.extend = History.extend = extend;
 
   // Throw an error when a URL is needed, and none is supplied.

@@ -2,126 +2,140 @@
 define(function(require) {
   "use strict";
   // INCLUDES
-    var ViewModel = require('battle-engine/ViewModel');
+    var View = require('battle-engine/View');
     var Model = require('battle-engine/Model');
-    var EventManager = require('battle-engine/EventManager');
+//    var EventManager = require('battle-engine/EventManager');
   /**
    * Constructor
-   * @classDescription lalala
+   * @classDescription 
    */
   function Engine() {
-	  this.TIME_INTERVAL = 1000; // ms
+	  this.TIME_INTERVAL =300; // ms
       this._on = false;
-      this._viewModel = new ViewModel();
+      this._view = new View();
       this._model = new Model();
-      this._eventManager = new EventManager();
-  }
+//      this._eventManager = new EventManager();
+  };
   
   /********************
    * PUBLIC FUNCTIONS *
    ********************/
   /**
    * Initialize the engine
-   * @param canvas
+   * @param 
    */
   Engine.prototype.initialize = function () {
+    this._view.initialize(this);
     this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
-    this._configureEvents();
+   // this._configureEvents();
   };
   
   Engine.prototype.stop = function () {
     this._on = false;
-    this._viewModel.stop();
+    this._view.stop();
   };
   
   Engine.prototype.start = function () {
     this._on = true;
-    this._viewModel.start();
+    this._view.start();
   };
   
   Engine.prototype.tick = function(){
-	  this._on = true;
-	  this._step();
-	  this._on = false;
+    if (!this._waitCheck()){
+  	  this._on = true;
+  	  this._step();
+  	  this._on = false;
+    }
   };
-  
+  /*
   Engine.prototype.renderize = function () {
   
   };
-  
-  
+  //*/
+ /* Engine.prototype.click = function(btt){
+    this._eventManager.dispatchEvent(btt.id);
+  };
+  //*/
   
   /*********************
    * PRIVATE FUNCTIONS *
    *********************/
+  /*
   Engine.prototype._configureEvents = function () {
-    this._eventManager.setViewModel(this.viewModel);
-  };
-  
-  Engine.prototype._newCharacterPrompt = function(){
-    this._viewModel.newCharacterPrompt();
-    this._viewModel.selectEquipment(this._model.weapons.weaponList,
-    this._model.armors.armorList);
-  }
-  
-  Engine.prototype._newCharacter = function(){
-    var data = this._viewmodel.newCharacter();
-    this._model.newCharacter(data);
-    this._viewModel.characterButton(data, this._model.stepSelectTarget());
-    this._viewModel.factionButton(data.faction, this._model.stepSelectTarget());
-    this._viewModel.newCharacterPromptReset();
-    this._viewModel.modifyCharactersDataList(this._model.characters);
-  }
+    this._eventManager.setView(this._view);
+    this._eventManager.initialize();
+  }; 
+  //*/
   
   Engine.prototype._step = function() {
-    this._viewModel.showInfoFighters(this._model.characters.characterList);
+    this._view.showInfoFighters(this._model.characters.characterList);
     this.generateButtons(this._model.characters.characterList);
     if(this._on){
       this._model.turn();
-      this._viewModel.showInfoFighters(this._model.characters.characterList);
+      this._view.showInfoFighters(this._model.characters.characterList);
       if (this._waitCheck()){
+        this._view.stop();
         this._on = false;
         this._combat();
       }
     }
-  }
+  };
   
-  Engine.prototype._loadCharacters = function(){  //TODO filereader.onloadend() concurrency
-    var characters = this._model.loadCharacters(this._viewModel.getCharactersFile());
-    this._viewModel.loadCharacters(characters);
-  }
+  Engine.prototype._newCharacterPrompt = function(){
+    this._view.newCharacterPrompt();
+    this._view.selectEquipment(this._model.weapons.weaponList,
+    this._model.armors.armorList);
+  };
   
-  Engine.prototype.generateButtons = function(characters){
-    for (var i = 0; i < characters.length; i++){
-      this._viewModel.characterButton(characters.at(i).attributes, this._model.stepSelectTarget);
-      this._viewModel.factionButton(characters.at(i).get("faction"), this._model.stepSelectTarget);
-    }
-  }
+  Engine.prototype._newCharacter = function(){
+    var data = this._view.newCharacter();
+    this._model.newCharacter(data);
+    this._view.characterButton(data, this.stepSelectTarget);
+    this._view.factionButton(data.faction, this.stepSelectTarget);
+    this._view.newCharacterPromptReset();
+    this._view.modifyCharactersDataList(this._model.characters);
+  };
+  
+  Engine.prototype._loadCharacters = function(){  
+    var characters = this._model.loadCharacters(this._view.getCharactersFile());
+    this._view.loadCharacters(characters);
+  };
+  
+  Engine.prototype._resetCharacters = function(){
+    if(this._view.askReset()) this._model.resetCharacters();
+  };
   
   Engine.prototype._saveCharacters = function(){
     var serialization = this._model.getCharactersSerial();
-    this._viewModel.saveCharacters(serialization);
-  }
+    this._view.saveCharacters(serialization);
+  };
   
   Engine.prototype._loadWeapons = function(){
     //TODO implement
     console.log("TODO loadWeapons");
-  }
+  };
   
   Engine.prototype._saveWeapons = function(){
     //TODO implement
     console.log("TODO saveWeapons");
-  }
+  };
   
   Engine.prototype._loadArmors = function(){
     //TODO implement
     console.log("TODO loadArmors");
-  }
+  };
   
   Engine.prototype._saveArmors = function(){
     //TODO implement
     console.log("TODO saveArmors");
-  }
+  };
+  
+  Engine.prototype.generateButtons = function(characters){
+    for (var i = 0; i < characters.length; i++){
+      this._view.characterButton(characters.at(i).attributes, this.stepSelectTarget);
+      this._view.factionButton(characters.at(i).get("faction"), this.stepSelectTarget);
+    }
+  };
   
   Engine.prototype.modCharactersLoadAttr = function() {
     this.model.modCharactersLoadAttr(); //TODO implement
@@ -135,35 +149,43 @@ define(function(require) {
   
   Engine.prototype._waitCheck = function(){
     return (this._model.characters.characterList.where({wait: 0}).length > 0)
-  }
+  };
   
   Engine.prototype._combat = function(){
     console.log("TURN!");
     this._model.active = this._model.characters.characterList.findWhere({wait: 0});
-    this._viewModel.showActiveActions(this._model.active);
+    this._view.showActiveActions(this._model.active);
     console.log("What will " + this._model.active.get("name") + " do?");
-  }
-  
-
-  Engine.prototype.stepSelectAction = function(){
-    this._model.selectedAction = this.value;
-    console.log(this.value + "  selected!");
-    
-    engine._model.selectTargetButtonEnable(x);
   };
   
-  Engine.prototype._executeAction = function(){
-    this._viewModel.model.execute();
+
+  Engine.prototype.stepSelectAction = function(btt){
+    this._model.selectedAction = btt.value;
+    console.log(btt.value + "  selected!");
+    var target = this._model.getActionTarget();
+    var characters = this._model.characters.characterList;
+    var active = this._model.active;
+    this._view.selectTargetButtonEnable(target, characters, active);
+  };
+  
+  Engine.prototype.stepSelectTarget = function(btt){
+    this._model.selectedTarget = btt.id;
+    console.log(btt.id + " selected!");
+    this._view.disableButtons(this._model.characters.characterList);
+    this._model.execute();
+    this._view.showInfoFighters(this._model.characters.characterList);
+    this._turnEnded();
+  };
+  
+  Engine.prototype._turnEnded = function(){
     if(this._waitCheck()){
       this._combat();
     }
     else{
-      this._initialize();
+      this.start();
     }
-  }
-  
-
-  
+  };
+ 
   /**
    * End class
    */

@@ -1,21 +1,16 @@
 
 define(function(require) {
 	"use strict";
-
-	/**
-	 * Constructor
-	 */
 	
   	var	Backbone = require('libs/backbone');
   	var Weapons = require('battle-engine/Items/Weapons');
   	var Armors = require('battle-engine/Items/Armors');
   	var Actions = require('battle-engine/Actions/Actions');
   	var Characters = require('battle-engine/Characters/Characters');
- // 	var _calculated = function(thing){return thing};
- // 	_calculated._isCalculated = true;
   	
-  
-  	
+  /**
+	 * Constructor
+	 */
 	function Model() {
 		this.MAX_ALLIES = 4;
 		this.MAX_ENEMIES = 6;
@@ -39,7 +34,7 @@ define(function(require) {
   Model.prototype.loadCharacters = function(file){
     this.characters.load(file);
     return this.characters.characterList;
-  }
+  };
 	
 	Model.prototype.saveCharacters = function(){
 		var serialization = JSON.stringify(this.characters.characterList);
@@ -53,61 +48,38 @@ define(function(require) {
 	
 	Model.prototype.newCharacter = function (data) {
 		console.log("New Character");
-		if ( (data.faction == "ally" && characters.contAllies < this.MAX_ALLIES) ||
-		  data.faction == "enemy" && characters.contEnemies < this.MAX_ENEMIES) {
+		if ( (data.faction == "ally" && this.characters.contAllies < this.MAX_ALLIES) ||
+		  data.faction == "enemy" && this.characters.contEnemies < this.MAX_ENEMIES) {
 		   
-		  characters.newCharacter(data);
+		  this.characters.newCharacter(data);
 		}
 		else { console.log("Too many character of this faction!"); }
-		
 	};	
 	
 	Model.prototype.getCharactersSerial = function(){
 	  return this.characters.stringify();
 	};
 	
+	Model.prototype.getActionTarget = function(){
+	    return this.actions.actionList.get(this.selectedAction).get("target");
+	}; 
 	
 	Model.prototype.resetCharacters = function(){
-		if (confirm('Are you sure you want to Reset Characters?')) {
-			this.characters.reset();
-		}	  
+		this.characters.reset();
 	};
-
 	
 	Model.prototype.turn = function(){		
 		this.characters.turn();
 		this.saveTurn();
 	};
 	
-	
-	Model.prototype.selectTargetButtonEnable = function(x){ //TODO to viewmodel
-		var target = this.actions.actionList.get(this.selectedAction).get("target");
-		
-		if (target === "character"){
-			for (var i = 0; i < x.characters.length; i++) {
-				document.getElementById(x.characters.at(i).get("name")).disabled = false;
-			}
-		}
-		else if (target === "faction"){
-			document.getElementById("factionAlly").disabled = false;
-			document.getElementById("factionEnemy").disabled = false;
-		}
-		else if (target === "self"){
-			document.getElementById(this.active.get("name")).disabled = false;
-		}
+	Model.prototype.execute = function(){
+	  this.actions.actionList.get(this.selectedAction).get("effect", this);
 	};
+
+	/*  /////NOT IN USE////
 	
-	Model.prototype.execute = function(x){
-	  this.actions.actionList.get(this.selectedAction).get("effect", x);
-	}
-	
-	/*Model.prototype.execute = function(model){
-		var selectedAction = prompt(model.active.get("name") + "! Select an action to perform: " +
-				this.active.get("actions").toString());
-		this.actions.actionList.get(selectedAction).get("effect", model);
-	};*/
-	
-	Model.prototype.modCharactersLoadAttr = function(){ //TODO to viewmodel
+	Model.prototype.modCharactersLoadAttr = function(){ //TODO to View
 		for (var i = 0; i < this.characters.length; i++) {
 			if (document.getElementById("modifyCharacterSelected").value == this.characters.at(i).get("name")) {
 				document.getElementById("modCharactersStrength").value = this.characters.at(i).get("strength");
@@ -117,16 +89,16 @@ define(function(require) {
 			}
 		}
 	};
-	/**
-	 * 
-	 */
-	Model.prototype.modCharactersSaveAttr = function(){ //TODO to viewmodel(data)
+
+	Model.prototype.modCharactersSaveAttr = function(){ //TODO to View(data)
 		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({strength: parseInt(document.getElementById("modCharactersStrength").value)});
 		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({agility: parseInt(document.getElementById("modCharactersAgility").value)});
 		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({inteligence: parseInt(document.getElementById("modCharactersInteligence").value)});
 		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({ap: parseInt(document.getElementById("modCharactersAP").value)});
 		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
 	};
+	//*/
+	
 	
 	/********************************
 	 *      PRIVATE FUNCTIONS       *
@@ -136,30 +108,7 @@ define(function(require) {
 		var searchCharacter = prompt("Choose your target");
 	    return this.characters.get(searchCharacter);
 	};
-	
-	Model.prototype.stepSelectTarget = function(){
-		var x = engine._viewModel.model;
-		x.selectedTarget = this.id;
-		console.log(this.id + " selected!");
-		
-		for (var i = 0; i < x.characters.length; i++) {
-			document.getElementById(x.characters.at(i).get("name")).disabled = true;
-		}
-		document.getElementById("factionAlly").disabled = true;
-		document.getElementById("factionEnemy").disabled = true;
-		
-		var div = document.getElementById("actionButtons");
-		while(div.hasChildNodes()){
-			div.removeChild(div.firstChild);
-		}
-		
-		x.execute(x);
-		x.showInfoFighters();
-		
-		if(engine._waitCheck()) { engine._combat(); }
-		else { engine._on = true; }
-	};
-	
+
 	Model.prototype.saveTurn = function(){
 	  this.turns[this.turnCount] = this.characters.characterList.clone(true);
 	  this.turnCount++;

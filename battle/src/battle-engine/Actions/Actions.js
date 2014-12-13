@@ -30,23 +30,21 @@ define(function(require) {
       target: "character",
       
       effect: function(model){
-          //if (!model) { return effect; } // this is a ñapa
-          //var target = model.searchCharacter();
     	  var target = model.selectedTarget;
-          if(Math.floor(Math.random() * 100) <= model.characters.get(target).get("agility")){
+          if(Math.floor(Math.random() * 100) <= model.characters.characterList.get(target).get("agility")){
             console.log(target + " dodged the attack!");
           }
           else{
             var damage = model.active.get("offense") * 2;
-            if (damage > model.characters.get(target).get("defense")) {
-              //console.log("Damage " + damage);
-              var realhp = model.characters.get(target).get("hp") - (damage - model.characters.get(target).get("defense"));
+            if (damage > model.characters.characterList.get(target).get("defense")) {
+              var realhp = model.characters.characterList.get(target).get("hp") - 
+                (damage - model.characters.characterList.get(target).get("defense"));
               if (realhp < 0){
                 realhp = 0;
               }
-              model.characters.get(target).set({hp: realhp});
-              console.log("Damage " + (damage - model.characters.get(target).get("defense")));
-              console.log("Character HP: " + model.characters.get(target).get("hp"));
+              model.characters.characterList.get(target).set({hp: realhp});
+              console.log("Damage " + (damage - model.characters.characterList.get(target).get("defense")));
+              console.log("Character HP: " + model.characters.characterList.get(target).get("hp"));
             } else {
               console.log("Damage absorbed!");
             }
@@ -82,19 +80,19 @@ define(function(require) {
       target: "faction",
       
       effect:function(model){
-        var factionObjetiveSelected = prompt("ally or enemy");
         var factionObj;
-        if (factionObjetiveSelected == "ally") {
+        if (model.selectedTarget == "ally") {
           factionObj = model.contAllies;
-        } else if (factionObjetiveSelected == "enemy"){
+        } else if (model.selectedTarget == "enemy"){
           factionObj = model.contEnemies;
         } else {
           alert("ERROR!");
         }
         var damage = model.active.get("inteligence") / factionObj;
-        for (var contSearch = 0; contSearch < model.characters.length; contSearch++) {
-          if (model.characters.at(contSearch).get("faction") == factionObjetiveSelected) {
-            model.characters.at(contSearch).set({hp: characters.at(contSearch).get("hp")-(damage - model.characters.at(contSearch).get("defense"))});
+        for (var contSearch = 0; contSearch < model.characters.characterList.length; contSearch++) {
+          if (model.characters.characterList.at(contSearch).get("faction") == factionObjetiveSelected) {
+            model.characters.characterList.at(contSearch).set({hp: characters.characterList.at(contSearch).get("hp") - 
+              (damage - model.characters.characterList.at(contSearch).get("defense"))});
           }
         }      
       }

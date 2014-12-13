@@ -10,7 +10,6 @@ define(function(require) {
   var Character = Backbone.Model.extend({
     
     get: function(attr) {                  ////////////// Backbone getter fix
-       /// && value._isCalculated
       var value = Backbone.Model.prototype.get.call(this, attr);
         return _.isFunction(value) ? value.call(this) : value;
       },
@@ -82,20 +81,6 @@ define(function(require) {
       }
     },
     initialize: function(model){   
-      
-      ////////////// FUTURE USE
-      
-      /*this.on("add", function(character){
-       * 
-      });
-      
-      this.on("change:hp", function(character){
-        
-      });
-      
-      this.on("change:wait", function(model, character){
-        
-      });*/
 
     }
   });
@@ -105,8 +90,7 @@ define(function(require) {
     this.characterList = new CharacterList();
     this.contAllies = this.characterList.where({faction:"ally"}).length;
     this.contEnemies = this.characterList.where({faction:"enemy"}).length;
-  }
-  
+  };
   
   Characters.prototype.load = function(file){
     var filereader = new FileReader();
@@ -119,18 +103,14 @@ define(function(require) {
       self.contAllies = self.characterList.where({faction: "ally"}).length;
       self.contEnemies = self.characterList.where({faction: "enemy"}).length;
     }
-    
     filereader.readAsText(file,'utf8');
   };
   
-  
   Characters.prototype.newCharacter = function(data){
-    var character = newCharacter(data);
-    
+    var character = new Character(data);
     this.defaultCharacterList.add(character);
     this.characterList.add(character.clone());
   };
-  
   
   Characters.prototype.reset = function(){
     this.characterList = this.defaultCharacterList.clone(true);
@@ -142,11 +122,11 @@ define(function(require) {
       if (newWait < 0) newWait = 0;
       this.characterList.at(i).set({wait:newWait});
     }
-  }
+  };
   
   Characters.prototype.stringify = function(){
     return JSON.stringify(this.characterList);
-  }
+  };
   
   return Characters;
 });
