@@ -36,9 +36,14 @@ body{
 	height: 25px;
 	clear: both;
 	max-width: 100%;
-	background-color:#CCC;
 }
-#topMenu > input, #topMenuRight > input, #buttonBugReport{
+.noPadding{
+	padding:0px;
+}
+.noMargin{
+	margin: 0px;
+}
+/*#topMenu > input, #topMenuRight > input, #buttonBugReport{
 	height: 100%;
 	width: auto;
 	padding: 0px 3px 0px 3px;
