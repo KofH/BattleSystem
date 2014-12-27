@@ -289,21 +289,16 @@ define(function(require) {
       x.appendChild(opt);
     }
   };
-<<<<<<< HEAD:battle/src/battle-engine/View.js
-    
+
   View.prototype.stop = function() {
-=======
-  /*
-  ViewModel.prototype.stop = function() {
->>>>>>> MaterialDesignUI:battle/src/battle-engine/ViewModel.js
-    document.getElementById("buttonStop").style.background = "#F00";
-    document.getElementById("buttonStart").style.background = "#CCC";
+	document.getElementById("buttonStop").style.background = "#F00";
+	document.getElementById("buttonStart").style.background = "#CCC";
   };
 
   View.prototype.start = function() {
     document.getElementById("buttonStop").style.background = "#CCC";
     document.getElementById("buttonStart").style.background = "#0F0";
-  };*/
+  };
   
   View.prototype.getCharactersFile = function() {
     return document.getElementById("fileUploadCharacters").files[0];
