@@ -136,9 +136,9 @@
 			<div class="sample">
 			<h4>Equipment</h4><br />
 			<label>Weapon:</label>
-			  <select class="form-control" id="weaponList" placeholder="Your favorite pastry"></select>
+			  <select class="form-control" id="weaponSelect" placeholder="Your favorite pastry"></select>
 			  <br /><label>Armor:</label>
-			  <select class="form-control" id="armorList" placeholder="Your favorite pastry"></select>
+			  <select class="form-control" id="armorSelect" placeholder="Your favorite pastry"></select>
 			</div>
         	<!--	<label>Equipment</label><br />
 				    <label>Weapon: </label><input id="weaponList" type="text" list="weaponList" size="15ex" />
@@ -263,8 +263,8 @@
 	        <h4 class="modal-title"><span class="mdi-image-edit"></span> Modify Character</h4>
 	      </div>
 	      <div class="modal-body">
-			<label>Character: </label><input id="modifyCharacterSelected" onchange="engine._viewModel.modCharactersLoadAttr()" type="text" list="modifyCharactersList" size="15ex" />
-		    	<datalist id="modifyCharactersList"></datalist><br /><br /><hr><br />
+			<label>Character:</label>
+			  <select class="form-control" id="modifyCharacterSelected" placeholder="Your favorite pastry"></select><br />
 		    	<div class="col-xs-10">
 			    	<div class="col-xs-5">
 		                <label>Strength: </label><input class="form-control" type="number" id="modCharactersStrength" name="modCharacter"/><br />

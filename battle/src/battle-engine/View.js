@@ -21,7 +21,8 @@ define(function(require) {
   View.prototype.initialize = function(engine){
     this._buttonAction = engine.stepSelectAction.bind(engine);
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
-    
+    this.selectEquipment(engine._model.weapons.weaponList,
+						 engine._model.armors.armorList);
 //    document.getElementById("buttonLoadAndSave").onclick = this.loadAndSavePrompt;
 //    document.getElementById("buttonNewCharacter").onclick = engine._newCharacterPrompt.bind(engine);
 //    document.getElementById("buttonModifyAttributes").onclick = this.modifyCharactersPrompt;
@@ -137,8 +138,8 @@ define(function(require) {
     document.getElementById("newCharacterActionAttack").checked = false;
     document.getElementById("newCharacterActionDefense").checked = false;
     document.getElementById("newCharacterActionAreaAttack").checked = false;
-    document.getElementById("weaponList").value = "";
-    document.getElementById("armorList").value = "";
+    document.getElementById("weaponSelect").value = "";
+    document.getElementById("armorSelect").value = "";
   };
 
   View.prototype.newCharacterPrompt = function() {
@@ -185,8 +186,8 @@ define(function(require) {
     data.intelligence = parseInt(document.getElementById('newCharacterIntelligence').value); //INT
     data.ap = parseInt(document.getElementById('newCharacterAP').value);          //AP
     
-    data.weapon = document.getElementById("weaponList").value;  //WEAPON
-    data.armor = document.getElementById("armorList").value;   //ARMOR
+    data.weapon = document.getElementById("weaponSelect").value;  //WEAPON
+    data.armor = document.getElementById("armorSelect").value;   //ARMOR
     
     if (document.getElementById('newCharacterVanguard').checked)  //FORMATION
       data.formation = "vanguard";
@@ -277,7 +278,7 @@ define(function(require) {
   };
 
   View.prototype.modifyCharactersDataList = function(characters){ 
-    var x = document.getElementById("modifyCharactersList");
+    var x = document.getElementById("modifyCharacterSelected");
     while (x.hasChildNodes()){
       x.removeChild(x.firstChild);
     }
