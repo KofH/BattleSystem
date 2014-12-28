@@ -22,9 +22,9 @@ define(function(require) {
     this._buttonAction = engine.stepSelectAction.bind(engine);
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
     
-    document.getElementById("buttonLoadAndSave").onclick = this.loadAndSavePrompt;
-    document.getElementById("buttonNewCharacter").onclick = engine._newCharacterPrompt.bind(engine);
-    document.getElementById("buttonModifyAttributes").onclick = this.modifyCharactersPrompt;
+//    document.getElementById("buttonLoadAndSave").onclick = this.loadAndSavePrompt;
+//    document.getElementById("buttonNewCharacter").onclick = engine._newCharacterPrompt.bind(engine);
+//    document.getElementById("buttonModifyAttributes").onclick = this.modifyCharactersPrompt;
     document.getElementById("buttonResetCharacters").onclick = engine._resetCharacters.bind(engine);
     document.getElementById("buttonStart").onclick = engine.start.bind(engine);
     document.getElementById("buttonStop").onclick = engine.stop.bind(engine);
@@ -37,7 +37,7 @@ define(function(require) {
     document.getElementById("buttonSaveWeapons").onclick = engine._saveWeapons.bind(engine);
     document.getElementById("buttonLoadArmors").onclick = engine._loadArmors.bind(engine);
     document.getElementById("buttonSaveArmors" ).onclick = engine._saveArmors.bind(engine);
-    document.getElementById("modifyCharacterSubmit").onclick = engine.modCharactersSaveAttr.bind(engine);
+//    document.getElementById("modifyCharacterSubmit").onclick = engine.modCharactersSaveAttr.bind(engine);
     //document.getElementById("modifyCharacterClose").onclick = this; //TODO
   }; 
   
@@ -73,7 +73,7 @@ define(function(require) {
       item.appendChild(agi);
 
       var int = document.createElement("ul");
-      int.innerHTML = "Inteligence: " + characters.at(i).get("inteligence");
+      int.innerHTML = "Intelligence: " + characters.at(i).get("Intelligence");
       item.appendChild(int);
 
       var hp = document.createElement("ul");
@@ -132,7 +132,7 @@ define(function(require) {
     document.getElementById("newCharacterName").value = "";
     document.getElementById("newCharacterStrength").value = "";
     document.getElementById("newCharacterAgility").value = "";
-    document.getElementById("newCharacterInteligence").value = "";
+    document.getElementById("newCharacterIntelligence").value = "";
     document.getElementById("newCharacterAP").value = "";
     document.getElementById("newCharacterActionAttack").checked = false;
     document.getElementById("newCharacterActionDefense").checked = false;
@@ -143,16 +143,16 @@ define(function(require) {
 
   View.prototype.newCharacterPrompt = function() {
     this.newCharacterPromptReset();
-    document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
+//    document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
     document.getElementById('newCharacterAlly').focus();
   };
 
   View.prototype.loadAndSavePrompt = function() {
-    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed'); 
+//    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed'); 
   };
 
   View.prototype.modifyCharactersPrompt = function() {
-    document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
+//    document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
     document.getElementById('modifyCharacterSelected').focus();
   };
 
@@ -162,17 +162,17 @@ define(function(require) {
     x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
     x.href = dataurl;
     x.click();
-    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
+//    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
   };
 
   View.prototype.loadCharacters = function(characters) {
     this.modifyCharactersDataList(characters);
-    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
+//    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
   };
 
   
   View.prototype.newCharacter = function() {
-    document.getElementById('newCharacterPrompt').classList.toggle('Displayed')
+//    document.getElementById('newCharacterPrompt').classList.toggle('Displayed')
     var data = {};
     data.name = document.getElementById('newCharacterName').value;    //NAME
     if (document.getElementById('newCharacterAlly').checked){       //FACTION
@@ -182,7 +182,7 @@ define(function(require) {
     }
     data.strength = parseInt(document.getElementById('newCharacterStrength').value);  //STR
     data.agility = parseInt(document.getElementById('newCharacterAgility').value);   //AGI
-    data.inteligence = parseInt(document.getElementById('newCharacterInteligence').value); //INT
+    data.Intelligence = parseInt(document.getElementById('newCharacterIntelligence').value); //INT
     data.ap = parseInt(document.getElementById('newCharacterAP').value);          //AP
     
     data.weapon = document.getElementById("weaponList").value;  //WEAPON
