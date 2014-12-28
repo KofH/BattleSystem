@@ -73,7 +73,7 @@ define(function(require) {
       item.appendChild(agi);
 
       var int = document.createElement("ul");
-      int.innerHTML = "Intelligence: " + characters.at(i).get("Intelligence");
+      int.innerHTML = "Intelligence: " + characters.at(i).get("intelligence");
       item.appendChild(int);
 
       var hp = document.createElement("ul");
@@ -182,7 +182,7 @@ define(function(require) {
     }
     data.strength = parseInt(document.getElementById('newCharacterStrength').value);  //STR
     data.agility = parseInt(document.getElementById('newCharacterAgility').value);   //AGI
-    data.Intelligence = parseInt(document.getElementById('newCharacterIntelligence').value); //INT
+    data.intelligence = parseInt(document.getElementById('newCharacterIntelligence').value); //INT
     data.ap = parseInt(document.getElementById('newCharacterAP').value);          //AP
     
     data.weapon = document.getElementById("weaponList").value;  //WEAPON
