@@ -108,6 +108,7 @@ define(function(require) {
   
   Characters.prototype.newCharacter = function(data){
     var character = new Character(data);
+    character.set({id:character.get("name")});
     this.defaultCharacterList.add(character);
     this.characterList.add(character.clone());
   };
