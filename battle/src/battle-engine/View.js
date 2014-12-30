@@ -23,9 +23,6 @@ define(function(require) {
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
     this.selectEquipment(engine._model.weapons.weaponList,
 						 engine._model.armors.armorList);
-//    document.getElementById("buttonLoadAndSave").onclick = this.loadAndSavePrompt;
-//    document.getElementById("buttonNewCharacter").onclick = engine._newCharacterPrompt.bind(engine);
-//    document.getElementById("buttonModifyAttributes").onclick = this.modifyCharactersPrompt;
     document.getElementById("buttonResetCharacters").onclick = engine._resetCharacters.bind(engine);
     document.getElementById("buttonStart").onclick = engine.start.bind(engine);
     document.getElementById("buttonStop").onclick = engine.stop.bind(engine);
@@ -38,8 +35,16 @@ define(function(require) {
     document.getElementById("buttonSaveWeapons").onclick = engine._saveWeapons.bind(engine);
     document.getElementById("buttonLoadArmors").onclick = engine._loadArmors.bind(engine);
     document.getElementById("buttonSaveArmors" ).onclick = engine._saveArmors.bind(engine);
-//    document.getElementById("modifyCharacterSubmit").onclick = engine.modCharactersSaveAttr.bind(engine);
-    //document.getElementById("modifyCharacterClose").onclick = this; //TODO
+	  //IMPROVE THIS
+	  $('#slider-step').noUiSlider({
+		  start: [ 1 ],
+		  step: 1,
+		  range: {
+			  'min': [  1 ],
+			  'max': [ 40 ]
+		  }
+	  });
+	  $('#slider-step').Link('lower').to($('#slider-step-value'));
   }; 
   
   View.prototype.get = function(param){
@@ -144,16 +149,13 @@ define(function(require) {
 
   View.prototype.newCharacterPrompt = function() {
     this.newCharacterPromptReset();
-//    document.getElementById('newCharacterPrompt').classList.toggle('Displayed');
     document.getElementById('newCharacterAlly').focus();
   };
 
   View.prototype.loadAndSavePrompt = function() {
-//    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed'); 
   };
 
   View.prototype.modifyCharactersPrompt = function() {
-//    document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
     document.getElementById('modifyCharacterSelected').focus();
   };
 
@@ -163,17 +165,14 @@ define(function(require) {
     x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
     x.href = dataurl;
     x.click();
-//    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
   };
 
   View.prototype.loadCharacters = function(characters) {
     this.modifyCharactersDataList(characters);
-//    document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
   };
 
   
   View.prototype.newCharacter = function() {
-//    document.getElementById('newCharacterPrompt').classList.toggle('Displayed')
     var data = {};
     data.name = document.getElementById('newCharacterName').value;    //NAME
     if (document.getElementById('newCharacterAlly').checked){       //FACTION
@@ -292,13 +291,13 @@ define(function(require) {
   };
 
   View.prototype.stop = function() {
-	document.getElementById("buttonStop").style.background = "#F00";
-	document.getElementById("buttonStart").style.background = "#CCC";
+	document.getElementById("buttonStop").setAttribute("class","btn btn-danger noMargin");
+	document.getElementById("buttonStart").setAttribute("class","btn btn-flat btn-success noMargin");
   };
 
   View.prototype.start = function() {
-    document.getElementById("buttonStop").style.background = "#CCC";
-    document.getElementById("buttonStart").style.background = "#0F0";
+    document.getElementById("buttonStop").setAttribute("class","btn btn-flat btn-danger noMargin");
+    document.getElementById("buttonStart").setAttribute("class","btn btn-success noMargin");
   };
   
   View.prototype.getCharactersFile = function() {
