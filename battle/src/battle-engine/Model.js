@@ -73,6 +73,10 @@ define(function(require) {
 		this.saveTurn();
 	};
 	
+	Model.prototype.deadFaction = function(){
+	  return this.characters.deadFaction();
+	}
+	
 	Model.prototype.execute = function(){
 	  this.actions.actionList.get(this.selectedAction).get("effect", this);
 	};

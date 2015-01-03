@@ -117,6 +117,13 @@ define(function(require) {
     this.characterList = this.defaultCharacterList.clone(true);
   };
   
+  Characters.prototype.deadFaction = function(){
+    if (this.characterList.where({faction:"ally", hp: 0}).length == this.contAllies || 
+        this.characterList.where({faction:"enemy", hp: 0}).length == this.contEnemies)
+      return true;
+    return false;
+  }
+  
   Characters.prototype.turn = function(){
     for (var i = 0; i < this.characterList.length; i++){
       var newWait = this.characterList.at(i).get("wait") - this.characterList.at(i).get("initiative");

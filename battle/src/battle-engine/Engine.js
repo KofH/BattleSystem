@@ -71,12 +71,18 @@ define(function(require) {
     this._view.showInfoFighters(this._model.characters.characterList);
     this.generateButtons(this._model.characters.characterList);
     if(this._on){
-      this._model.turn();
-      this._view.showInfoFighters(this._model.characters.characterList);
-      if (this._waitCheck()){
-        this._view.stop();
+      if (this._model.deadFaction()){
+        console.log("--- END OF COMBAT ---");
         this._on = false;
-        this._combat();
+      }
+      else{
+        this._model.turn();
+        this._view.showInfoFighters(this._model.characters.characterList);
+        if (this._waitCheck()){
+          this._view.stop();
+          this._on = false;
+          this._combat();
+        }
       }
     }
   };
