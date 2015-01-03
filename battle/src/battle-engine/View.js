@@ -35,6 +35,9 @@ define(function(require) {
     document.getElementById("buttonSaveWeapons").onclick = engine._saveWeapons.bind(engine);
     document.getElementById("buttonLoadArmors").onclick = engine._loadArmors.bind(engine);
     document.getElementById("buttonSaveArmors" ).onclick = engine._saveArmors.bind(engine);
+		$(function () {
+  		$('[data-toggle="tooltip"]').tooltip()
+		});
 	  //IMPROVE THIS
 	  $('#slider-step').noUiSlider({
 		  start: [ 1 ],
@@ -96,7 +99,17 @@ define(function(require) {
       wait.innerHTML = "Wait: " + characters.at(i).get("wait");
       wait.style.color = "#8A0886";
       item.appendChild(wait);
-
+			
+			var divW = document.createElement("div");
+			divW.setAttribute("class","progress");
+			
+			var waitBar = document.createElement("div");
+			waitBar.style.width = (100-characters.at(i).get("wait")) + "%";
+			if (characters.at(i).get("wait") == 0) waitBar.setAttribute("class","progress-bar progress-bar-material-lightblue");
+			else waitBar.setAttribute("class","progress-bar progress-bar-material-purple");
+			divW.appendChild(waitBar);
+			item.appendChild(divW);
+			
       if (characters.at(i).get("faction") == "ally") {
         allies.appendChild(item);
       } else {
