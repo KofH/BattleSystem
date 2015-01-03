@@ -13,10 +13,11 @@ define(function(require) {
    * PUBLIC FUNCTIONS *
    ****************************************************************************/
   
-   /*View.prototype.step = function(){
-      
+   View.prototype.step = function(model){
+     this.showInfoFighters(model.characters.characterList);
+     this.generateButtons(model.characters.characterList);
     };
-    //*/
+    
 
   View.prototype.initialize = function(engine){
     this._buttonAction = engine.stepSelectAction.bind(engine);
@@ -40,11 +41,11 @@ define(function(require) {
 		});
 	  //IMPROVE THIS
 	  $('#slider-step').noUiSlider({
-		  start: [ 1 ],
+		  start: [ 0 ],
 		  step: 1,
 		  range: {
-			  'min': [  1 ],
-			  'max': [ 40 ]
+			  'min': [ 0 ],
+			  'max': [ 0 ]
 		  }
 	  });
 	  $('#slider-step').Link('lower').to($('#slider-step-value'));
@@ -116,6 +117,28 @@ define(function(require) {
         enemies.appendChild(item);
       }
     }
+  };
+  
+  View.prototype.generateButtons = function(characters){
+    for (var i = 0; i < characters.length; i++){
+      this.characterButton(characters.at(i).attributes, this.stepSelectTarget);
+      this.factionButton(characters.at(i).get("faction"), this.stepSelectTarget);
+    }
+  };
+  
+  View.prototype.setTurn = function(turn){
+    var value = document.getElementById("slider-step-value").value;
+    document.getElementById("slider-step").destroy();
+    $('#slider-step').noUiSlider({
+      start: [ turn ],
+      step: 1,
+      range: {
+        'min': [ 0 ],
+        'max': [ turn ]
+      }
+    });
+    $('#slider-step').Link('lower').to($('#slider-step-value'));
+    document.getElementById("slider-step-value").value = turn;
   };
   
   View.prototype.selectEquipment = function(weapons, armors) {

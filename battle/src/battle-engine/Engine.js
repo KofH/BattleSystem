@@ -68,8 +68,7 @@ define(function(require) {
   //*/
   
   Engine.prototype._step = function() {
-    this._view.showInfoFighters(this._model.characters.characterList);
-    this.generateButtons(this._model.characters.characterList);
+    this._view.step(this._model);
     if(this._on){
       if (this._model.deadFaction()){
         console.log("--- END OF COMBAT ---");
@@ -77,7 +76,8 @@ define(function(require) {
       }
       else{
         this._model.turn();
-        this._view.showInfoFighters(this._model.characters.characterList);
+        this._view.setTurn(this._model.turnCount);
+        this._view.step(this._model);
         if (this._waitCheck()){
           this._view.stop();
           this._on = false;
@@ -136,12 +136,6 @@ define(function(require) {
     console.log("TODO saveArmors");
   };
   
-  Engine.prototype.generateButtons = function(characters){
-    for (var i = 0; i < characters.length; i++){
-      this._view.characterButton(characters.at(i).attributes, this.stepSelectTarget);
-      this._view.factionButton(characters.at(i).get("faction"), this.stepSelectTarget);
-    }
-  };
   
   Engine.prototype.modCharactersLoadAttr = function() {
     this.model.modCharactersLoadAttr(); //TODO implement

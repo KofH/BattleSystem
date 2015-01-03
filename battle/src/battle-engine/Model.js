@@ -48,8 +48,8 @@ define(function(require) {
 	
 	Model.prototype.newCharacter = function (data) {
 		console.log("New Character");
-		if ( (data.faction == "ally" && this.characters.contAllies < this.MAX_ALLIES) ||
-		  data.faction == "enemy" && this.characters.contEnemies < this.MAX_ENEMIES) {
+		if ( (data.faction == "ally" && this.characters.contAllies() < this.MAX_ALLIES) ||
+		  data.faction == "enemy" && this.characters.contEnemies() < this.MAX_ENEMIES) {
 		   
 		  this.characters.newCharacter(data);
 		}

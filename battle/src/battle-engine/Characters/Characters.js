@@ -46,9 +46,7 @@ define(function(require) {
       });
       
       this.set({
-        hp: function (){
-          return this.get("maxHp");
-        }
+        hp: this.get("maxHp")
       });
       
       //////////////////       Turn
@@ -88,8 +86,13 @@ define(function(require) {
   function Characters(){
     this.defaultCharacterList = new CharacterList();
     this.characterList = new CharacterList();
-    this.contAllies = this.characterList.where({faction:"ally"}).length;
-    this.contEnemies = this.characterList.where({faction:"enemy"}).length;
+    
+    this.contAllies = function (){
+      return this.characterList.where({faction:"ally"}).length;
+    }
+    this.contEnemies = function (){
+      return this.characterList.where({faction:"enemy"}).length;
+    }
   };
   
   Characters.prototype.load = function(file){
@@ -99,9 +102,6 @@ define(function(require) {
     filereader.onloadend = function (){
       self.defaultCharacterList = new CharacterList(JSON.parse(filereader.result));
       self.characterList = self.defaultCharacterList.clone(true); 
-      
-      self.contAllies = self.characterList.where({faction: "ally"}).length;
-      self.contEnemies = self.characterList.where({faction: "enemy"}).length;
     }
     filereader.readAsText(file,'utf8');
   };
@@ -118,8 +118,8 @@ define(function(require) {
   };
   
   Characters.prototype.deadFaction = function(){
-    if (this.characterList.where({faction:"ally", hp: 0}).length == this.contAllies || 
-        this.characterList.where({faction:"enemy", hp: 0}).length == this.contEnemies)
+    if (this.characterList.where({faction:"ally", hp: 0}).length == this.contAllies() || 
+        this.characterList.where({faction:"enemy", hp: 0}).length == this.contEnemies())
       return true;
     return false;
   }
