@@ -46,7 +46,10 @@ define(function(require) {
 		  range: {
 			  'min': [ 0 ],
 			  'max': [ 0 ]
-		  }
+		  },
+			format: wNumb({
+				decimals: 0,
+			})
 	  });
 	  $('#slider-step').Link('lower').to($('#slider-step-value'));
   }; 
@@ -135,7 +138,10 @@ define(function(require) {
       range: {
         'min': [ 0 ],
         'max': [ turn ]
-      }
+      },
+			format: wNumb({
+				decimals: 0,
+			})
     });
     $('#slider-step').Link('lower').to($('#slider-step-value'));
     document.getElementById("slider-step-value").value = turn;
