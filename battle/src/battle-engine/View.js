@@ -76,6 +76,7 @@ define(function(require) {
 
       var item = document.createElement("li");
       item.innerHTML = characters.at(i).get("name");
+			item.setAttribute("id", "Info" + item.innerHTML);
 
       var str = document.createElement("ul");
       str.innerHTML = "Strength: " + characters.at(i).get("strength");
@@ -293,7 +294,9 @@ define(function(require) {
     input.setAttribute("class","targetCharacters");
     input.setAttribute("disabled",true);
     input.onclick = this._buttonTarget.bind(input,input);
-    
+		//FIXME
+    input.onmouseover = console.log.bind(console,"HOVER!");
+    input.onmouseout = console.log.bind(console,"HOVER!");
     return input;
   };
   
