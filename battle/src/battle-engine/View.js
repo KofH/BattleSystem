@@ -32,10 +32,13 @@ define(function(require) {
     document.getElementById("newCharacterReset").onclick = this.newCharacterPromptReset;
     document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine);
     document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);
-    document.getElementById("buttonLoadWeapons").onclick = engine._loadWeapons.bind(engine);
+		document.getElementById("buttonLoadCombat").onclick = engine._loadCharacters.bind(engine);
+    document.getElementById("buttonSaveCombat").onclick = engine._saveCharacters.bind(engine);
+ 	/*document.getElementById("buttonLoadWeapons").onclick = engine._loadWeapons.bind(engine);
     document.getElementById("buttonSaveWeapons").onclick = engine._saveWeapons.bind(engine);
     document.getElementById("buttonLoadArmors").onclick = engine._loadArmors.bind(engine);
     document.getElementById("buttonSaveArmors" ).onclick = engine._saveArmors.bind(engine);
+	*/
 		$(function () {
   		$('[data-toggle="tooltip"]').tooltip()
 		});

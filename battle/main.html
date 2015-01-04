@@ -216,28 +216,49 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	        <h4 class="modal-title"><span class="mdi-file-attachment"></span> Load & Save</h4>
+	        <h4 class="modal-title"><span class="mdi-file-attachment"></span>Load & Save</h4>
 	      </div>
 	      <div class="modal-body">
 	        <!-- DIALOG CONTENT -->
 	        <div id="loadAndSaveCharacters" class="form-group">
-	            <label for="inputFile" class="col-lg-2 control-label">Characters:</label>
-	            <div class="col-lg-10">
-	                <input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
-	                <input type="file" name="file" id="fileUploadCharacters" multiple="">
-	                <a class="btn btn-success" type="button" id="buttonLoadCharacters" onClick="engine._loadCharacters()" data-dismiss="modal">
-	                	<span class="mdi-file-file-upload"></span>
-	                	Send File
-                	</a>
-	                <input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveCharactersFileName"><a id="saveCharactersDownload"></a>
-	                <a class="btn btn-info" type="button" id="buttonSaveCharacters" data-dismiss="modal" onClick="engine._saveCharacters()">
-	                	<span class="mdi-file-file-download"></span>
-	                	Save Characters
-                	</a>
-	            </div>
-	            <div class="list-group">
-	            	<div class="list-group-separator"></div>
-	            </div>
+						<label for="inputFile" class="col-lg-2 control-label"><span class="mdi-social-people"></span>Characters:</label>
+						<div class="col-lg-10">
+								<input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
+								<input type="file" name="file" id="fileUploadCharacters" multiple="">
+								<a class="btn btn-success" type="button" id="buttonLoadCharacters" onClick="engine._loadCharacters()" data-dismiss="modal">
+									<span class="mdi-file-file-upload"></span>
+									Send File
+								</a>
+								<input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveCharactersFileName"><a id="saveCharactersDownload"></a>
+								<a class="btn btn-info" type="button" id="buttonSaveCharacters" data-dismiss="modal" onClick="engine._saveCharacters()">
+									<span class="mdi-file-file-download"></span>
+									Save Characters
+								</a>
+						</div>
+						<div class="list-group">
+							<div class="list-group-separator"></div>
+						</div>
+					</div>
+					<div id="loadAndSaveCharacters" class="form-group">
+						<label for="inputFile" class="col-lg-2 control-label"><span class="mdi-action-assignment"></span>Combat:</label>
+						<div class="col-lg-10">
+								<input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
+								<input type="file" name="file" id="fileUploadCombat" multiple="">
+								<a class="btn btn-success" type="button" id="buttonLoadCombat" onClick="engine._loadCombat()" data-dismiss="modal">
+									<span class="mdi-file-file-upload"></span>
+									Send File
+								</a>
+								<input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveCombatFileName"><a id="saveCombatDownload"></a>
+								<a class="btn btn-info" type="button" id="buttonSaveCombat" data-dismiss="modal" onClick="engine._saveCombat()">
+									<span class="mdi-file-file-download"></span>
+									Save Combat
+								</a>
+						</div>
+						<div class="list-group">
+							<div class="list-group-separator"></div>
+						</div>
+					</div>
+						<!-- TODO
 	            <label for="inputFile" class="col-lg-2 control-label">Armors:</label>
 	            <div class="col-lg-10">
 	                <input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
@@ -269,14 +290,8 @@
 	                	Save Weapons
                 	</a>
 	            </div>
-	        </div>
+							-->
 	        <!-- END DIALOG CONTENT -->
-	      </div>
-	      <div class="modal-footer">
-	      </div>
-	    </div>
-	  </div>
-	</div>
 	<!-- MODIFY CHARACTERS -->
 	<div id="modifyCharacters" class="modal fade" tabindex="-1">
 	  <div class="modal-dialog">
