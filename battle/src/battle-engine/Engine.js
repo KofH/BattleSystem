@@ -153,6 +153,7 @@ define(function(require) {
   Engine.prototype._combat = function(){
     console.log("TURN!");
     this._model.active = this._model.characters.characterList.findWhere({wait: 0});
+		this._view._active = this._model.active.get("id");
     this._model.saveCombat();
     this._view.showActiveActions(this._model.active);
     console.log("What will " + this._model.active.get("name") + " do?");

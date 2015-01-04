@@ -3,13 +3,13 @@ define(function(require) {
 
   /**
    * Constructor
-   */
+   */	
   function View() {
     this._buttonAction = function(){};
     this._buttonTarget = function(){};
+		this._active = "";
   };
-
-  /*****************************************************************************
+ /*****************************************************************************
    * PUBLIC FUNCTIONS *
    ****************************************************************************/
   
@@ -80,7 +80,10 @@ define(function(require) {
       var item = document.createElement("li");
       item.innerHTML = characters.at(i).get("name");
 			item.setAttribute("id", "Info" + item.innerHTML);
-
+			if(characters.at(i).get("id") == engine._view._active){
+				item.setAttribute("class","activeCharacter");
+			}
+			
       var str = document.createElement("ul");
       str.innerHTML = "Strength: " + characters.at(i).get("strength");
       item.appendChild(str);
@@ -263,7 +266,6 @@ define(function(require) {
       input.onclick = this._buttonAction.bind(input, input);
       div.appendChild(input);
     };
-		document.getElementById("Info"+character.get("name")).setAttribute("class","activeCharacter");
   };
   
   View.prototype.characterButton = function(data, callback){
