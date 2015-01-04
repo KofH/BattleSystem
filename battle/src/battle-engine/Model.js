@@ -23,17 +23,21 @@ define(function(require) {
 		this.active = {};
 		this.selectedAction = "";
 		this.selectedTarget = "";
-		this.turns = [];
-		this.turnCount = 0;
+
+		this.turns = {
+		  tick: [],
+		  tickCount: 0,
+		  combat: [],
+		  combatCount: 0 
+		};
 	}
 	
 	/********************************
 	 *       PUBLIC FUNCTIONS       *
 	 ********************************/
 	
-  Model.prototype.loadCharacters = function(file){
-    this.characters.load(file);
-    return this.characters.characterList;
+  Model.prototype.loadCharacters = function(file, callback){
+    this.characters.load(file, callback);
   };
 	
 	Model.prototype.saveCharacters = function(){
@@ -61,7 +65,7 @@ define(function(require) {
 	};
 	
 	Model.prototype.getActionTarget = function(){
-	    return this.actions.actionList.get(this.selectedAction).get("target");
+    return this.actions.actionList.get(this.selectedAction).get("target");
 	}; 
 	
 	Model.prototype.resetCharacters = function(){
@@ -70,7 +74,7 @@ define(function(require) {
 	
 	Model.prototype.turn = function(){		
 		this.characters.turn();
-		this.saveTurn();
+		this.saveTick();
 	};
 	
 	Model.prototype.deadFaction = function(){
@@ -79,6 +83,7 @@ define(function(require) {
 	
 	Model.prototype.execute = function(){
 	  this.actions.actionList.get(this.selectedAction).get("effect", this);
+	  this.saveTick();
 	};
 
 	/*  /////NOT IN USE////
@@ -110,17 +115,22 @@ define(function(require) {
 	
 	Model.prototype.searchCharacter = function(){
 		var searchCharacter = prompt("Choose your target");
-	    return this.characters.get(searchCharacter);
+	  return this.characters.get(searchCharacter);
 	};
 
-	Model.prototype.saveTurn = function(){
-	  this.turns[this.turnCount] = this.characters.characterList.clone(true);
-	  this.turnCount++;
+	Model.prototype.saveTick = function(){
+	  this.turns.tick[this.turns.tickCount] = this.characters.characterList.clone(true);
+	  this.turns.tickCount++;
 	}
 	
-	Model.prototype.loadTurn = function(i){
-	  this.characters.characterList = this.turns[i];
-	  this.turnCount = i+1;
+	Model.prototype.loadTick = function(i){
+	  this.characters.characterList = this.turns.tick[i];
+	  this.turns.tickCount = i+1;
+	}
+	
+	Model.prototype.saveCombat = function(){
+	  this.turns.combat[this.turns.combatCount] = this.turns.tickCount;
+	  this.turns.combatCount++;
 	}
 	
 	/**

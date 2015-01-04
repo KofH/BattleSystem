@@ -210,11 +210,10 @@ define(function(require) {
     x.click();
   };
 
-  View.prototype.loadCharacters = function(characters) {
+  View.prototype.loadCharacters = function(characters) {    ///NOT IN USE
     this.modifyCharactersDataList(characters);
   };
 
-  
   View.prototype.newCharacter = function() {
     var data = {};
     data.name = document.getElementById('newCharacterName').value;    //NAME

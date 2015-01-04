@@ -41,11 +41,9 @@ define(function(require) {
   };
   
   Engine.prototype.tick = function(){
-    if (!this._waitCheck()){
   	  this._on = true;
   	  this._step();
   	  this._on = false;
-    }
   };
   /*
   Engine.prototype.renderize = function () {
@@ -68,21 +66,21 @@ define(function(require) {
   //*/
   
   Engine.prototype._step = function() {
-    this._view.step(this._model);
-    if(this._on){
-      if (this._model.deadFaction()){
+    if (this._on){
+      if(this._model.deadFaction()){
         console.log("--- END OF COMBAT ---");
         this._on = false;
       }
+      else if (this._waitCheck()){
+        this._view.stop();
+        this._on = false;
+        this._combat();
+        this._view.step(this._model);
+        this._view.setTurn(this._model.turns.combatCount);
+      }
       else{
         this._model.turn();
-        this._view.setTurn(this._model.turnCount);
         this._view.step(this._model);
-        if (this._waitCheck()){
-          this._view.stop();
-          this._on = false;
-          this._combat();
-        }
       }
     }
   };
@@ -103,12 +101,12 @@ define(function(require) {
   };
   
   Engine.prototype._loadCharacters = function(){  
-    var characters = this._model.loadCharacters(this._view.getCharactersFile());
-    this._view.loadCharacters(characters);
+    this._model.loadCharacters(this._view.getCharactersFile(), this._view.showInfoFighters);
   };
   
   Engine.prototype._resetCharacters = function(){
     if(this._view.askReset()) this._model.resetCharacters();
+    this._view.step(this._model);
   };
   
   Engine.prototype._saveCharacters = function(){
@@ -154,6 +152,7 @@ define(function(require) {
   Engine.prototype._combat = function(){
     console.log("TURN!");
     this._model.active = this._model.characters.characterList.findWhere({wait: 0});
+    this._model.saveCombat();
     this._view.showActiveActions(this._model.active);
     console.log("What will " + this._model.active.get("name") + " do?");
   };
@@ -174,17 +173,8 @@ define(function(require) {
     this._view.disableButtons(this._model.characters.characterList);
     this._model.execute();
     this._view.showInfoFighters(this._model.characters.characterList);
-    this._turnEnded();
   };
-  
-  Engine.prototype._turnEnded = function(){
-    if(this._waitCheck()){
-      this._combat();
-    }
-    else{
-      this.start();
-    }
-  };
+
  
   /**
    * End class
