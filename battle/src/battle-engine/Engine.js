@@ -69,6 +69,7 @@ define(function(require) {
     if (this._on){
       if(this._model.deadFaction()){
         console.log("--- END OF COMBAT ---");
+				$.snackbar({content: "COMBAT ENDED!"});
         this._on = false;
       }
       else if (this._waitCheck()){

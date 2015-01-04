@@ -32,10 +32,13 @@ define(function(require) {
     document.getElementById("newCharacterReset").onclick = this.newCharacterPromptReset;
     document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine);
     document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);
-    document.getElementById("buttonLoadWeapons").onclick = engine._loadWeapons.bind(engine);
+		document.getElementById("buttonLoadCombat").onclick = engine._loadCharacters.bind(engine);
+    document.getElementById("buttonSaveCombat").onclick = engine._saveCharacters.bind(engine);
+ 	/*document.getElementById("buttonLoadWeapons").onclick = engine._loadWeapons.bind(engine);
     document.getElementById("buttonSaveWeapons").onclick = engine._saveWeapons.bind(engine);
     document.getElementById("buttonLoadArmors").onclick = engine._loadArmors.bind(engine);
     document.getElementById("buttonSaveArmors" ).onclick = engine._saveArmors.bind(engine);
+	*/
 		$(function () {
   		$('[data-toggle="tooltip"]').tooltip()
 		});
@@ -208,10 +211,12 @@ define(function(require) {
     x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
     x.href = dataurl;
     x.click();
+		$.snackbar({content: "Characters saved as " + document.getElementById("saveCharactersFileName").value + ".txt"});
   };
 
   View.prototype.loadCharacters = function(characters) {    ///NOT IN USE
     this.modifyCharactersDataList(characters);
+		$.snackbar({content: "Characters loaded"});
   };
 
   View.prototype.newCharacter = function() {
@@ -237,6 +242,7 @@ define(function(require) {
     
     data.actions = this.getSelectedActions();                      //ACTIONS
     
+		$.snackbar({content: data.name + " created!"});
     return data;
   };
   
@@ -247,6 +253,7 @@ define(function(require) {
     }
     var title = document.createElement("h2");
     title.innerHTML = "What will " + character.get("name") + " do?";
+    $.snackbar({content: "What will " + character.get("name") + " do?"	});
     div.appendChild(title);
     
     for( var i = 0; i < character.get("actions").length; i++){
@@ -255,7 +262,8 @@ define(function(require) {
       input.value = character.get("actions")[i];
       input.onclick = this._buttonAction.bind(input, input);
       div.appendChild(input);
-    }
+    };
+		document.getElementById("Info"+character.get("name")).setAttribute("class","activeCharacter");
   };
   
   View.prototype.characterButton = function(data, callback){
@@ -294,8 +302,16 @@ define(function(require) {
     input.setAttribute("disabled",true);
     input.onclick = this._buttonTarget.bind(input,input);
 		//FIXME
-    input.onmouseover = console.log.bind(console,"HOVER!");
-    input.onmouseout = console.log.bind(console,"HOVER!");
+		input.onmouseover = function(){
+			if(document.getElementById("Info" + name).getAttribute("class") == null){
+				document.getElementById("Info" + name).setAttribute("class","onMouseOverCharacter");
+			};
+		};
+    input.onmouseout = function(){
+			if(document.getElementById("Info" + name).getAttribute("class") == "onMouseOverCharacter"){
+				document.getElementById("Info" + name).removeAttribute("class","onMouseOverCharacter");
+			};
+		};
     return input;
   };
   
@@ -335,8 +351,8 @@ define(function(require) {
   };
 
   View.prototype.stop = function() {
-	document.getElementById("buttonStop").setAttribute("class","btn btn-danger noMargin");
-	document.getElementById("buttonStart").setAttribute("class","btn btn-flat btn-success noMargin");
+		document.getElementById("buttonStop").setAttribute("class","btn btn-danger noMargin");
+		document.getElementById("buttonStart").setAttribute("class","btn btn-flat btn-success noMargin");
   };
 
   View.prototype.start = function() {

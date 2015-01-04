@@ -60,6 +60,7 @@ define(function(require) {
       this.on("change:hp", function(character){
         if(character.get("hp") <= 0){
           console.log(character.get("name") + " has fainted!");
+					$.snackbar({content: character.get("name") + " has fainted!"});
           character.set({wait: Infinity});
         }
       });
