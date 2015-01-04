@@ -211,10 +211,12 @@ define(function(require) {
     x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
     x.href = dataurl;
     x.click();
+		$.snackbar({content: "Characters saved as " + document.getElementById("saveCharactersFileName").value + ".txt"});
   };
 
   View.prototype.loadCharacters = function(characters) {
     this.modifyCharactersDataList(characters);
+		$.snackbar({content: "Characters loaded"});
   };
 
   
@@ -241,6 +243,7 @@ define(function(require) {
     
     data.actions = this.getSelectedActions();                      //ACTIONS
     
+		$.snackbar({content: data.name + " created!"});
     return data;
   };
   
@@ -251,6 +254,7 @@ define(function(require) {
     }
     var title = document.createElement("h2");
     title.innerHTML = "What will " + character.get("name") + " do?";
+    $.snackbar({content: "What will " + character.get("name") + " do?"	});
     div.appendChild(title);
     
     for( var i = 0; i < character.get("actions").length; i++){
@@ -348,8 +352,8 @@ define(function(require) {
   };
 
   View.prototype.stop = function() {
-	document.getElementById("buttonStop").setAttribute("class","btn btn-danger noMargin");
-	document.getElementById("buttonStart").setAttribute("class","btn btn-flat btn-success noMargin");
+		document.getElementById("buttonStop").setAttribute("class","btn btn-danger noMargin");
+		document.getElementById("buttonStart").setAttribute("class","btn btn-flat btn-success noMargin");
   };
 
   View.prototype.start = function() {
