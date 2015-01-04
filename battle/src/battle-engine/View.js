@@ -256,7 +256,8 @@ define(function(require) {
       input.value = character.get("actions")[i];
       input.onclick = this._buttonAction.bind(input, input);
       div.appendChild(input);
-    }
+    };
+		document.getElementById("Info"+character.get("name")).setAttribute("class","activeCharacter");
   };
   
   View.prototype.characterButton = function(data, callback){
@@ -295,8 +296,16 @@ define(function(require) {
     input.setAttribute("disabled",true);
     input.onclick = this._buttonTarget.bind(input,input);
 		//FIXME
-    input.onmouseover = console.log.bind(console,"HOVER!");
-    input.onmouseout = console.log.bind(console,"HOVER!");
+		input.onmouseover = function(){
+			if(document.getElementById("Info" + name).getAttribute("class") == null){
+				document.getElementById("Info" + name).setAttribute("class","onMouseOverCharacter");
+			};
+		};
+    input.onmouseout = function(){
+			if(document.getElementById("Info" + name).getAttribute("class") == "onMouseOverCharacter"){
+				document.getElementById("Info" + name).removeAttribute("class","onMouseOverCharacter");
+			};
+		};
     return input;
   };
   

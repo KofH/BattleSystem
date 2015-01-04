@@ -41,8 +41,23 @@
 }
 .infoFightersContent li{
 	display: inline-block;
-	margin-left: 5px;
+	padding: 0px 5px;
+	margin: 0px 3px;
 }
 .infoFightersContent ul{
-	margin: 0px;
+	margin: 0px 10px;
+	padding:	0px;
+}
+.bold {
+	font-weight: bold;
+}
+.activeCharacter{
+	border: none;
+	border-radius: 5px;
+	background-color: #AED581;
+}
+.onMouseOverCharacter{
+	border:none;
+	border-radius: 5px;
+	background-color: #EF9A9A;
 }
