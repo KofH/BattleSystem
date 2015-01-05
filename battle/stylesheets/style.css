@@ -11,6 +11,10 @@
 	width: 50%;
 	float: right;
 }
+.aDisabled{
+	pointer-events: none;
+	cursor: default;
+}
 .panelBattleSystem{
 	margin-bottom: 0px;
 }
@@ -53,11 +57,13 @@
 }
 .activeCharacter{
 	border: none;
-	border-radius: 5px;
+	border-radius: 3px;
 	background-color: #AED581;
+	box-shadow: 0px 0px 5px 0px;
 }
 .onMouseOverCharacter{
 	border:none;
-	border-radius: 5px;
+	border-radius: 3px;
 	background-color: #EF9A9A;
+	box-shadow: 0px 0px 5px 0px;
 }
