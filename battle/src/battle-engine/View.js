@@ -80,8 +80,9 @@ define(function(require) {
       var item = document.createElement("li");
       item.innerHTML = characters.at(i).get("name");
 			item.setAttribute("id", "Info" + item.innerHTML);
+			item.setAttribute("class","defaultCharacter sample shadow-z-1");
 			if(characters.at(i).get("id") == engine._view._active){
-				item.setAttribute("class","activeCharacter");
+				item.setAttribute("class","activeCharacter sample shadow-z-2");
 			}
 			
       var str = document.createElement("ul");
@@ -303,15 +304,14 @@ define(function(require) {
     input.setAttribute("class","targetCharacters");
     input.setAttribute("disabled",true);
     input.onclick = this._buttonTarget.bind(input,input);
-		//FIXME
 		input.onmouseover = function(){
-			if(document.getElementById("Info" + name).getAttribute("class") == null){
-				document.getElementById("Info" + name).setAttribute("class","onMouseOverCharacter");
+			if(document.getElementById("Info" + name).getAttribute("class") == "defaultCharacter sample shadow-z-1"){
+				document.getElementById("Info" + name).setAttribute("class","onMouseOverCharacter sample shadow-z-2");
 			};
 		};
     input.onmouseout = function(){
-			if(document.getElementById("Info" + name).getAttribute("class") == "onMouseOverCharacter"){
-				document.getElementById("Info" + name).removeAttribute("class","onMouseOverCharacter");
+			if(document.getElementById("Info" + name).getAttribute("class") == "onMouseOverCharacter sample shadow-z-2"){
+				document.getElementById("Info" + name).setAttribute("class","defaultCharacter sample shadow-z-1");
 			};
 		};
     return input;

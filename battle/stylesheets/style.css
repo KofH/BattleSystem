@@ -55,15 +55,18 @@
 .bold {
 	font-weight: bold;
 }
+.defaultCharacter{
+	border: none;
+	border-radius: 2px;
+	background-color: #FAFAFA;
+}
 .activeCharacter{
 	border: none;
-	border-radius: 3px;
+	border-radius: 2px;
 	background-color: #AED581;
-	box-shadow: 0px 0px 5px 0px;
 }
 .onMouseOverCharacter{
 	border:none;
-	border-radius: 3px;
-	background-color: #EF9A9A;
-	box-shadow: 0px 0px 5px 0px;
+	border-radius: 2px;
+	background-color: #E57373;
 }
