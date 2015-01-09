@@ -34,6 +34,9 @@
 .noMargin{
 	margin: 0px;
 }
+.margin5{
+	margin: 5px;
+}
 .newCharacterAttr{
  	width: 15ex;
  }

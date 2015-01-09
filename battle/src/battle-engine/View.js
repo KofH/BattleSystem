@@ -264,6 +264,7 @@ define(function(require) {
       var input = document.createElement("input");
       input.type = "button";
       input.value = character.get("actions")[i];
+			input.setAttribute("class","btn btn-default btn-raised margin5");
       input.onclick = this._buttonAction.bind(input, input);
       div.appendChild(input);
     };
@@ -301,7 +302,7 @@ define(function(require) {
     input.id = id;
     input.value = val;
     input.name = name;
-    input.setAttribute("class","targetCharacters");
+    input.setAttribute("class","btn btn-default btn-raised margin5");
     input.setAttribute("disabled",true);
     input.onclick = this._buttonTarget.bind(input,input);
 		input.onmouseover = function(){
