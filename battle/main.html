@@ -20,10 +20,17 @@
 	<div class="panel panel-default">
 	    <div class="panel-heading noPadding">
 		    <div class="btn-group btn-group-justified noMargin">
-		    	<a class="btn btn-flat btn-default noMargin" type="button" data-toggle="modal" data-target="#buttonLoadAndSave">
-		    		<span class="mdi-file-attachment"></span>
-		    		Load / Save
-	    		</a>
+					<div class="btn-group btn-group-justified">
+						<a href="" type="button" data-toggle="modal" data-target="#buttonLoadAndSaveCharacters" class="btn btn-flat btn-default"><span class="mdi-file-attachment"></span>Load & Save</a>
+						<a href="javascript:void(0)" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+						<ul class="dropdown-menu">
+								<li><a href="" type="button" data-toggle="modal" data-target="#buttonLoadAndSaveCharacters"><span class="mdi-social-group-add"></span>Characters</a></li>
+								<li><a href="" type="button" data-toggle="modal" data-target="#buttonLoadAndSaveCombat"><span class="mdi-action-assignment"></span>Combat</a></li>
+								<li class="divider"></li>
+								<li><a href="" type="button" data-toggle="modal" data-target="#buttonLoadAndSave" class="aDisabled"><span class="mdi-hardware-security"></span>Armors</a></li>
+								<li><a href="" type="button" data-toggle="modal" data-target="#buttonLoadAndSave" class="aDisabled"><span class="mdi-maps-local-restaurant"></span>Weapons</a></li>
+						</ul>
+					</div>
 		    	<a class="btn btn-flat btn-default noMargin" type="button" data-toggle="modal" data-target="#newCharacterDialog">
 		    		<span class="mdi-social-person-add"></span>
 		    		New Character
@@ -119,7 +126,6 @@
 	      </div>
 	      <div class="modal-body">
 	      <div class="form-group">
-	      	<!-- DIALOG CONTENT -->
 	      	<div class="form-group">
 	      		<h4>Info & Stats</h4>
 		      	<label class="col-lg-2 control-label noMargin">Faction</label>
@@ -193,7 +199,6 @@
 				     <label><input type="checkbox" id="newCharacterActionChangeFormation" value="changeFormation" checked=""/>Change Formation</label>
 		    	 </div>
 		    </div>
-        	<!-- END DIALOG CONTENT -->
 		</div>
 	      </div>
 	      <div class="modal-footer">
@@ -210,17 +215,15 @@
 	  </div>
 	</div>
 	<!-- LOAD AND SAVE -->
-	<div id="buttonLoadAndSave" class="modal fade" tabindex="-1">
+	<div id="buttonLoadAndSaveCharacters" class="modal fade" tabindex="-1">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	        <h4 class="modal-title"><span class="mdi-file-attachment"></span>Load & Save</h4>
+	        <h4 class="modal-title"><span class="mdi-social-group-add"></span>Characters</h4>
 	      </div>
 	      <div class="modal-body">
-	        <!-- DIALOG CONTENT -->
 	        <div id="loadAndSaveCharacters" class="form-group">
-						<label for="inputFile" class="col-lg-2 control-label"><span class="mdi-social-people"></span>Characters:</label>
 						<div class="col-lg-10">
 								<input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
 								<input type="file" name="file" id="fileUploadCharacters" multiple="">
@@ -234,12 +237,21 @@
 									Save Characters
 								</a>
 						</div>
-						<div class="list-group">
-							<div class="list-group-separator"></div>
-						</div>
+						<div class="modal-footer"></div>
 					</div>
-					<div id="loadAndSaveCharacters" class="form-group">
-						<label for="inputFile" class="col-lg-2 control-label"><span class="mdi-action-assignment"></span>Combat:</label>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="buttonLoadAndSaveCombat" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title"><span class="mdi-action-assignment"></span>Combat</h4>
+				</div>
+				<div class="modal-body">
+					<div id="loadAndSaveCombat" class="form-group">
 						<div class="col-lg-10">
 								<input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
 								<input type="file" name="file" id="fileUploadCombat" multiple="">
@@ -253,44 +265,12 @@
 									Save Combat
 								</a>
 						</div>
-						<div class="list-group">
-							<div class="list-group-separator"></div>
-						</div>
+						<div class="modal-footer"></div>
 					</div>
-						<!-- TODO
-	            <label for="inputFile" class="col-lg-2 control-label">Armors:</label>
-	            <div class="col-lg-10">
-	                <input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
-	                <input type="file" name="file" id="fileUploadArmors" multiple="">
-	                <a class="btn btn-success" type="button" id="buttonLoadArmors"   value="Send File" onClick="engine._loadArmors()" data-dismiss="modal">
-                		<span class="mdi-file-file-upload"></span>
-	                	Send File
-                	</a>
-	                <input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveArmorsFileName"><a id="saveArmorsDownload"></a>
-	                <a class="btn btn-info" type="button" id="buttonSaveArmors" data-dismiss="modal" onClick="engine._saveArmors()" data-dismiss="modal">
-		                <span class="mdi-file-file-download"></span>
-		                Save Armors
-	                </a>
-	            </div>
-	            <div class="list-group">
-	            <div class="list-group-separator"></div>
-	            </div>
-	            <label for="inputFile" class="col-lg-2 control-label">Weapons:</label>
-	            <div class="col-lg-10">
-	                <input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
-	                <input type="file" name="file" id="fileUploadWeapons" multiple="">
-	                <a class="btn btn-success" type="button" id="buttonLoadWeapons"   value="Send File" onClick="engine._loadWeapons()" data-dismiss="modal">
-	                	<span class="mdi-file-file-upload"></span>
-	                	Send File
-                	</a>
-	                <input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveWeaponsFileName"><a id="saveWeaponsDownload"></a>
-	                <a class="btn btn-info" type="button" id="buttonSaveWeapons" data-dismiss="modal" onClick="engine._saveWeapons()" data-dismiss="modal">
-	                	<span class="mdi-file-file-download"></span>
-	                	Save Weapons
-                	</a>
-	            </div>
-							-->
-	        <!-- END DIALOG CONTENT -->
+				</div>
+			</div>
+		</div>
+	</div>
 	<!-- MODIFY CHARACTERS -->
 	<div id="modifyCharacters" class="modal fade" tabindex="-1">
 	  <div class="modal-dialog">

@@ -80,8 +80,9 @@ define(function(require) {
       var item = document.createElement("li");
       item.innerHTML = characters.at(i).get("name");
 			item.setAttribute("id", "Info" + item.innerHTML);
+			item.setAttribute("class","defaultCharacter sample shadow-z-1");
 			if(characters.at(i).get("id") == engine._view._active){
-				item.setAttribute("class","activeCharacter");
+				item.setAttribute("class","activeCharacter sample shadow-z-2");
 			}
 			
       var str = document.createElement("ul");
@@ -260,10 +261,13 @@ define(function(require) {
     div.appendChild(title);
     
     for( var i = 0; i < character.get("actions").length; i++){
-      var input = document.createElement("input");
-      input.type = "button";
+      var input = document.createElement("a");
+			var aContent = document.createTextNode(character.get("actions")[i]);
+      input.href = "javascript:void(0);";
       input.value = character.get("actions")[i];
+			input.setAttribute("class","btn btn-default btn-raised margin5");
       input.onclick = this._buttonAction.bind(input, input);
+			input.appendChild(aContent);
       div.appendChild(input);
     };
   };
@@ -295,23 +299,24 @@ define(function(require) {
   };
   
   View.prototype.createBtt = function(id, val, name) {
-    var input = document.createElement("input");
-    input.type = "button";
+    var input = document.createElement("a");
+		var aContent = document.createTextNode(name);
+    input.href = "javascript:void(0);";
     input.id = id;
     input.value = val;
     input.name = name;
-    input.setAttribute("class","targetCharacters");
-    input.setAttribute("disabled",true);
+    input.setAttribute("class","btn btn-default btn-raised margin5");
+		input.setAttribute("disabled",true);
     input.onclick = this._buttonTarget.bind(input,input);
-		//FIXME
+		input.appendChild(aContent);
 		input.onmouseover = function(){
-			if(document.getElementById("Info" + name).getAttribute("class") == null){
-				document.getElementById("Info" + name).setAttribute("class","onMouseOverCharacter");
+			if(document.getElementById("Info" + name).getAttribute("class") == "defaultCharacter sample shadow-z-1"){
+				document.getElementById("Info" + name).setAttribute("class","onMouseOverCharacter sample shadow-z-2");
 			};
 		};
     input.onmouseout = function(){
-			if(document.getElementById("Info" + name).getAttribute("class") == "onMouseOverCharacter"){
-				document.getElementById("Info" + name).removeAttribute("class","onMouseOverCharacter");
+			if(document.getElementById("Info" + name).getAttribute("class") == "onMouseOverCharacter sample shadow-z-2"){
+				document.getElementById("Info" + name).setAttribute("class","defaultCharacter sample shadow-z-1");
 			};
 		};
     return input;
@@ -369,24 +374,24 @@ define(function(require) {
   View.prototype.selectTargetButtonEnable = function(target, characters, active){    
     if (target === "character"){
       for (var i = 0; i < characters.length; i++) {
-        document.getElementById(characters.at(i).get("name")).disabled = false;
+        document.getElementById(characters.at(i).get("name")).removeAttribute("disabled");
       }
     }
     else if (target === "faction"){
-      document.getElementById("factionAlly").disabled = false;
-      document.getElementById("factionEnemy").disabled = false;
+      document.getElementById("factionAlly").removeAttribute("disabled");
+      document.getElementById("factionEnemy").removeAttribute("disabled");
     }
     else if (target === "self"){
-      document.getElementById(active.get("name")).disabled = false;
+      document.getElementById(active.get("name")).removeAttribute("disabled");
     }
   };
   
   View.prototype.disableButtons = function(characters){
     for (var i = 0; i < characters.length; i++) {
-      document.getElementById(characters.at(i).get("name")).disabled = true;
+      document.getElementById(characters.at(i).get("name")).setAttribute("disabled",true);
     }
-    document.getElementById("factionAlly").disabled = true;
-    document.getElementById("factionEnemy").disabled = true;
+    document.getElementById("factionAlly").setAttribute("disabled",true);
+    document.getElementById("factionEnemy").setAttribute("disabled",true);
     
     var div = document.getElementById("actionButtons");
     while(div.hasChildNodes()){
