@@ -49,7 +49,8 @@ define(function(require) {
               console.log("Damage absorbed!");
             }
           }
-          model.active.set({wait: 50});
+          if (model.active.get("wait") != Infinity)
+            model.active.set({wait: 50});
         }
       
   }));
