@@ -42,7 +42,7 @@ define(function(require) {
   };
   
   Model.prototype.loadTurns = function(file, callback){
-    var Filereader = new Filereader();
+    var filereader = new FileReader();
     var self = this;
     
     filereader.onloadend = function(){

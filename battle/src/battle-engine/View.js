@@ -381,7 +381,7 @@ define(function(require) {
   };
   
   View.prototype.getCombatFile = function() {
-    return document.getElementById("fileUploadTurns").files[0];
+    return document.getElementById("fileUploadCombat").files[0];
   };
   
   View.prototype.selectTargetButtonEnable = function(target, characters, active){    

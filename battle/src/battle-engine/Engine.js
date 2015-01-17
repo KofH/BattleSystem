@@ -120,7 +120,7 @@ define(function(require) {
   }
   
   Engine.prototype._saveCombat = function(){
-    var serialization = this.model.getTurnsSerial();
+    var serialization = this._model.getTurnsSerial();
     this._view.saveTurns(serialization);
   }
   
