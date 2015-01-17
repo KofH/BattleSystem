@@ -115,6 +115,15 @@ define(function(require) {
     this._view.saveCharacters(serialization);
   };
   
+  Engine.prototype._loadTurns = function(){
+    this._model.loadTurns(this._view.getTurnsFile(), console.log("loadTurns Callback"));
+  }
+  
+  Engine.prototype._saveTurns = function(){
+    var serialization = this.model.getTurnsSerial();
+    this._view.saveTurns(serialization);
+  }
+  
   Engine.prototype._loadWeapons = function(){
     //TODO implement
     console.log("TODO loadWeapons");

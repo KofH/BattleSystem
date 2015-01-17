@@ -222,6 +222,15 @@ define(function(require) {
     this.modifyCharactersDataList(characters);
 		$.snackbar({content: "Characters loaded"});
   };
+  
+  View.prototype.saveTurns = function(serialization){
+    var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
+    var x = document.getElementById("saveTurnsDownload");
+    x.setAttribute("download", document.getElementById("saveTurnsFileName").value + ".txt");
+    x.href = dataurl;
+    x.click();
+    $.snackbar({content: "Turns saved as " + document.getElementById("saveCharactersFileName").value + ".txt"});
+  }
 
   View.prototype.newCharacter = function() {
     var data = {};
@@ -369,6 +378,10 @@ define(function(require) {
   
   View.prototype.getCharactersFile = function() {
     return document.getElementById("fileUploadCharacters").files[0];
+  };
+  
+  View.prototype.getCharactersFile = function() {
+    return document.getElementById("fileUploadTurns").files[0];
   };
   
   View.prototype.selectTargetButtonEnable = function(target, characters, active){    

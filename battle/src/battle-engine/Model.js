@@ -28,7 +28,8 @@ define(function(require) {
 		  tick: [],
 		  tickCount: 0,
 		  combat: [],
-		  combatCount: 0 
+		  combatCount: 0, 
+		  actual: 0
 		};
 	}
 	
@@ -39,17 +40,18 @@ define(function(require) {
   Model.prototype.loadCharacters = function(file, callback){
     this.characters.load(file, callback);
   };
-	
-	Model.prototype.saveCharacters = function(){
-		var serialization = JSON.stringify(this.characters.characterList);
-		var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
-		var x = document.getElementById("saveCharactersDownload");
-		x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
-		x.href = dataurl;
-		x.click();
-		document.getElementById('loadAndSavePrompt').classList.toggle('Displayed');
-	};
-	
+  
+  Model.prototype.loadTurns = function(file, callback){
+    var Filereader = new Filereader();
+    var self = this;
+    
+    filereader.onloadend = function(){
+      self.turns = JSON.parse(filereader.result);
+      //TODO CALLBACK
+    }
+    filereader.readAsText(file, 'utf8');
+  }
+
 	Model.prototype.newCharacter = function (data) {
 		console.log("New Character");
 		if ( (data.faction == "ally" && this.characters.contAllies() < this.MAX_ALLIES) ||
@@ -62,6 +64,10 @@ define(function(require) {
 	
 	Model.prototype.getCharactersSerial = function(){
 	  return this.characters.stringify();
+	};
+	
+	Model.prototype.getTurnsSerial = function(){
+	  return JSON.stringify(this.turns);
 	};
 	
 	Model.prototype.getActionTarget = function(){
@@ -121,11 +127,13 @@ define(function(require) {
 	Model.prototype.saveTick = function(){
 	  this.turns.tick[this.turns.tickCount] = this.characters.characterList.clone(true);
 	  this.turns.tickCount++;
+	  this.turns.actual = this.turns.tickCount;
 	}
 	
 	Model.prototype.loadTick = function(i){
 	  this.characters.characterList = this.turns.tick[i];
 	  this.turns.tickCount = i+1;
+	  this.turns.actual = this.turns.tickCount;
 	}
 	
 	Model.prototype.saveCombat = function(){
