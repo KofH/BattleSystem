@@ -115,11 +115,11 @@ define(function(require) {
     this._view.saveCharacters(serialization);
   };
   
-  Engine.prototype._loadTurns = function(){
+  Engine.prototype._loadCombat = function(){
     this._model.loadTurns(this._view.getCombatFile(), console.log("loadTurns Callback"));
   }
   
-  Engine.prototype._saveTurns = function(){
+  Engine.prototype._saveCombat = function(){
     var serialization = this.model.getTurnsSerial();
     this._view.saveTurns(serialization);
   }
