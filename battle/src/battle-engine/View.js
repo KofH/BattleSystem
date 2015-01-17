@@ -225,8 +225,8 @@ define(function(require) {
   
   View.prototype.saveTurns = function(serialization){
     var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
-    var x = document.getElementById("saveTurnsDownload");
-    x.setAttribute("download", document.getElementById("saveTurnsFileName").value + ".txt");
+    var x = document.getElementById("saveCombatDownload");
+    x.setAttribute("download", document.getElementById("saveCombatFileName").value + ".txt");
     x.href = dataurl;
     x.click();
     $.snackbar({content: "Turns saved as " + document.getElementById("saveCharactersFileName").value + ".txt"});
