@@ -380,7 +380,7 @@ define(function(require) {
     return document.getElementById("fileUploadCharacters").files[0];
   };
   
-  View.prototype.getCharactersFile = function() {
+  View.prototype.getCombatFile = function() {
     return document.getElementById("fileUploadTurns").files[0];
   };
   

@@ -116,7 +116,7 @@ define(function(require) {
   };
   
   Engine.prototype._loadTurns = function(){
-    this._model.loadTurns(this._view.getTurnsFile(), console.log("loadTurns Callback"));
+    this._model.loadTurns(this._view.getCombatFile(), console.log("loadTurns Callback"));
   }
   
   Engine.prototype._saveTurns = function(){
