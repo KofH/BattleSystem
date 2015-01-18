@@ -137,7 +137,7 @@ define(function(require) {
 	}
 	
 	Model.prototype.saveCombat = function(){
-	  this.turns.combat[this.turns.combatCount] = this.turns.tickCount;
+	  this.turns.combat[this.turns.combatCount] = this.turns.tick.length -1;
 	  this.turns.combatCount++;
 	}
 	
