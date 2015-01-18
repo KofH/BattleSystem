@@ -384,9 +384,27 @@ define(function(require) {
     return document.getElementById("fileUploadCombat").files[0];
   };
   
-  View.prototype.selectTargetButtonEnable = function(target, characters, active){    
+  View.prototype.selectTargetButtonEnable = function(target, characters, active){ 
     if (target === "character"){
       for (var i = 0; i < characters.length; i++) {
+				var x = document.getElementById(characters.at(i).get("name"));
+				if(characters.at(i).get("faction") == "ally"){
+					x.setAttribute("class","btn btn-material-lightblue margin5");
+				}
+				else{
+					x.setAttribute("class","btn btn-material-red margin5");
+				}
+				if(characters.at(i).get("name") === active.get("name")){
+					var span = document.createElement('span')
+					span.setAttribute("class","mdi-action-account-circle");
+					x.appendChild(span);
+					if(active.get("faction") === "ally"){
+						x.setAttribute("class","btn btn-material-lightblue btn-raised margin5");
+					}
+					else{
+						x.setAttribute("class","btn btn-material-red btn-raised margin5");
+					}
+				}
         document.getElementById(characters.at(i).get("name")).removeAttribute("disabled");
       }
     }
@@ -399,9 +417,14 @@ define(function(require) {
     }
   };
   
-  View.prototype.disableButtons = function(characters){
+  View.prototype.disableButtons = function(characters, active){
     for (var i = 0; i < characters.length; i++) {
-      document.getElementById(characters.at(i).get("name")).setAttribute("disabled",true);
+			var x = document.getElementById(characters.at(i).get("name"));
+      x.setAttribute("disabled",true);
+			x.setAttribute("class","btn btn-default btn-raised margin5");
+			if(characters.at(i).get("name") === active.get("name")){
+				x.removeChild(x.lastChild);
+			}
     }
     document.getElementById("factionAlly").setAttribute("disabled",true);
     document.getElementById("factionEnemy").setAttribute("disabled",true);

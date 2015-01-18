@@ -181,7 +181,7 @@ define(function(require) {
   Engine.prototype.stepSelectTarget = function(btt){
     this._model.selectedTarget = btt.id;
     console.log(btt.id + " selected!");
-    this._view.disableButtons(this._model.characters.characterList);
+    this._view.disableButtons(this._model.characters.characterList, this._model.active);
     this._model.execute();
     this._view.showInfoFighters(this._model.characters.characterList);
   };
