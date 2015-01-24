@@ -34,6 +34,10 @@ define(function(require) {
     document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);
 		document.getElementById("buttonLoadCombat").onclick = engine._loadCombat.bind(engine);
     document.getElementById("buttonSaveCombat").onclick = engine._saveCombat.bind(engine);
+    document.getElementById("sliderFirstTurn").onclick = engine._sliderBrowser.bind(engine, "sliderFirstTurn");
+    document.getElementById("sliderPreviousTurn").onclick = engine._sliderBrowser.bind(engine, "sliderPreviousTurn");
+    document.getElementById("sliderNextTurn").onclick = engine._sliderBrowser.bind(engine, "sliderNextTurn");
+    document.getElementById("sliderLastTurn").onclick = engine._sliderBrowser.bind(engine, "sliderLastTurn");
  	/*document.getElementById("buttonLoadWeapons").onclick = engine._loadWeapons.bind(engine);
     document.getElementById("buttonSaveWeapons").onclick = engine._saveWeapons.bind(engine);
     document.getElementById("buttonLoadArmors").onclick = engine._loadArmors.bind(engine);
@@ -153,6 +157,24 @@ define(function(require) {
     });
     $('#slider-step').Link('lower').to($('#slider-step-value'));
     document.getElementById("slider-step-value").value = turn;
+  };
+  
+    View.prototype.sliderBrowserManual = function(currentTurn, turn){
+    var value = document.getElementById("slider-step-value").value;
+    document.getElementById("slider-step").destroy();
+    $('#slider-step').noUiSlider({
+      start: [ currentTurn ],
+      step: 1,
+      range: {
+        'min': [ 0 ],
+        'max': [ turn ]
+      },
+			format: wNumb({
+				decimals: 0,
+			})
+    });
+    $('#slider-step').Link('lower').to($('#slider-step-value'));
+    document.getElementById("slider-step-value").value = currentTurn;
   };
   
   View.prototype.selectEquipment = function(weapons, armors) {

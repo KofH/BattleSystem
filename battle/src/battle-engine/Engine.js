@@ -185,6 +185,12 @@ define(function(require) {
     this._model.execute();
     this._view.showInfoFighters(this._model.characters.characterList);
   };
+  
+  Engine.prototype._sliderBrowser = function(button){
+    this._model.browseSlider(button);
+    this._view.showInfoFighters(this._model.characters.characterList);
+    this._view.sliderBrowserManual(this._model.turns.current, this._model.turns.combatCount);
+  };
 
  
   /**

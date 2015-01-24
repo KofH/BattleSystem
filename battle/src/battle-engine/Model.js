@@ -29,13 +29,40 @@ define(function(require) {
 		  tickCount: 0,
 		  combat: [],
 		  combatCount: 0, 
-		  actual: 0
+		  current: 0
 		};
 	}
 	
 	/********************************
 	 *       PUBLIC FUNCTIONS       *
 	 ********************************/
+  
+  Model.prototype.browseSlider = function(buttonValue){
+    switch(buttonValue){
+        case "sliderFirstTurn":
+        this.turns.current = 1
+        this.loadCombatTurn(this.turns.current)
+        break;
+        
+        case "sliderPreviousTurn":
+        this.turns.current--
+        this.loadCombatTurn(this.turns.current)
+        console.log(buttonValue)
+        break;
+        
+        case "sliderNextTurn":
+        this.turns.current++
+        this.loadCombatTurn(this.turns.current)
+        console.log(buttonValue)
+        break;
+        
+        case "sliderLastTurn":
+        this.turns.current = this.turns.combat.length
+        this.loadCombatTurn(this.turns.current)
+        console.log(buttonValue)
+        break;
+    }
+  };
 	
   Model.prototype.loadCharacters = function(file, callback){
     this.characters.load(file, callback);
@@ -129,6 +156,11 @@ define(function(require) {
 	  this.turns.tickCount++;
 	  this.turns.actual = this.turns.tickCount;
 	}
+  
+  Model.prototype.loadCombatTurn = function(currentTurn){
+    var tick = this.turns.combat[currentTurn - 1];
+    this.loadTick(tick);
+  };
 	
 	Model.prototype.loadTick = function(i){
 	  this.characters.characterList = this.turns.tick[i];
@@ -139,6 +171,7 @@ define(function(require) {
 	Model.prototype.saveCombat = function(){
 	  this.turns.combat[this.turns.combatCount] = this.turns.tick.length -1;
 	  this.turns.combatCount++;
+    this.turns.current++;
 	}
 	
 	/**
