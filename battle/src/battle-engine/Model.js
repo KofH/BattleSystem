@@ -45,15 +45,17 @@ define(function(require) {
         break;
         
         case "sliderPreviousTurn":
+        if(this.turns.current != 1){
         this.turns.current--
         this.loadCombatTurn(this.turns.current)
-        console.log(buttonValue)
+        }
         break;
         
         case "sliderNextTurn":
+        if (this.turns.current != this.turns.combat.length){
         this.turns.current++
         this.loadCombatTurn(this.turns.current)
-        console.log(buttonValue)
+        }
         break;
         
         case "sliderLastTurn":
