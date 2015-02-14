@@ -46,7 +46,7 @@ define(function(require) {
 		$(function () {
   		$('[data-toggle="tooltip"]').tooltip()
 		});
-	  //IMPROVE THIS
+		
 	  $('#slider-step').noUiSlider({
 		  start: [ 0 ],
 		  step: 1,
@@ -141,21 +141,15 @@ define(function(require) {
     }
   };
   
-    View.prototype.sliderBrowser = function(currentTurn, turn){
+   View.prototype.sliderBrowser = function(currentTurn, turn){
     var value = document.getElementById("slider-step-value").value;
-    document.getElementById("slider-step").destroy();
     $('#slider-step').noUiSlider({
       start: [ currentTurn ],
-      step: 1,
       range: {
         'min': [ 1 ],
         'max': [ turn ]
       },
-			format: wNumb({
-				decimals: 0,
-			})
-    });
-    $('#slider-step').Link('lower').to($('#slider-step-value'));
+    }, true);
     document.getElementById("slider-step-value").value = currentTurn;
   };
   
