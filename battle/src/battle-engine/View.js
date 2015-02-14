@@ -141,32 +141,14 @@ define(function(require) {
     }
   };
   
-  View.prototype.setTurn = function(turn){
-    var value = document.getElementById("slider-step-value").value;
-    document.getElementById("slider-step").destroy();
-    $('#slider-step').noUiSlider({
-      start: [ turn ],
-      step: 1,
-      range: {
-        'min': [ 0 ],
-        'max': [ turn ]
-      },
-			format: wNumb({
-				decimals: 0,
-			})
-    });
-    $('#slider-step').Link('lower').to($('#slider-step-value'));
-    document.getElementById("slider-step-value").value = turn;
-  };
-  
-    View.prototype.sliderBrowserManual = function(currentTurn, turn){
+    View.prototype.sliderBrowser = function(currentTurn, turn){
     var value = document.getElementById("slider-step-value").value;
     document.getElementById("slider-step").destroy();
     $('#slider-step').noUiSlider({
       start: [ currentTurn ],
       step: 1,
       range: {
-        'min': [ 0 ],
+        'min': [ 1 ],
         'max': [ turn ]
       },
 			format: wNumb({

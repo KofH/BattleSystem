@@ -67,6 +67,9 @@ define(function(require) {
   
   Engine.prototype._step = function() {
     if (this._on){
+      
+      this._model.spliceCombat();
+      
       if(this._model.deadFaction()){
         console.log("--- END OF COMBAT ---");
 				$.snackbar({content: "COMBAT ENDED!"});
@@ -77,7 +80,7 @@ define(function(require) {
         this._on = false;
         this._combat();
         this._view.step(this._model);
-        this._view.setTurn(this._model.turns.combatCount);
+        this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
       }
       else{
         this._model.turn();
@@ -190,7 +193,7 @@ define(function(require) {
   Engine.prototype._sliderBrowser = function(button){
     this._model.browseSlider(button);
     this._view.showInfoFighters(this._model.characters.characterList);
-    this._view.sliderBrowserManual(this._model.turns.current, this._model.turns.combatCount);
+    this._view.sliderBrowser(this._model.turns.current+1, this._model.turns.combat.length);
   };
 
  

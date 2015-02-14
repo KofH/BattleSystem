@@ -26,10 +26,8 @@ define(function(require) {
 
 		this.turns = {
 		  tick: [],
-		  tickCount: 0,
 		  combat: [],
-		  combatCount: 0, 
-		  current: 0
+		  current: -1
 		};
 	}
 	
@@ -40,26 +38,26 @@ define(function(require) {
   Model.prototype.browseSlider = function(buttonValue){
     switch(buttonValue){
         case "sliderFirstTurn":
-        this.turns.current = 1
+        this.turns.current = 0
         this.loadCombatTurn(this.turns.current)
         break;
         
         case "sliderPreviousTurn":
-        if(this.turns.current != 1){
+        if(this.turns.current != 0){
         this.turns.current--
         this.loadCombatTurn(this.turns.current)
         }
         break;
         
         case "sliderNextTurn":
-        if (this.turns.current != this.turns.combat.length){
+        if (this.turns.current != this.turns.combat.length-1){
         this.turns.current++
         this.loadCombatTurn(this.turns.current)
         }
         break;
         
         case "sliderLastTurn":
-        this.turns.current = this.turns.combat.length
+        this.turns.current = this.turns.combat.length-1
         this.loadCombatTurn(this.turns.current)
         console.log(buttonValue)
         break;
@@ -154,25 +152,30 @@ define(function(require) {
 	};
 
 	Model.prototype.saveTick = function(){
-	  this.turns.tick[this.turns.tickCount] = this.characters.characterList.clone(true);
-	  this.turns.tickCount++;
+	  this.turns.tick[this.turns.tick.length] = this.characters.characterList.clone(true);
 	}
   
   Model.prototype.loadCombatTurn = function(currentTurn){
-    var tick = this.turns.combat[currentTurn - 1];
+    var tick = this.turns.combat[currentTurn];
     this.loadTick(tick);
   };
 	
 	Model.prototype.loadTick = function(i){
 	  this.characters.characterList = this.turns.tick[i];
-	  this.turns.tickCount = i+1;
-	}
+	};
 	
 	Model.prototype.saveCombat = function(){
-	  this.turns.combat[this.turns.combatCount] = this.turns.tick.length -1;
-	  this.turns.combatCount++;
+	  this.turns.combat[this.turns.combat.length] = this.turns.tick.length -1;
     this.turns.current++;
-	}
+	};
+	
+	Model.prototype.spliceCombat = function(){
+	  if(this.turns.current < this.turns.combat.length-1){
+	    this.turns.tick.splice(this.turns.combat[this.turns.current] + 1, this.turns.tick.length);
+	    this.turns.combat.splice(this.turns.current, this.turns.combat.length);
+	    this.turns.current--;    /// BEWARE TURN!
+	   }
+	};
 	
 	/**
 	 * End class
