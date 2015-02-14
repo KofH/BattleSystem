@@ -184,6 +184,7 @@ define(function(require) {
     this._view.disableButtons(this._model.characters.characterList, this._model.active);
     this._model.execute();
     this._view.showInfoFighters(this._model.characters.characterList);
+    this._on = true;
   };
   
   Engine.prototype._sliderBrowser = function(button){
