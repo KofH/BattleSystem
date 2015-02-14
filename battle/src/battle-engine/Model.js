@@ -156,7 +156,6 @@ define(function(require) {
 	Model.prototype.saveTick = function(){
 	  this.turns.tick[this.turns.tickCount] = this.characters.characterList.clone(true);
 	  this.turns.tickCount++;
-	  this.turns.actual = this.turns.tickCount;
 	}
   
   Model.prototype.loadCombatTurn = function(currentTurn){
@@ -167,7 +166,6 @@ define(function(require) {
 	Model.prototype.loadTick = function(i){
 	  this.characters.characterList = this.turns.tick[i];
 	  this.turns.tickCount = i+1;
-	  this.turns.actual = this.turns.tickCount;
 	}
 	
 	Model.prototype.saveCombat = function(){

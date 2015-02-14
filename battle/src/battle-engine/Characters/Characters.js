@@ -45,9 +45,11 @@ define(function(require) {
         }
       });
       
-      this.set({
-        hp: this.get("maxHp")
-      });
+      if(this.get("hp") == undefined){
+        this.set({
+          hp: this.get("maxHp")
+        })
+      };
       
       //////////////////       Turn
       
