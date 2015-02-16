@@ -20,6 +20,7 @@ define(function(require) {
     
 
   View.prototype.initialize = function(engine){
+    var self = this;
     this._buttonAction = engine.stepSelectAction.bind(engine);
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
     this.selectEquipment(engine._model.weapons.weaponList,
@@ -56,8 +57,18 @@ define(function(require) {
 		  },
 			format: wNumb({
 				decimals: 0,
-			})
+			}),
 	  });
+	  
+	  $('#slider-step').on({
+	    set: function() { 
+	      console.log("set");
+	      engine.setCurrentTurn(parseInt(document.getElementById("slider-step-value").value - 1));
+	 //     engine._model.loadCombatTurn(engine._model.turns.current);
+	 //     self.showInfoFighters(engine._model.characters.characterList);
+	    }
+	  });
+	  
 	  $('#slider-step').Link('lower').to($('#slider-step-value'));
   }; 
   
@@ -70,6 +81,8 @@ define(function(require) {
   };
   
   View.prototype.showInfoFighters = function(characters) { 
+    if (characters == undefined) return; // FIXME Weird initial events error on page
+    
     var allies = document.getElementById("infoFightersAllies");
     var enemies = document.getElementById("infoFightersEnemies");
 

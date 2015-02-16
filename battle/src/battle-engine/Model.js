@@ -39,27 +39,26 @@ define(function(require) {
     switch(buttonValue){
         case "sliderFirstTurn":
         this.turns.current = 0
-        this.loadCombatTurn(this.turns.current)
+ //       this.loadCombatTurn(this.turns.current)
         break;
         
         case "sliderPreviousTurn":
         if(this.turns.current != 0){
         this.turns.current--
-        this.loadCombatTurn(this.turns.current)
+ //       this.loadCombatTurn(this.turns.current)
         }
         break;
         
         case "sliderNextTurn":
         if (this.turns.current != this.turns.combat.length-1){
         this.turns.current++
-        this.loadCombatTurn(this.turns.current)
+  //      this.loadCombatTurn(this.turns.current)
         }
         break;
         
         case "sliderLastTurn":
         this.turns.current = this.turns.combat.length-1
-        this.loadCombatTurn(this.turns.current)
-        console.log(buttonValue)
+  //      this.loadCombatTurn(this.turns.current)
         break;
     }
   };
@@ -119,6 +118,7 @@ define(function(require) {
 	  this.saveTick();
 	};
 
+	
 	/*  /////NOT IN USE////
 	
 	Model.prototype.modCharactersLoadAttr = function(){ //TODO to View
