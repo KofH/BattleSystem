@@ -192,8 +192,9 @@ define(function(require) {
   
   Engine.prototype._sliderBrowser = function(button){
     this._model.browseSlider(button);
- //  this._view.showInfoFighters(this._model.characters.characterList);
     this._view.sliderBrowser(this._model.turns.current+1, this._model.turns.combat.length);
+    this._model.loadCombatTurn(this._model.turns.current);
+    this._view.showInfoFighters(this._model.characters.characterList);
   };
 
   Engine.prototype.setCurrentTurn = function(n){

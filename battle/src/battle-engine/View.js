@@ -61,16 +61,15 @@ define(function(require) {
 	  });
 	  
 	  $('#slider-step').on({
-	    set: function() { 
-	      console.log("set");
+	    slide: function() { 
 	      engine.setCurrentTurn(parseInt(document.getElementById("slider-step-value").value - 1));
-	 //     engine._model.loadCombatTurn(engine._model.turns.current);
-	 //     self.showInfoFighters(engine._model.characters.characterList);
+	      engine._model.loadCombatTurn(engine._model.turns.current);
+	      self.showInfoFighters(engine._model.characters.characterList);
 	    }
 	  });
 	  
 	  $('#slider-step').Link('lower').to($('#slider-step-value'));
-  }; 
+  };
   
   View.prototype.get = function(param){
     return document.getElementById(param);
