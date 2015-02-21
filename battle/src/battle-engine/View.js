@@ -62,6 +62,7 @@ define(function(require) {
 	  
 	  $('#slider-step').on({
 	    slide: function() { 
+	      engine._loadingCombat  = true;
 	      engine.setCurrentTurn(parseInt(document.getElementById("slider-step-value").value - 1));
 	      engine._model.loadCombatTurn(engine._model.turns.current);
 	      self.showInfoFighters(engine._model.characters.characterList);

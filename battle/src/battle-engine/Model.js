@@ -30,7 +30,10 @@ define(function(require) {
 		  current: -1
 		};
 	}
-	
+
+  Model.prototype.printTick = function(){
+    return this.turns.tick[engine._model.turns.tick.length - 1].where({wait:Infinity});
+  }
 	/********************************
 	 *       PUBLIC FUNCTIONS       *
 	 ********************************/
@@ -161,7 +164,7 @@ define(function(require) {
   };
 	
 	Model.prototype.loadTick = function(i){
-	  this.characters.characterList = this.turns.tick[i];
+	  this.characters.characterList = this.turns.tick[i].clone(true);
 	};
 	
 	Model.prototype.saveCombat = function(){
@@ -170,10 +173,10 @@ define(function(require) {
 	};
 	
 	Model.prototype.spliceCombat = function(){
-	  if(this.turns.current < this.turns.combat.length-1){
+	  if(this.turns.current < this.turns.combat.length){
 	    this.turns.tick.splice(this.turns.combat[this.turns.current] + 1, this.turns.tick.length);
 	    this.turns.combat.splice(this.turns.current, this.turns.combat.length);
-	    this.turns.current--;    /// BEWARE TURN!
+      this.turns.current--;
 	   }
 	};
 	

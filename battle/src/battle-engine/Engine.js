@@ -10,11 +10,13 @@ define(function(require) {
    * @classDescription 
    */
   function Engine() {
-	  this.TIME_INTERVAL =300; // ms
+	  this.TIME_INTERVAL = 300; // ms
       this._on = false;
       this._view = new View();
       this._model = new Model();
 //      this._eventManager = new EventManager();
+      
+      this._loadingCombat = false;
   };
   
   /********************
@@ -67,14 +69,20 @@ define(function(require) {
   
   Engine.prototype._step = function() {
     if (this._on){
-      
-      this._model.spliceCombat();
+
+      if (this._loadingCombat) {
+        this._model.spliceCombat();
+        this._loadingCombat = false;
+      }
       
       if(this._model.deadFaction()){
+        this._model.saveCombat();
+        this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
         console.log("--- END OF COMBAT ---");
-				$.snackbar({content: "COMBAT ENDED!"});
+        $.snackbar({content: "COMBAT ENDED!"});
         this._on = false;
       }
+      
       else if (this._waitCheck()){
         this._view.stop();
         this._on = false;
@@ -82,6 +90,7 @@ define(function(require) {
         this._view.step(this._model);
         this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
       }
+      
       else{
         this._model.turn();
         this._view.step(this._model);
@@ -191,6 +200,7 @@ define(function(require) {
   };
   
   Engine.prototype._sliderBrowser = function(button){
+    this._loadingCombat = true;
     this._model.browseSlider(button);
     this._view.sliderBrowser(this._model.turns.current+1, this._model.turns.combat.length);
     this._model.loadCombatTurn(this._model.turns.current);
