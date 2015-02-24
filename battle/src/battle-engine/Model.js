@@ -31,9 +31,6 @@ define(function(require) {
 		};
 	}
 
-  Model.prototype.printTick = function(){
-    return this.turns.tick[engine._model.turns.tick.length - 1].where({wait:Infinity});
-  }
 	/********************************
 	 *       PUBLIC FUNCTIONS       *
 	 ********************************/
@@ -42,26 +39,20 @@ define(function(require) {
     switch(buttonValue){
         case "sliderFirstTurn":
         this.turns.current = 0
- //       this.loadCombatTurn(this.turns.current)
         break;
         
         case "sliderPreviousTurn":
-        if(this.turns.current != 0){
-        this.turns.current--
- //       this.loadCombatTurn(this.turns.current)
-        }
+        if(this.turns.current > 0)
+          this.turns.current--
         break;
         
         case "sliderNextTurn":
-        if (this.turns.current != this.turns.combat.length-1){
-        this.turns.current++
-  //      this.loadCombatTurn(this.turns.current)
-        }
+        if (this.turns.current < this.turns.combat.length-1)
+          this.turns.current++
         break;
         
         case "sliderLastTurn":
         this.turns.current = this.turns.combat.length-1
-  //      this.loadCombatTurn(this.turns.current)
         break;
     }
   };
@@ -122,29 +113,6 @@ define(function(require) {
 	};
 
 	
-	/*  /////NOT IN USE////
-	
-	Model.prototype.modCharactersLoadAttr = function(){ //TODO to View
-		for (var i = 0; i < this.characters.length; i++) {
-			if (document.getElementById("modifyCharacterSelected").value == this.characters.at(i).get("name")) {
-				document.getElementById("modCharactersStrength").value = this.characters.at(i).get("strength");
-				document.getElementById("modCharactersAgility").value = this.characters.at(i).get("agility");
-				document.getElementById("modCharactersInteligence").value = this.characters.at(i).get("inteligence");
-				document.getElementById("modCharactersAP").value = this.characters.at(i).get("ap");
-			}
-		}
-	};
-
-	Model.prototype.modCharactersSaveAttr = function(){ //TODO to View(data)
-		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({strength: parseInt(document.getElementById("modCharactersStrength").value)});
-		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({agility: parseInt(document.getElementById("modCharactersAgility").value)});
-		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({inteligence: parseInt(document.getElementById("modCharactersInteligence").value)});
-		this.characters.get(document.getElementById("modifyCharacterSelected").value).set({ap: parseInt(document.getElementById("modCharactersAP").value)});
-		document.getElementById('modifyCharactersPrompt').classList.toggle('Displayed');
-	};
-	//*/
-	
-	
 	/********************************
 	 *      PRIVATE FUNCTIONS       *
 	 ********************************/
@@ -164,7 +132,8 @@ define(function(require) {
   };
 	
 	Model.prototype.loadTick = function(i){
-	  this.characters.characterList = this.turns.tick[i].clone(true);
+	  if (this.turns.tick[i] != undefined)
+	    this.characters.characterList = this.turns.tick[i].clone(true);
 	};
 	
 	Model.prototype.saveCombat = function(){

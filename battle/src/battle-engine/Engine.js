@@ -213,7 +213,6 @@ define(function(require) {
     }
   };
   
- 
   /**
    * End class
    */
