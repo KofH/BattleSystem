@@ -97,7 +97,7 @@ define(function(require) {
       return this.characterList.where({faction:"enemy"}).length;
     }
   };
-  
+    
   Characters.prototype.load = function(file, callback){
     var filereader = new FileReader();
     var self = this;
@@ -138,6 +138,35 @@ define(function(require) {
   
   Characters.prototype.stringify = function(){
     return JSON.stringify(this.characterList);
+  };
+  
+  Characters.prototype.change = function(attr, exp){
+    var finalExp = this.parse(attr, exp);
+    if (finalExp == undefined) return;
+    
+    for (var i = 0; i < this.characterList.length; i++){
+      this.characterList.at(i).set(attr, eval(finalExp));
+    }
+  };
+  
+  
+  Characters.prototype.parse = function(attr,expression){
+    attr = attr.toString();
+    expression = expression.toString();
+    
+    if (attr.match(/^\w+strength$|^\w+agility$|^\w+intelligence$/i) && 
+        expression.match(/^\d*$/)){
+      return expression;
+    }
+
+    var exp = "";
+    if(/(strength|agility|intelligence)/i.exec(expression))
+      exp = expression.replace(
+          /(strength|agility|intelligence|hp|maxHp|initiative|offense|defense)/ig, 
+          'this.get(\"'+ "$&" + '\")');
+    
+   return "(function(){return " + exp + "})";
+    
   };
   
   return Characters;

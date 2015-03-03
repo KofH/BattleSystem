@@ -43,10 +43,15 @@ define(function(require) {
   };
   
   Engine.prototype.tick = function(){
-  	  this._on = true;
-  	  this._step();
-  	  this._on = false;
+  	 this._on = true;
+  	 this._step();
+  	 this._on = false;
   };
+  
+  Engine.prototype.changeCharacters = function (attr, exp){
+    this._model.characters.change(attr, exp);
+  };
+  
   /*
   Engine.prototype.renderize = function () {
   
