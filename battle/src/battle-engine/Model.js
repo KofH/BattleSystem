@@ -94,8 +94,13 @@ define(function(require) {
     return this.actions.actionList.get(this.selectedAction).get("target");
 	}; 
 	
-	Model.prototype.resetCharacters = function(){
+	Model.prototype.resetCombat = function(){
 		this.characters.reset();
+		this.turns = {
+	      tick: [],
+	      combat: [],
+	      current: -1
+	    };
 	};
 	
 	Model.prototype.turn = function(){		

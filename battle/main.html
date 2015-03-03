@@ -40,19 +40,19 @@
 		    		<span class="mdi-image-edit"></span>
 		    		Modify Attributes
 	    		</a> -->
-		    	<a href="javascript:void(0)" class="btn btn-flat btn-warning noMargin" type="button" id="buttonResetCharacters" value=" Reset Characters" onClick="engine._model.resetCharacters()">
+		    	<a href="javascript:void(0)" class="btn btn-flat btn-warning noMargin" type="button" id="buttonResetCombat" value=" Reset Combat">
 		    		<span class="mdi-av-replay"></span>
-		    		Reset Characters
+		    		Reset Combat
 	    		</a>
-		    	<a href="javascript:void(0)" class="btn btn-flat btn-success noMargin" type="button" id="buttonStart" value="Combat Start!" onClick="engine.start()">
+		    	<a href="javascript:void(0)" class="btn btn-flat btn-success noMargin" type="button" id="buttonStart" value="Combat Start!">
 		    		<span class="mdi-av-play-arrow"></span>
 	    			Start Combat
     			</a>
-		    	<a href="javascript:void(0)" class="btn btn-flat btn-danger noMargin" type="button" id="buttonStop" value="Combat Stop!" onClick="engine.stop()">
+		    	<a href="javascript:void(0)" class="btn btn-flat btn-danger noMargin" type="button" id="buttonStop" value="Combat Stop!">
 		    		<span class="mdi-av-stop"></span>
 		    		Stop Combat
 	    		</a>
-		    	<a href="javascript:void(0)" class="btn btn-flat btn-info noMargin" type="button" id="buttonStep" value="STEP" onClick="engine.tick()">
+		    	<a href="javascript:void(0)" class="btn btn-flat btn-info noMargin" type="button" id="buttonStep" value="STEP">
 		    		<span class="mdi-av-skip-next"></span>
 		    		Step
 	    		</a>
@@ -202,11 +202,11 @@
 		</div>
 	      </div>
 	      <div class="modal-footer">
-	        <button class="btn btn-success" data-dismiss="modal" id="newCharacterNext" onClick="engine._newCharacter()">
+	        <button class="btn btn-success" data-dismiss="modal" id="newCharacterNext">
 	        	<span class="mdi-navigation-check"></span>
 	        	Submit
         	</button>
-	        <button class="btn btn-primary" data-dismiss="modal" id="newCharacterReset" onClick="engine._viewModel.newCharacterPromptReset()">
+	        <button class="btn btn-primary" data-dismiss="modal" id="newCharacterReset">
 	        	<span class="mdi-av-replay"></span>
 	        	Reset
         	</button>
@@ -227,12 +227,12 @@
 						<div class="col-lg-10">
 								<input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
 								<input type="file" name="file" id="fileUploadCharacters" multiple="">
-								<a class="btn btn-success" type="button" id="buttonLoadCharacters" onClick="engine._loadCharacters()" data-dismiss="modal">
+								<a class="btn btn-success" type="button" id="buttonLoadCharacters" data-dismiss="modal">
 									<span class="mdi-file-file-upload"></span>
 									Send File
 								</a>
 								<input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveCharactersFileName"><a id="saveCharactersDownload"></a>
-								<a class="btn btn-info" type="button" id="buttonSaveCharacters" data-dismiss="modal" onClick="engine._saveCharacters()">
+								<a class="btn btn-info" type="button" id="buttonSaveCharacters" data-dismiss="modal">
 									<span class="mdi-file-file-download"></span>
 									Save Characters
 								</a>
@@ -255,12 +255,12 @@
 						<div class="col-lg-10">
 								<input type="text" readonly="" class="form-control floating-label" placeholder="Browse...">
 								<input type="file" name="file" id="fileUploadCombat" multiple="">
-								<a class="btn btn-success" type="button" id="buttonLoadCombat" onClick="engine._loadCombat()" data-dismiss="modal">
+								<a class="btn btn-success" type="button" id="buttonLoadCombat" data-dismiss="modal">
 									<span class="mdi-file-file-upload"></span>
 									Send File
 								</a>
 								<input class="form-control floating-label" placeholder="Save File Name..." type="text" id="saveCombatFileName"><a id="saveCombatDownload"></a>
-								<a class="btn btn-info" type="button" id="buttonSaveCombat" data-dismiss="modal" onClick="engine._saveCombat()">
+								<a class="btn btn-info" type="button" id="buttonSaveCombat" data-dismiss="modal">
 									<span class="mdi-file-file-download"></span>
 									Save Combat
 								</a>
@@ -292,7 +292,7 @@
 	            </div>
 	      </div>
 	      <div class="modal-footer col-xs">
-	        <button class="btn btn-success" data-dismiss="modal" onClick="engine._modCharactersSaveAttr()">
+	        <button class="btn btn-success" data-dismiss="modal">
 	        	<span class="mdi-image-edit"></span>
 	        	Submit
         	</button>

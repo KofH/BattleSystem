@@ -122,8 +122,8 @@ define(function(require) {
     this._model.loadCharacters(this._view.getCharactersFile(), this._view.showInfoFighters);
   };
   
-  Engine.prototype._resetCharacters = function(){
-    if(this._view.askReset()) this._model.resetCharacters();
+  Engine.prototype._resetCombat = function(){
+    if(this._view.askReset()) this._model.resetCombat();
     this._view.step(this._model);
   };
   

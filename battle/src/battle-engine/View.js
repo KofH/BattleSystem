@@ -25,7 +25,7 @@ define(function(require) {
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
     this.selectEquipment(engine._model.weapons.weaponList,
 						 engine._model.armors.armorList);
-    document.getElementById("buttonResetCharacters").onclick = engine._resetCharacters.bind(engine);
+    document.getElementById("buttonResetCombat").onclick = engine._resetCombat.bind(engine);
     document.getElementById("buttonStart").onclick = engine.start.bind(engine);
     document.getElementById("buttonStop").onclick = engine.stop.bind(engine);
     document.getElementById("buttonStep").onclick = engine.tick.bind(engine);
@@ -77,7 +77,7 @@ define(function(require) {
   };
   
   View.prototype.askReset = function(){
-    return confirm('Are you sure you want to Reset Characters?');
+    return confirm('Are you sure you want to Reset the Combat?');
   };
   
   View.prototype.showInfoFighters = function(characters) { 
