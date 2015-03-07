@@ -15,7 +15,7 @@ define(function(require) {
   
    View.prototype.step = function(model){
      this.showInfoFighters(model.characters.characterList);
-     this.generateButtons(model.characters.characterList);
+     this.generateButtons(model.characters.characterList); // TODO move this away
     };
     
 
@@ -154,13 +154,15 @@ define(function(require) {
     }
   };
   
-   View.prototype.sliderBrowser = function(currentTurn, turn){
+   View.prototype.sliderBrowser = function(ev){
+     var currentTurn = ev.params.currentTurn;
+     var turns = ev.params.turns;
     var value = document.getElementById("slider-step-value").value;
     $('#slider-step').noUiSlider({
       start: [ currentTurn ],
       range: {
         'min': [ 1 ],
-        'max': [ turn ]
+        'max': [ turns ]
       },
     }, true);
     document.getElementById("slider-step-value").value = currentTurn;
@@ -270,7 +272,8 @@ define(function(require) {
     return data;
   };
   
-  View.prototype.showActiveActions = function(character){ 
+  View.prototype.showActiveActions = function(ev){ 
+    var character = ev.params.character;
     var div = document.getElementById("actionButtons");
     while(div.hasChildNodes()){
       div.removeChild(div.firstChild);
@@ -395,7 +398,10 @@ define(function(require) {
     return document.getElementById("fileUploadCombat").files[0];
   };
   
-  View.prototype.selectTargetButtonEnable = function(target, characters, active){ 
+  View.prototype.selectTargetButtonEnable = function(ev){ 
+    var target = ev.params.target;
+    var characters = ev.params.characters;
+    var active = ev.params.active;
     if (target === "character"){
       for (var i = 0; i < characters.length; i++) {
 				var x = document.getElementById(characters.at(i).get("name"));

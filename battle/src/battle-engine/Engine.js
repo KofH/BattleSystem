@@ -34,14 +34,15 @@ define(function(require) {
   
   Engine.prototype.stop = function () {
     this._on = false;
-    this._view.stop();
+  //  this._view.stop();
+    this._eventManager.dispatchEvent("stopCombat");
   };
   
   Engine.prototype.start = function () {
     this._on = true;
   //  this._view.start();
   //  this._eventManager.dispatchEvent("startCombat", "semen");
-    this._eventManager.dispatchEvent("startCombat", "semen");
+    this._eventManager.dispatchEvent("startCombat");
   };
   
   Engine.prototype.tick = function(){
@@ -84,7 +85,9 @@ define(function(require) {
       
       if(this._model.deadFaction()){
         this._model.saveCombat();
-        this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
+  //    this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
+        this._eventManager.dispatchEvent("combatTurnSet", 
+            {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
         console.log("--- END OF COMBAT ---");
         $.snackbar({content: "COMBAT ENDED!"});
         this._on = false;
@@ -95,7 +98,9 @@ define(function(require) {
         this._on = false;
         this._combat();
         this._view.step(this._model);
-        this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
+  //    this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
+        this._eventManager.dispatchEvent("combatTurnSet", 
+            {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
       }
       
       else{
@@ -144,7 +149,7 @@ define(function(require) {
   }
   
   Engine.prototype._loadWeapons = function(){
-    //TODO implement
+    //TODO implement>
     console.log("TODO loadWeapons");
   };
   
@@ -183,7 +188,8 @@ define(function(require) {
     this._model.active = this._model.characters.characterList.findWhere({wait: 0});
 		this._view._active = this._model.active.get("id");
     this._model.saveCombat();
-    this._view.showActiveActions(this._model.active);
+   // this._view.showActiveActions(this._model.active);
+    this._eventManager.dispatchEvent("combatShowActions", {character: this._model.active});
     console.log("What will " + this._model.active.get("name") + " do?");
   };
   
@@ -194,15 +200,19 @@ define(function(require) {
     var target = this._model.getActionTarget();
     var characters = this._model.characters.characterList;
     var active = this._model.active;
-    this._view.selectTargetButtonEnable(target, characters, active);
+   // this._view.selectTargetButtonEnable(target, characters, active);
+    this._eventManager.dispatchEvent("combatShowTargets", 
+        {target: target, characters: characters, active: active});
   };
   
   Engine.prototype.stepSelectTarget = function(btt){
     this._model.selectedTarget = btt.id;
     console.log(btt.id + " selected!");
-    this._view.disableButtons(this._model.characters.characterList, this._model.active);
+ //   this._view.disableButtons(this._model.characters.characterList, this._model.active);
     this._model.execute();
     this._view.showInfoFighters(this._model.characters.characterList);
+    this._eventManager.dispatchEvent("combatExecuteAction", 
+        {characters: this._model.characters.characterList, active: this._model.active}); 
     this._on = true;
   };
   

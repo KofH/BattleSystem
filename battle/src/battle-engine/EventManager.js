@@ -41,7 +41,9 @@ define(function(require) {
 	}
 	
   EventManager.prototype.dispatchEvent = function(event, params){
-    window.dispatchEvent(new Event(event, params));
+    var ev = new Event(event);
+    ev.params = params;
+    window.dispatchEvent(ev);
   }
 	
 	EventManager.prototype.removeListener = function(event, func){
@@ -51,9 +53,14 @@ define(function(require) {
   EventManager.prototype.initialize = function() {
     var self = this;
     this.addListener("initialize", function () { self._view.initialize(); } );
-    this.addListener("startCombat", function (params) { self._view.start(); } );  
-    this.addListener("stopCombat", function() { self._view.stop(); } );
+    this.addListener("startCombat", function () { self._view.start(); } );  
+    this.addListener("stopCombat", function () { self._view.stop(); } );
+   
+    this.addListener("combatTurnSet", function (ev) { self._view.sliderBrowser(ev); } );
     
+    this.addListener("combatShowActions", function (ev) { self._view.showActiveActions(ev); } );
+    this.addListener("combatShowTargets", function (ev) { self._view.selectTargetButtonEnable(ev); } );
+    this.addListener("combatExecuteAction", function (ev) { self._view.disableButtons(ev); } );
     };
    
 	/********************************
