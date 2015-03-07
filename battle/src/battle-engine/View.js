@@ -25,6 +25,7 @@ define(function(require) {
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
     this.selectEquipment(engine._model.weapons.weaponList,
 						 engine._model.armors.armorList);
+    this.selectActions(engine._model.actions.actionList);
     document.getElementById("buttonResetCombat").onclick = engine._resetCombat.bind(engine);
     document.getElementById("buttonStart").onclick = engine.start.bind(engine);
     document.getElementById("buttonStop").onclick = engine.stop.bind(engine);
@@ -190,7 +191,38 @@ define(function(require) {
     }
   };
   
-  View.prototype.newCharacterPromptReset = function() {
+  View.prototype.selectActions = function(actionsList){
+    var actionSelect = document.getElementById('actionSelect');
+    
+   /*while (actionSelect.hasChildNodes()){
+      actionSelect.removeChild(actionSelect.firstChild);
+    };*/
+    
+    for(var i = 0; i < actionsList.length; i++){
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.value = actionsList.at(i).get('name');
+      input.id = actionsList.at(i).get('name');
+      
+      var label = document.createElement('label');
+      label.innerHTML = actionsList.at(i).get('name');
+      label.setAttribute('class', 'col-xs-4 col-sm-4 col-md-4 col-lg-4');
+      
+      var spanRipple = document.createElement('span');
+      spanRipple.setAttribute('class','ripple')
+      var span = document.createElement('span');
+      span.setAttribute('class','check');
+      
+      actionSelect.appendChild(label);
+      label.appendChild(input);
+      label.insertBefore(span, label.childNodes[0]);
+      label.insertBefore(spanRipple, label.childNodes[0]);
+      label.insertBefore(input, label.childNodes[0]);
+      
+    }
+  };
+  
+  View.prototype.newCharacterPromptReset = function() { //TODO
     if (document.getElementById("newCharacterAlly").checked) {
       document.getElementById("newCharacterAlly").checked = false;
     } else if (document.getElementById("newCharacterEnemy").checked) {
@@ -201,11 +233,11 @@ define(function(require) {
     document.getElementById("newCharacterAgility").value = "";
     document.getElementById("newCharacterIntelligence").value = "";
     document.getElementById("newCharacterAP").value = "";
-    document.getElementById("newCharacterActionAttack").checked = false;
-    document.getElementById("newCharacterActionDefense").checked = false;
-    document.getElementById("newCharacterActionAreaAttack").checked = false;
-    document.getElementById("weaponSelect").value = "";
-    document.getElementById("armorSelect").value = "";
+    //document.getElementById("newCharacterActionAttack").checked = false;
+    //document.getElementById("newCharacterActionDefense").checked = false;
+    //document.getElementById("newCharacterActionAreaAttack").checked = false;
+    //document.getElementById("weaponSelect").value = "";
+    //document.getElementById("armorSelect").value = "";
   };
 
   View.prototype.newCharacterPrompt = function() {
@@ -344,22 +376,13 @@ define(function(require) {
   
   View.prototype.getSelectedActions = function(){  //TODO PROCEDURAL
     var actions = [];
-    if (document.getElementById("newCharacterActionAttack").checked) {
-      actions.push(document.getElementById("newCharacterActionAttack").value)
-    }
+    var x = document.getElementById('actionSelect');
     
-    if (document.getElementById("newCharacterActionDefense").checked) {
-      actions.push(document.getElementById("newCharacterActionDefense").value);
-    }
-    
-    if (document.getElementById("newCharacterActionAreaAttack").checked) {
-      actions.push(document.getElementById("newCharacterActionAreaAttack").value);
-    }
-    
-    if (document.getElementById("newCharacterActionChangeFormation").checked) {
-      actions.push(document.getElementById("newCharacterActionChangeFormation").value);
-    }
-
+    for(var i = 0; i < x.childElementCount ; i++){
+      if (x.childNodes[i].firstChild.checked){
+        actions.push(x.childNodes[i].firstChild.value)
+      };
+    };
     return actions;
   };
 

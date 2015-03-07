@@ -107,6 +107,7 @@ define(function(require) {
     this._view.newCharacterPrompt();
     this._view.selectEquipment(this._model.weapons.weaponList,
     this._model.armors.armorList);
+    this._view.selectActions(this._model.actions.actionList);
   };
   
   Engine.prototype._newCharacter = function(){
