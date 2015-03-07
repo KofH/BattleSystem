@@ -4,6 +4,8 @@ define(function(require) {
   // INCLUDES
     var View = require('battle-engine/View');
     var Model = require('battle-engine/Model');
+    var infoFighters = require('battle-engine/View/infoFighters');
+
 //    var EventManager = require('battle-engine/EventManager');
   /**
    * Constructor
@@ -14,6 +16,7 @@ define(function(require) {
       this._on = false;
       this._view = new View();
       this._model = new Model();
+      this._infoFighters = new infoFighters({model: this._model.armors.armorList.get("Leather")});
 //      this._eventManager = new EventManager();
       
       this._loadingCombat = false;

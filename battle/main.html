@@ -91,7 +91,9 @@
 				<div id="infoFightersHeader" class="bold">
 					<span class="label label-primary">Info Fighters</span>
 					<div id="infoFightersAlliesTitle" class="infoFightersContentTitle">Allies</div>
-					<div id="infoFightersAllies" class="infoFightersContent"></div>
+					<div id="infoFightersAllies" class="infoFightersContent">
+            <div id="container">Loading...</div>
+          </div>
 					<div id="infoFightersEnemiesTitle" class="infoFightersContentTitle">Enemies</div>
 					<div id="infoFightersEnemies" class="infoFightersContent"></div>
 				</div>
@@ -193,6 +195,7 @@
             <div class="form-group"> 
 			     <h4>Actions</h4>
 			     <div class="checkbox" id="actionSelect"></div>
+          </div>
 		</div>
 	      </div>
 	      <div class="modal-footer">
@@ -306,6 +309,20 @@
         	$.material.init();
         });
 	</script>
+  <script type="text/template" id="infoFighterTemplate">
+    <li id="" class="defaultCharacter sample shadow-z-1">
+    Character Name
+    <ul>Strength: x</ul>
+    <ul>Agility: x</ul>
+    <ul>Intelligence: x</ul>
+    <ul>HP: x</ul>
+    <ul>AP: x</ul>
+    <ul>Wait: x</ul>
+    <div class="progress">
+      <div class="progress-bar progress-bar-material-purple" style="width: 0%;"></div>
+    </div>
+  </li>
+  </script>
 	
 </body>
 	<!-- <progress value="50" max="100" id="test"></progress>-->
