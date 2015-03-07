@@ -4,7 +4,7 @@ define(function(require) {
   // INCLUDES
     var View = require('battle-engine/View');
     var Model = require('battle-engine/Model');
-//    var EventManager = require('battle-engine/EventManager');
+    var EventManager = require('battle-engine/EventManager');
   /**
    * Constructor
    * @classDescription 
@@ -14,7 +14,7 @@ define(function(require) {
       this._on = false;
       this._view = new View();
       this._model = new Model();
-//      this._eventManager = new EventManager();
+      this._eventManager = new EventManager();
       
       this._loadingCombat = false;
   };
@@ -29,7 +29,7 @@ define(function(require) {
   Engine.prototype.initialize = function () {
     this._view.initialize(this);
     this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
-   // this._configureEvents();
+    this._configureEvents();
   };
   
   Engine.prototype.stop = function () {
@@ -39,7 +39,9 @@ define(function(require) {
   
   Engine.prototype.start = function () {
     this._on = true;
-    this._view.start();
+  //  this._view.start();
+  //  this._eventManager.dispatchEvent("startCombat", "semen");
+    this._eventManager.dispatchEvent("startCombat", "semen");
   };
   
   Engine.prototype.tick = function(){
@@ -65,12 +67,12 @@ define(function(require) {
   /*********************
    * PRIVATE FUNCTIONS *
    *********************/
-  /*
+  
   Engine.prototype._configureEvents = function () {
     this._eventManager.setView(this._view);
     this._eventManager.initialize();
   }; 
-  //*/
+  
   
   Engine.prototype._step = function() {
     if (this._on){
