@@ -6,7 +6,7 @@ define(function(require){
   var temp = new Templates();
   
   var infoFighter = Backbone.View.extend({
-      el: $('#container' + this.model.get("name")),
+      el: $('#container'),
       template: _.template(temp.infoFighters),
       initialize: function(){
         this.render();
