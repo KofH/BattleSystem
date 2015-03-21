@@ -10,7 +10,6 @@ define(function(require) {
 	function EventManager() {
 //		this._canvas = null;
 		this._view = null;
-		this._listeners = {};
 	//	this._keyboard = new KeyBoardManager();
 	//	this._mouse = new MouseManager();
 	}

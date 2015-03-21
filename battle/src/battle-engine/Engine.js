@@ -27,7 +27,8 @@ define(function(require) {
    * @param 
    */
   Engine.prototype.initialize = function () {
-    this._view.initialize(this);
+    //this._view.initialize(this);
+    this._eventManager.dispatchEvent("initialize", this);
     this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
     this._configureEvents();
   };
@@ -94,7 +95,8 @@ define(function(require) {
       }
       
       else if (this._waitCheck()){
-        this._view.stop();
+   //     this._view.stop();
+        this._eventManager.dispatchEvent("stopCombat");
         this._on = false;
         this._combat();
         this._view.step(this._model);
@@ -110,13 +112,13 @@ define(function(require) {
     }
   };
   
-  Engine.prototype._newCharacterPrompt = function(){
-    this._view.newCharacterPrompt();
+  Engine.prototype._newCharacterPrompt = function(){   //TODO events
+    this._view.newCharacterPrompt();  
     this._view.selectEquipment(this._model.weapons.weaponList,
     this._model.armors.armorList);
   };
   
-  Engine.prototype._newCharacter = function(){
+  Engine.prototype._newCharacter = function(){  //TODO events
     var data = this._view.newCharacter();
     this._model.newCharacter(data);
     this._view.characterButton(data, this.stepSelectTarget);
@@ -125,7 +127,7 @@ define(function(require) {
     this._view.modifyCharactersDataList(this._model.characters);
   };
   
-  Engine.prototype._loadCharacters = function(){  
+  Engine.prototype._loadCharacters = function(){    
     this._model.loadCharacters(this._view.getCharactersFile(), this._view.showInfoFighters);
   };
   
@@ -219,7 +221,9 @@ define(function(require) {
   Engine.prototype._sliderBrowser = function(button){
     this._loadingCombat = true;
     this._model.browseSlider(button);
-    this._view.sliderBrowser(this._model.turns.current+1, this._model.turns.combat.length);
+  //  this._view.sliderBrowser(this._model.turns.current+1, this._model.turns.combat.length);
+    this._eventManager.dispatchEvent("combatTurnSet",
+        {currentTurn: this._model.turns.current+1, turns: this._model.turns.combat.length});
     this._model.loadCombatTurn(this._model.turns.current);
     this._view.showInfoFighters(this._model.characters.characterList);
   };
