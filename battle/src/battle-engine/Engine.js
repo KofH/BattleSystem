@@ -16,7 +16,6 @@ define(function(require) {
       this._on = false;
       this._view = new View();
       this._model = new Model();
-      this._infoFighters = new infoFighters({model: this._model.armors.armorList.get("Leather")});
 //      this._eventManager = new EventManager();
       
       this._loadingCombat = false;

@@ -2,20 +2,21 @@ define(function(require){
   "use strict";
   
   var Backbone = require('libs/backbone');
+  var Templates = require('../View/templates/templates');
+  var temp = new Templates();
   
-  var AppView = Backbone.View.extend({
-      el: $('#container'),
-      // template 
+  var infoFighter = Backbone.View.extend({
+      el: $('#container' + this.model.get("name")),
+      template: _.template(temp.infoFighters),
       initialize: function(){
+        this.render();
         this.listenTo(this.model, "change", this.render);
       },
       render: function(){
-            // Compile the template using underscore
-      //      var template = _.template( $("#infoFighterTemplate").html(), {} );
-            // Load the compiled HTML into the Backbone "el"
-      //      this.$el.html( template );
-        console.log(this.model.get("power"));
-        }
+        this.$el.html(this.template({
+          name: this.model.get("name"),
+          hp: this.model.get("hp")}));
+      }
     });
-  return AppView;
+    return infoFighter;
 });

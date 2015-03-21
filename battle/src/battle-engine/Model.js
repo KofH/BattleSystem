@@ -7,6 +7,7 @@ define(function(require) {
   	var Armors = require('battle-engine/Items/Armors');
   	var Actions = require('battle-engine/Actions/Actions');
   	var Characters = require('battle-engine/Characters/Characters');
+    var Bview = require('battle-engine/View/infoFighters');
   	
   /**
 	 * Constructor
@@ -77,7 +78,8 @@ define(function(require) {
 		if ( (data.faction == "ally" && this.characters.contAllies() < this.MAX_ALLIES) ||
 		  data.faction == "enemy" && this.characters.contEnemies() < this.MAX_ENEMIES) {
 		   
-		  this.characters.newCharacter(data);
+		  var char = this.characters.newCharacter(data);
+      new Bview({model: char});
 		}
 		else { console.log("Too many character of this faction!"); }
 	};	

@@ -115,6 +115,7 @@ define(function(require) {
     character.set({id:character.get("name")});
     this.defaultCharacterList.add(character);
     this.characterList.add(character.clone());
+    return this.characterList.get(character.get("name"));
   };
   
   Characters.prototype.reset = function(){
