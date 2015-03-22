@@ -14,7 +14,7 @@ define(function(require) {
    ****************************************************************************/
   
    View.prototype.step = function(model){
-     this.showInfoFighters(model.characters.characterList);
+    // this.showInfoFighters(model.characters.characterList);
      this.generateButtons(model.characters.characterList);
     };
     
@@ -66,7 +66,7 @@ define(function(require) {
 	      engine._loadingCombat  = true;
 	      engine.setCurrentTurn(parseInt(document.getElementById("slider-step-value").value - 1));
 	      engine._model.loadCombatTurn(engine._model.turns.current);
-	      self.showInfoFighters(engine._model.characters.characterList);
+	   //   self.showInfoFighters(engine._model.characters.characterList);
 	    }
 	  });
 	  
@@ -81,7 +81,7 @@ define(function(require) {
     return confirm('Are you sure you want to Reset the Combat?');
   };
   
-  View.prototype.showInfoFighters = function(characters) { 
+  /*View.prototype.showInfoFighters = function(characters) { 
     if (characters == undefined) return; // FIXME Weird initial events error on page
     
     var allies = document.getElementById("infoFightersAllies");
@@ -146,7 +146,7 @@ define(function(require) {
         enemies.appendChild(item);
       }
     }
-  };
+  };*/
   
   View.prototype.generateButtons = function(characters){
     for (var i = 0; i < characters.length; i++){

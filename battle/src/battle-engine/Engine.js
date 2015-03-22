@@ -203,7 +203,7 @@ define(function(require) {
     console.log(btt.id + " selected!");
     this._view.disableButtons(this._model.characters.characterList, this._model.active);
     this._model.execute();
-    this._view.showInfoFighters(this._model.characters.characterList);
+   // this._view.showInfoFighters(this._model.characters.characterList);
     this._on = true;
   };
   
@@ -212,7 +212,7 @@ define(function(require) {
     this._model.browseSlider(button);
     this._view.sliderBrowser(this._model.turns.current+1, this._model.turns.combat.length);
     this._model.loadCombatTurn(this._model.turns.current);
-    this._view.showInfoFighters(this._model.characters.characterList);
+   // this._view.showInfoFighters(this._model.characters.characterList);
   };
 
   Engine.prototype.setCurrentTurn = function(n){
