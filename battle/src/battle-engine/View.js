@@ -20,8 +20,9 @@ define(function(require) {
     };
     
 
-  View.prototype.initialize = function(engine){
+  View.prototype.initialize = function(ev){
     var self = this;
+		var engine = ev.params.engine;
     this._buttonAction = engine.stepSelectAction.bind(engine);
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
     this.selectEquipment(engine._model.weapons.weaponList,
@@ -30,7 +31,7 @@ define(function(require) {
     document.getElementById("buttonStart").onclick = engine.start.bind(engine);
     document.getElementById("buttonStop").onclick = engine.stop.bind(engine);
     document.getElementById("buttonStep").onclick = engine.tick.bind(engine);
-    document.getElementById("newCharacterNext").onclick = engine._newCharacter.bind(engine);
+    document.getElementById("newCharacterNext").onclick = engine._newCharacter.bind(engine, function(){ return self.newCharacter(); });
     document.getElementById("newCharacterReset").onclick = this.newCharacterPromptReset;
     document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine);
     document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);

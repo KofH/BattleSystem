@@ -28,9 +28,9 @@ define(function(require) {
    */
   Engine.prototype.initialize = function () {
     //this._view.initialize(this);
-    this._eventManager.dispatchEvent("initialize", this);
-    this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
-    this._configureEvents();
+		this._configureEvents();
+		this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
+    this._eventManager.dispatchEvent("initialize", {engine: this});
   };
   
   Engine.prototype.stop = function () {
@@ -118,8 +118,8 @@ define(function(require) {
     this._model.armors.armorList);
   };
   
-  Engine.prototype._newCharacter = function(){  //TODO events
-    var data = this._view.newCharacter();
+  Engine.prototype._newCharacter = function(callback){  //TODO events
+    var data = callback();
     this._model.newCharacter(data);
     this._view.characterButton(data, this.stepSelectTarget);
     this._view.factionButton(data.faction, this.stepSelectTarget);

@@ -51,7 +51,7 @@ define(function(require) {
 	
   EventManager.prototype.initialize = function() {
     var self = this;
-    this.addListener("initialize", function () { self._view.initialize(); } );
+    this.addListener("initialize", function (ev) { self._view.initialize(ev); } );
     this.addListener("startCombat", function () { self._view.start(); } );  
     this.addListener("stopCombat", function () { self._view.stop(); } );
    
