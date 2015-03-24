@@ -35,7 +35,7 @@ define(function(require) {
     document.getElementById("newCharacterReset").onclick = this.newCharacterPromptReset;
     document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine);
     document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);
-		document.getElementById("buttonLoadCombat").onclick = engine._loadCombat.bind(engine);
+    document.getElementById("buttonLoadCombat").onclick = engine._loadCombat.bind(engine);
     document.getElementById("buttonSaveCombat").onclick = engine._saveCombat.bind(engine);
     document.getElementById("sliderFirstTurn").onclick = engine._sliderBrowser.bind(engine, "sliderFirstTurn");
     document.getElementById("sliderPreviousTurn").onclick = engine._sliderBrowser.bind(engine, "sliderPreviousTurn");

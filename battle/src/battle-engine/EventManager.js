@@ -56,12 +56,26 @@ define(function(require) {
     this.addListener("stopCombat", function () { self._view.stop(); } );
    
     this.addListener("combatTurnSet", function (ev) { self._view.sliderBrowser(ev); } );
-    
     this.addListener("combatShowActions", function (ev) { self._view.showActiveActions(ev); } );
     this.addListener("combatShowTargets", function (ev) { self._view.selectTargetButtonEnable(ev); } );
     this.addListener("combatExecuteAction", function (ev) { self._view.disableButtons(ev); } );
-    };
-   
+    
+    this.addListener("start", function () { console.log("startEvent") } );
+    this.addListener("tick", function () { console.log("tickEvent") } );
+    this.addListener("inputNeeded", function () { console.log("inputNeededEvent") } );
+    this.addListener("action", function () { console.log("action") } );
+    this.addListener("outOfCombat", function () { console.log("outOfCombatEvent") } );
+    this.addListener("death", function () { console.log("deathEvent") } );
+    this.addListener("orderTactic", function () { console.log("orderTacticEvent") } );
+    this.addListener("orderAttitude", function () { console.log("orderAttitudEvent") } );
+    this.addListener("orderFlee", function () { console.log("orderFleeEvent") } );
+    this.addListener("setting", function () { console.log("settingEvent") } );
+    this.addListener("end", function () { console.log("endEvent") } );
+    this.addListener("script", function () { console.log("scriptEvent") } );
+  
+  };
+  
+	
 	/********************************
 	 *      PRIVATE FUNCTIONS       *
 	 ********************************/
