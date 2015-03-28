@@ -140,7 +140,7 @@ define(function(require) {
 	
 	Model.prototype.loadTick = function(i){
 	  if (this.turns.tick[i] != undefined)
-	    this.characters.characterList = this.turns.tick[i].clone(true);
+	    this.characters.characterList.set(this.turns.tick[i].models);
 	};
 	
 	Model.prototype.saveCombat = function(){
