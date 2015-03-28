@@ -62,7 +62,6 @@ define(function(require) {
     
     //this.addListener("newCharacter", function (ev) {};
     
-    
     this.addListener("start", function () { console.log("startEvent") } );
     this.addListener("tick", function () { console.log("tickEvent") } );
     this.addListener("inputNeeded", function () { console.log("inputNeededEvent") } );
@@ -70,7 +69,7 @@ define(function(require) {
     this.addListener("outOfCombat", function () { console.log("outOfCombatEvent") } );
     this.addListener("death", function () { console.log("deathEvent") } );
     this.addListener("orderTactic", function () { console.log("orderTacticEvent") } );
-    this.addListener("orderAttitude", function () { console.log("orderAttitudEvent") } );
+    this.addListener("orderAttitude", function () { console.log("orderAttitudeEvent") } );
     this.addListener("orderFlee", function () { console.log("orderFleeEvent") } );
     this.addListener("setting", function () { console.log("settingEvent") } );
     this.addListener("end", function () { console.log("endEvent") } );

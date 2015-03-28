@@ -27,7 +27,6 @@ define(function(require) {
    * @param 
    */
   Engine.prototype.initialize = function () {
-    //this._view.initialize(this);
 		this._configureEvents();
 		this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
     this._eventManager.dispatchEvent("initialize", {engine: this});
@@ -35,14 +34,11 @@ define(function(require) {
   
   Engine.prototype.stop = function () {
     this._on = false;
-  //  this._view.stop();
     this._eventManager.dispatchEvent("stopCombat");
   };
   
   Engine.prototype.start = function () {
     this._on = true;
-  //  this._view.start();
-  //  this._eventManager.dispatchEvent("startCombat", "semen");
     this._eventManager.dispatchEvent("startCombat");
   };
   
@@ -86,7 +82,6 @@ define(function(require) {
       
       if(this._model.deadFaction()){
         this._model.saveCombat();
-  //    this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
         this._eventManager.dispatchEvent("combatTurnSet", 
             {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
         console.log("--- END OF COMBAT ---");
@@ -95,12 +90,10 @@ define(function(require) {
       }
       
       else if (this._waitCheck()){
-   //     this._view.stop();
         this._eventManager.dispatchEvent("stopCombat");
         this._on = false;
         this._combat();
         this._view.step(this._model);
-  //    this._view.sliderBrowser(this._model.turns.combat.length, this._model.turns.combat.length);
         this._eventManager.dispatchEvent("combatTurnSet", 
             {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
       }
@@ -118,7 +111,7 @@ define(function(require) {
     this._model.armors.armorList);
   };
   
-  Engine.prototype._newCharacter = function(callback){
+  Engine.prototype._newCharacter = function(callback){  //TODO refactor needed
     var data = callback();
     this._model.newCharacter(data);
 //    this._view.characterButton(data, this.stepSelectTarget);
@@ -192,9 +185,7 @@ define(function(require) {
   Engine.prototype._combat = function(){
     console.log("TURN!");
     this._model.active = this._model.characters.characterList.findWhere({wait: 0});
-		this._view._active = this._model.active.get("id");
     this._model.saveCombat();
-   // this._view.showActiveActions(this._model.active);
     this._eventManager.dispatchEvent("combatShowActions", {character: this._model.active});
     console.log("What will " + this._model.active.get("name") + " do?");
   };
@@ -206,7 +197,6 @@ define(function(require) {
     var target = this._model.getActionTarget();
     var characters = this._model.characters.characterList;
     var active = this._model.active;
-   // this._view.selectTargetButtonEnable(target, characters, active);
     this._eventManager.dispatchEvent("combatShowTargets", 
         {target: target, characters: characters, active: active});
   };
@@ -214,7 +204,6 @@ define(function(require) {
   Engine.prototype.stepSelectTarget = function(btt){
     this._model.selectedTarget = btt.id;
     console.log(btt.id + " selected!");
- //   this._view.disableButtons(this._model.characters.characterList, this._model.active);
     this._model.execute();
     this._view.showInfoFighters(this._model.characters.characterList);
     this._eventManager.dispatchEvent("combatExecuteAction", 
@@ -225,7 +214,6 @@ define(function(require) {
   Engine.prototype._sliderBrowser = function(button){
     this._loadingCombat = true;
     this._model.browseSlider(button);
-  //  this._view.sliderBrowser(this._model.turns.current+1, this._model.turns.combat.length);
     this._eventManager.dispatchEvent("combatTurnSet",
         {currentTurn: this._model.turns.current+1, turns: this._model.turns.combat.length});
     this._model.loadCombatTurn(this._model.turns.current);
