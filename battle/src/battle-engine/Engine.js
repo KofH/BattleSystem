@@ -128,14 +128,15 @@ define(function(require) {
     this._model.loadCharacters(file);
   };
   
-  Engine.prototype._resetCombat = function(){
+  Engine.prototype._resetCombat = function(){ //TODO refactor needed
     if(this._view.askReset()) this._model.resetCombat();
     this._view.step(this._model);
   };
   
   Engine.prototype._saveCharacters = function(){
     var serialization = this._model.getCharactersSerial();
-    this._view.saveCharacters(serialization);
+  //  this._view.saveCharacters(serialization);
+    this._eventManager.dispatchEvent("saveCharacters", {serialization: serialization });
   };
   
   Engine.prototype._loadCombat = function(){

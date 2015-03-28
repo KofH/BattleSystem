@@ -60,7 +60,11 @@ define(function(require) {
     this.addListener("combatShowTargets", function (ev) { self._view.selectTargetButtonEnable(ev); } );
     this.addListener("combatExecuteAction", function (ev) { self._view.disableButtons(ev); } );
     
-    //this.addListener("newCharacter", function (ev) {};
+    this.addListener("newCharacter", function (ev) {
+      console.log("newCharacter REFACTOR");
+      console.log(ev) });
+    
+    this.addListener("saveCharacters", function (ev) { self._view.saveCharacters(ev)} );
     
     this.addListener("start", function () { console.log("startEvent") } );
     this.addListener("tick", function () { console.log("tickEvent") } );

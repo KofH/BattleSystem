@@ -224,7 +224,8 @@ define(function(require) {
     document.getElementById('modifyCharacterSelected').focus();
   };
 
-  View.prototype.saveCharacters = function(serialization) {
+  View.prototype.saveCharacters = function(ev) {
+    var serialization = ev.params.serialization;
     var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
     var x = document.getElementById("saveCharactersDownload");
     x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
