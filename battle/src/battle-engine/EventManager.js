@@ -60,6 +60,9 @@ define(function(require) {
     this.addListener("combatShowTargets", function (ev) { self._view.selectTargetButtonEnable(ev); } );
     this.addListener("combatExecuteAction", function (ev) { self._view.disableButtons(ev); } );
     
+    //this.addListener("newCharacter", function (ev) {};
+    
+    
     this.addListener("start", function () { console.log("startEvent") } );
     this.addListener("tick", function () { console.log("tickEvent") } );
     this.addListener("inputNeeded", function () { console.log("inputNeededEvent") } );
@@ -72,7 +75,6 @@ define(function(require) {
     this.addListener("setting", function () { console.log("settingEvent") } );
     this.addListener("end", function () { console.log("endEvent") } );
     this.addListener("script", function () { console.log("scriptEvent") } );
-  
   };
   
 	

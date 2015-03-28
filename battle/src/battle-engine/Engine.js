@@ -112,23 +112,27 @@ define(function(require) {
     }
   };
   
-  Engine.prototype._newCharacterPrompt = function(){   //TODO events
+  Engine.prototype._newCharacterPrompt = function(){   //TODO to view
     this._view.newCharacterPrompt();  
     this._view.selectEquipment(this._model.weapons.weaponList,
     this._model.armors.armorList);
   };
   
-  Engine.prototype._newCharacter = function(callback){  //TODO events
+  Engine.prototype._newCharacter = function(callback){
     var data = callback();
     this._model.newCharacter(data);
-    this._view.characterButton(data, this.stepSelectTarget);
-    this._view.factionButton(data.faction, this.stepSelectTarget);
-    this._view.newCharacterPromptReset();
-    this._view.modifyCharactersDataList(this._model.characters);
+//    this._view.characterButton(data, this.stepSelectTarget);
+//    this._view.factionButton(data.faction, this.stepSelectTarget);
+//    this._view.newCharacterPromptReset();
+//    this._view.modifyCharactersDataList(this._model.characters);
+    
+    this._eventManager.dispatchEvent("newCharacter", {data: data, call: this.stepSelectTarget});
+    
   };
   
-  Engine.prototype._loadCharacters = function(){    
-    this._model.loadCharacters(this._view.getCharactersFile(), this._view.showInfoFighters);
+  Engine.prototype._loadCharacters = function(callback){
+    var file = callback();
+    this._model.loadCharacters(file);
   };
   
   Engine.prototype._resetCombat = function(){

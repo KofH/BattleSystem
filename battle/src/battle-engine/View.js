@@ -33,7 +33,7 @@ define(function(require) {
     document.getElementById("buttonStep").onclick = engine.tick.bind(engine);
     document.getElementById("newCharacterNext").onclick = engine._newCharacter.bind(engine, function(){ return self.newCharacter(); });
     document.getElementById("newCharacterReset").onclick = this.newCharacterPromptReset;
-    document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine);
+    document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine, function() {return self.getCharactersFile() });
     document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);
     document.getElementById("buttonLoadCombat").onclick = engine._loadCombat.bind(engine);
     document.getElementById("buttonSaveCombat").onclick = engine._saveCombat.bind(engine);
