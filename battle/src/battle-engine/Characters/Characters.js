@@ -98,14 +98,13 @@ define(function(require) {
     }
   };
     
-  Characters.prototype.load = function(file, callback){
+  Characters.prototype.load = function(file){
     var filereader = new FileReader();
     var self = this;
 
     filereader.onloadend = function (){
       self.defaultCharacterList = new CharacterList(JSON.parse(filereader.result));
-      self.characterList = self.defaultCharacterList.clone(true); 
-      callback(self.characterList);
+      self.characterList = self.defaultCharacterList.clone(true);
     }
     filereader.readAsText(file,'utf8');
   };

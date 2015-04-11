@@ -1,3 +1,4 @@
+
 define(function(require) {
   "use strict";
 
@@ -19,8 +20,9 @@ define(function(require) {
     };
     
 
-  View.prototype.initialize = function(engine){
+  View.prototype.initialize = function(ev){
     var self = this;
+		var engine = ev.params.engine;
     this._buttonAction = engine.stepSelectAction.bind(engine);
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
     this.selectEquipment(engine._model.weapons.weaponList,
@@ -30,11 +32,11 @@ define(function(require) {
     document.getElementById("buttonStart").onclick = engine.start.bind(engine);
     document.getElementById("buttonStop").onclick = engine.stop.bind(engine);
     document.getElementById("buttonStep").onclick = engine.tick.bind(engine);
-    document.getElementById("newCharacterNext").onclick = engine._newCharacter.bind(engine);
+    document.getElementById("newCharacterNext").onclick = engine._newCharacter.bind(engine, function(){ return self.newCharacter(); });
     document.getElementById("newCharacterReset").onclick = this.newCharacterPromptReset;
-    document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine);
+    document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine, function() {return self.getCharactersFile() });
     document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);
-		document.getElementById("buttonLoadCombat").onclick = engine._loadCombat.bind(engine);
+    document.getElementById("buttonLoadCombat").onclick = engine._loadCombat.bind(engine);
     document.getElementById("buttonSaveCombat").onclick = engine._saveCombat.bind(engine);
     document.getElementById("sliderFirstTurn").onclick = engine._sliderBrowser.bind(engine, "sliderFirstTurn");
     document.getElementById("sliderPreviousTurn").onclick = engine._sliderBrowser.bind(engine, "sliderPreviousTurn");
@@ -155,13 +157,15 @@ define(function(require) {
     }
   };
   
-   View.prototype.sliderBrowser = function(currentTurn, turn){
+   View.prototype.sliderBrowser = function(ev){
+     var currentTurn = ev.params.currentTurn;
+     var turns = ev.params.turns;
     var value = document.getElementById("slider-step-value").value;
     $('#slider-step').noUiSlider({
       start: [ currentTurn ],
       range: {
         'min': [ 1 ],
-        'max': [ turn ]
+        'max': [ turns ]
       },
     }, true);
     document.getElementById("slider-step-value").value = currentTurn;
@@ -252,7 +256,8 @@ define(function(require) {
     document.getElementById('modifyCharacterSelected').focus();
   };
 
-  View.prototype.saveCharacters = function(serialization) {
+  View.prototype.saveCharacters = function(ev) {
+    var serialization = ev.params.serialization;
     var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
     var x = document.getElementById("saveCharactersDownload");
     x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
@@ -302,7 +307,8 @@ define(function(require) {
     return data;
   };
   
-  View.prototype.showActiveActions = function(character){ 
+  View.prototype.showActiveActions = function(ev){ 
+    var character = ev.params.character;
     var div = document.getElementById("actionButtons");
     while(div.hasChildNodes()){
       div.removeChild(div.firstChild);
@@ -418,7 +424,10 @@ define(function(require) {
     return document.getElementById("fileUploadCombat").files[0];
   };
   
-  View.prototype.selectTargetButtonEnable = function(target, characters, active){ 
+  View.prototype.selectTargetButtonEnable = function(ev){ 
+    var target = ev.params.target;
+    var characters = ev.params.characters;
+    var active = ev.params.active;
     if (target === "character"){
       for (var i = 0; i < characters.length; i++) {
 				var x = document.getElementById(characters.at(i).get("name"));

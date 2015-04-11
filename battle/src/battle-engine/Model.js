@@ -58,8 +58,8 @@ define(function(require) {
     }
   };
 	
-  Model.prototype.loadCharacters = function(file, callback){
-    this.characters.load(file, callback);
+  Model.prototype.loadCharacters = function(file){
+    this.characters.load(file);
   };
   
   Model.prototype.loadTurns = function(file, callback){
