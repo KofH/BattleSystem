@@ -40,7 +40,7 @@ define(function(require) {
   
   Engine.prototype.start = function () {
     this._on = true;
-    this._eventManager.dispatchEvent("start");
+    this._eventManager.dispatchEvent("start", {characterList: this._model.characters.characterList});
   };
   
   Engine.prototype.tick = function(){
@@ -52,16 +52,6 @@ define(function(require) {
   Engine.prototype.changeCharacters = function (attr, exp){
     this._model.characters.change(attr, exp);
   };
-  
-  /*
-  Engine.prototype.renderize = function () {
-  
-  };
-  //*/
- /* Engine.prototype.click = function(btt){
-    this._eventManager.dispatchEvent(btt.id);
-  };
-  //*/
   
   /*********************
    * PRIVATE FUNCTIONS *
@@ -75,7 +65,6 @@ define(function(require) {
   
   Engine.prototype._step = function() {
     if (this._on){
-
       if (this._loadingCombat) {
         this._model.spliceCombat();
         this._loadingCombat = false;
@@ -83,46 +72,33 @@ define(function(require) {
       
       if(this._model.deadFaction()){
         this._model.saveCombat();
+        this._on = false;
         this._eventManager.dispatchEvent("combatTurnSet", 
             {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
         console.log("--- END OF COMBAT ---");
-        $.snackbar({content: "COMBAT ENDED!"});
-        this._on = false;
+        $.snackbar({content: "COMBAT ENDED!"}); 
+        this._eventManager.dispatchEvent("end");
       }
       
       else if (this._waitCheck()){
-        this._eventManager.dispatchEvent("stop");
         this._on = false;
         this._combat();
-        this._view.step(this._model);
+        this._eventManager.dispatchEvent("stop");
         this._eventManager.dispatchEvent("turnSet", 
             {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
       }
       
       else{
+        this._eventManager("tick");
         this._model.turn();
-        this._view.step(this._model);
       }
     }
-  };
-  
-  Engine.prototype._newCharacterPrompt = function(){   //TODO to view
-    this._view.newCharacterPrompt();  
-    this._view.selectEquipment(this._model.weapons.weaponList,
-    this._model.armors.armorList);
-    this._view.selectActions(this._model.actions.actionList);
   };
   
   Engine.prototype._newCharacter = function(callback){  //TODO refactor needed
     var data = callback();
     this._model.newCharacter(data);
-//    this._view.characterButton(data, this.stepSelectTarget);
-//    this._view.factionButton(data.faction, this.stepSelectTarget);
-//    this._view.newCharacterPromptReset();
-//    this._view.modifyCharactersDataList(this._model.characters);
-    
-    this._eventManager.dispatchEvent("newCharacter", {data: data, call: this.stepSelectTarget});
-    
+    this._eventManager.dispatchEvent("newCharacter", {data: data});
   };
   
   Engine.prototype._loadCharacters = function(callback){
@@ -131,13 +107,11 @@ define(function(require) {
   };
   
   Engine.prototype._resetCombat = function(){ //TODO refactor needed
-    if(this._view.askReset()) this._model.resetCombat();
-    this._view.step(this._model);
+      this._model.resetCombat();
   };
   
   Engine.prototype._saveCharacters = function(){
     var serialization = this._model.getCharactersSerial();
-  //  this._view.saveCharacters(serialization);
     this._eventManager.dispatchEvent("saveCharacters", {serialization: serialization });
   };
   
@@ -191,6 +165,7 @@ define(function(require) {
     this._model.saveCombat();
     this._eventManager.dispatchEvent("showActions", {character: this._model.active});
     console.log("What will " + this._model.active.get("name") + " do?");
+    this._eventManager.dispatchEvent("inputNeeded");
   };
   
 

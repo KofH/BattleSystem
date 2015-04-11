@@ -15,20 +15,21 @@ define(function(require) {
    ****************************************************************************/
   
    View.prototype.step = function(model){
-    // this.showInfoFighters(model.characters.characterList);
-     this.generateButtons(model.characters.characterList);
+
     };
     
 
-  View.prototype.initialize = function(ev){
+  View.prototype.initialize = function(params){
     var self = this;
-		var engine = ev.params.engine;
+		var engine = params.engine;
     this._buttonAction = engine.stepSelectAction.bind(engine);
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
     this.selectEquipment(engine._model.weapons.weaponList,
 						 engine._model.armors.armorList);
     this.selectActions(engine._model.actions.actionList);
-    document.getElementById("buttonResetCombat").onclick = engine._resetCombat.bind(engine);
+    document.getElementById("buttonResetCombat").onclick = function() {
+      if (self.askReset()) engine._resetCombat (engine);
+    };
     document.getElementById("buttonStart").onclick = engine.start.bind(engine);
     document.getElementById("buttonStop").onclick = engine.stop.bind(engine);
     document.getElementById("buttonStep").onclick = engine.tick.bind(engine);
@@ -83,83 +84,17 @@ define(function(require) {
     return confirm('Are you sure you want to Reset the Combat?');
   };
   
-  /*View.prototype.showInfoFighters = function(characters) { 
-    if (characters == undefined) return; // FIXME Weird initial events error on page
-    
-    var allies = document.getElementById("infoFightersAllies");
-    var enemies = document.getElementById("infoFightersEnemies");
-
-    while (allies.hasChildNodes()) {
-      allies.removeChild(allies.firstChild);
-    }
-    while (enemies.hasChildNodes()) {
-      enemies.removeChild(enemies.firstChild);
-    }
-    for (var i = 0; i < characters.length; i++) {
-
-      var item = document.createElement("li");
-      item.innerHTML = characters.at(i).get("name");
-			item.setAttribute("id", "Info" + item.innerHTML);
-			item.setAttribute("class","defaultCharacter sample shadow-z-1");
-			if(characters.at(i).get("id") == engine._view._active){
-				item.setAttribute("class","activeCharacter sample shadow-z-2");
-			}
-			
-      var str = document.createElement("ul");
-      str.innerHTML = "Strength: " + characters.at(i).get("strength");
-      item.appendChild(str);
-
-      var agi = document.createElement("ul");
-      agi.innerHTML = "Agility: " + characters.at(i).get("agility");
-      item.appendChild(agi);
-
-      var int = document.createElement("ul");
-      int.innerHTML = "Intelligence: " + characters.at(i).get("intelligence");
-      item.appendChild(int);
-
-      var hp = document.createElement("ul");
-      hp.innerHTML = "HP: " + characters.at(i).get("hp");
-      hp.style.color = "#088A08";
-      item.appendChild(hp);
-
-      var ap = document.createElement("ul");
-      ap.innerHTML = "AP: " + characters.at(i).get("ap");
-      ap.style.color = "#2E2EFE";
-      item.appendChild(ap);
-
-      var wait = document.createElement("ul");
-      wait.innerHTML = "Wait: " + characters.at(i).get("wait");
-      wait.style.color = "#8A0886";
-      item.appendChild(wait);
-			
-			var divW = document.createElement("div");
-			divW.setAttribute("class","progress");
-			
-			var waitBar = document.createElement("div");
-			waitBar.style.width = (100-characters.at(i).get("wait")) + "%";
-			if (characters.at(i).get("wait") == 0) waitBar.setAttribute("class","progress-bar progress-bar-material-lightblue");
-			else waitBar.setAttribute("class","progress-bar progress-bar-material-purple");
-			divW.appendChild(waitBar);
-			item.appendChild(divW);
-			
-      if (characters.at(i).get("faction") == "ally") {
-        allies.appendChild(item);
-      } else {
-        enemies.appendChild(item);
-      }
-    }
-  };*/
-  
-  View.prototype.generateButtons = function(characters){
+  View.prototype.generateButtons = function(params){
+    var characters = params.characterList;
     for (var i = 0; i < characters.length; i++){
-      this.characterButton(characters.at(i).attributes, this.stepSelectTarget);
-      this.factionButton(characters.at(i).get("faction"), this.stepSelectTarget);
+      this.characterButton({data: characters.at(i).attributes});
+      this.factionButton({faction: characters.at(i).get("faction")});
     }
   };
   
-   View.prototype.sliderBrowser = function(ev){
-     var currentTurn = ev.params.currentTurn;
-     var turns = ev.params.turns;
+   View.prototype.sliderBrowser = function(params){
+     var currentTurn = params.currentTurn;
+     var turns = params.turns;
     var value = document.getElementById("slider-step-value").value;
     $('#slider-step').noUiSlider({
       start: [ currentTurn ],
@@ -197,11 +132,7 @@ define(function(require) {
   
   View.prototype.selectActions = function(actionsList){
     var actionSelect = document.getElementById('actionSelect');
-    
-   /*while (actionSelect.hasChildNodes()){
-      actionSelect.removeChild(actionSelect.firstChild);
-    };*/
-    
+
     for(var i = 0; i < actionsList.length; i++){
       var input = document.createElement('input');
       input.type = 'checkbox';
@@ -256,8 +187,8 @@ define(function(require) {
     document.getElementById('modifyCharacterSelected').focus();
   };
 
-  View.prototype.saveCharacters = function(ev) {
-    var serialization = ev.params.serialization;
+  View.prototype.saveCharacters = function(params) {
+    var serialization = params.serialization;
     var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
     var x = document.getElementById("saveCharactersDownload");
     x.setAttribute("download", document.getElementById("saveCharactersFileName").value + ".txt");
@@ -307,8 +238,8 @@ define(function(require) {
     return data;
   };
   
-  View.prototype.showActiveActions = function(ev){ 
-    var character = ev.params.character;
+  View.prototype.showActiveActions = function(params){ 
+    var character = params.character;
     var div = document.getElementById("actionButtons");
     while(div.hasChildNodes()){
       div.removeChild(div.firstChild);
@@ -330,7 +261,8 @@ define(function(require) {
     };
   };
   
-  View.prototype.characterButton = function(data, callback){
+  View.prototype.characterButton = function(params){
+    var data = params.data;
     if (document.getElementById(data.name) == null) {
       var allies = document.getElementById("targetCharactersAlly");
       var enemies = document.getElementById("targetCharactersEnemy");
@@ -345,7 +277,8 @@ define(function(require) {
     }
   };
   
-  View.prototype.factionButton = function(faction, callback){
+  View.prototype.factionButton = function(params){
+    var faction = params.faction;
     if (faction == "ally" && document.getElementById("factionAlly") == null){
       var targetAllies = document.getElementById("targetFactions");
       targetAllies.appendChild(this.createBtt("factionAlly", "Allies", "ally"));
@@ -424,10 +357,10 @@ define(function(require) {
     return document.getElementById("fileUploadCombat").files[0];
   };
   
-  View.prototype.selectTargetButtonEnable = function(ev){ 
-    var target = ev.params.target;
-    var characters = ev.params.characters;
-    var active = ev.params.active;
+  View.prototype.selectTargetButtonEnable = function(params){ 
+    var target = params.target;
+    var characters = params.characters;
+    var active = params.active;
     if (target === "character"){
       for (var i = 0; i < characters.length; i++) {
 				var x = document.getElementById(characters.at(i).get("name"));

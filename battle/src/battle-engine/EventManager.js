@@ -51,20 +51,27 @@ define(function(require) {
 	
   EventManager.prototype.initialize = function() {
     var self = this;
-    this.addListener("initialize", function (ev) { self._view.initialize(ev); } );
-    this.addListener("start", function () { self._view.start(); } );  
+    this.addListener("initialize", function (ev) { self._view.initialize(ev.params); } );
+    this.addListener("start", function (ev) { 
+      self._view.start();
+      self._view.generateButtons(ev.params);
+    } );  
     this.addListener("stop", function () { self._view.stop(); } );
    
-    this.addListener("turnSet", function (ev) { self._view.sliderBrowser(ev); } );
-    this.addListener("showActions", function (ev) { self._view.showActiveActions(ev); } );
-    this.addListener("showTargets", function (ev) { self._view.selectTargetButtonEnable(ev); } );
-    this.addListener("action", function (ev) { self._view.disableButtons(ev); } );
+    this.addListener("turnSet", function (ev) { self._view.sliderBrowser(ev.params); } );
+    this.addListener("showActions", function (ev) { self._view.showActiveActions(ev.params); } );
+    this.addListener("showTargets", function (ev) { self._view.selectTargetButtonEnable(ev.params); } );
+    this.addListener("action", function (ev) { self._view.disableButtons(ev.params); } );
     
     this.addListener("newCharacter", function (ev) {
       console.log("newCharacter REFACTOR");
-      console.log(ev) });
+      console.log(ev.params);
+      self._view.newCharacterPromptReset();
+      self._view.characterButton(ev.params);
+      self._view.factionButton(ev.params.data.faction);
+    });
     
-    this.addListener("saveCharacters", function (ev) { self._view.saveCharacters(ev)} );
+    this.addListener("saveCharacters", function (ev) { self._view.saveCharacters(ev.params)} );
     
     this.addListener("start", function () { console.log("startEvent") } );
     this.addListener("tick", function () { console.log("tickEvent") } );
