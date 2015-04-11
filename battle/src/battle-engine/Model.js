@@ -62,13 +62,19 @@ define(function(require) {
     this.characters.load(file, Bview);
   };
   
-  Model.prototype.loadTurns = function(file, callback){
+  Model.prototype.loadTurns = function(file){
     var filereader = new FileReader();
     var self = this;
     
     filereader.onloadend = function(){
       self.turns = JSON.parse(filereader.result);
-      //TODO CALLBACK
+      var length = self.turns.tick[self.turns.combat[self.turns.current]].length;
+      for (var i = 0; i < length; i++)
+        self.newCharacter( self.turns.tick[self.turns.combat[self.turns.current]][i] );
+      
+   /*   if(Bview != undefined)
+        for (var i = 0; i < self.characters.characterList.length; i++)
+          new Bview({model: self.characters.characterList.at(i)});*/
     }
     filereader.readAsText(file, 'utf8');
   }

@@ -89,7 +89,7 @@ define(function(require) {
       }
       
       else{
-        this._eventManager("tick");
+        this._eventManager.dispatchEvent("tick");
         this._model.turn();
       }
     }
@@ -101,27 +101,29 @@ define(function(require) {
     this._eventManager.dispatchEvent("newCharacter", {data: data});
   };
   
+  Engine.prototype._resetCombat = function(){ //TODO refactor needed
+      this._model.resetCombat();
+  };
+    
   Engine.prototype._loadCharacters = function(callback){
     var file = callback();
     this._model.loadCharacters(file);
   };
   
-  Engine.prototype._resetCombat = function(){ //TODO refactor needed
-      this._model.resetCombat();
-  };
-  
   Engine.prototype._saveCharacters = function(){
     var serialization = this._model.getCharactersSerial();
-    this._eventManager.dispatchEvent("saveCharacters", {serialization: serialization });
+    this._eventManager.dispatchEvent("saveCharacters", {serialization: serialization});
   };
   
-  Engine.prototype._loadCombat = function(){
-    this._model.loadTurns(this._view.getCombatFile(), console.log("loadTurns Callback"));
+  Engine.prototype._loadCombat = function(callback){
+    var file = callback();
+    this._model.loadTurns(file);
+    this._eventManager.dispatchEvent("turnSet", {currentTurn: this._model.turns.current, turns: this._model.turns.combat.length});
   }
   
   Engine.prototype._saveCombat = function(){
     var serialization = this._model.getTurnsSerial();
-    this._view.saveTurns(serialization);
+    this._eventManager.dispatchEvent("saveCombat", {serialization:serialization});
   }
   
   Engine.prototype._loadWeapons = function(){

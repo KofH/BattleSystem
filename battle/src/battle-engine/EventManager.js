@@ -64,14 +64,13 @@ define(function(require) {
     this.addListener("action", function (ev) { self._view.disableButtons(ev.params); } );
     
     this.addListener("newCharacter", function (ev) {
-      console.log("newCharacter REFACTOR");
-      console.log(ev.params);
       self._view.newCharacterPromptReset();
       self._view.characterButton(ev.params);
       self._view.factionButton(ev.params.data.faction);
     });
     
     this.addListener("saveCharacters", function (ev) { self._view.saveCharacters(ev.params)} );
+    this.addListener("saveCombat", function (ev) { self._view.saveTurns(ev.params)} );
     
     this.addListener("start", function () { console.log("startEvent") } );
     this.addListener("tick", function () { console.log("tickEvent") } );

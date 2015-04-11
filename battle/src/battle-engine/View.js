@@ -35,9 +35,9 @@ define(function(require) {
     document.getElementById("buttonStep").onclick = engine.tick.bind(engine);
     document.getElementById("newCharacterNext").onclick = engine._newCharacter.bind(engine, function(){ return self.newCharacter(); });
     document.getElementById("newCharacterReset").onclick = this.newCharacterPromptReset;
-    document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine, function() {return self.getCharactersFile() });
+    document.getElementById("buttonLoadCharacters").onclick = engine._loadCharacters.bind(engine, function() { return self.getCharactersFile(); });
     document.getElementById("buttonSaveCharacters").onclick = engine._saveCharacters.bind(engine);
-    document.getElementById("buttonLoadCombat").onclick = engine._loadCombat.bind(engine);
+    document.getElementById("buttonLoadCombat").onclick = engine._loadCombat.bind(engine, function() { return self.getCombatFile(); });
     document.getElementById("buttonSaveCombat").onclick = engine._saveCombat.bind(engine);
     document.getElementById("sliderFirstTurn").onclick = engine._sliderBrowser.bind(engine, "sliderFirstTurn");
     document.getElementById("sliderPreviousTurn").onclick = engine._sliderBrowser.bind(engine, "sliderPreviousTurn");
@@ -97,11 +97,11 @@ define(function(require) {
      var turns = params.turns;
     var value = document.getElementById("slider-step-value").value;
     $('#slider-step').noUiSlider({
-      start: [ currentTurn ],
       range: {
         'min': [ 1 ],
         'max': [ turns ]
       },
+      start: [ currentTurn ]
     }, true);
     document.getElementById("slider-step-value").value = currentTurn;
   };
@@ -179,10 +179,7 @@ define(function(require) {
     this.newCharacterPromptReset();
     document.getElementById('newCharacterAlly').focus();
   };
-
-  View.prototype.loadAndSavePrompt = function() {
-  };
-
+  
   View.prototype.modifyCharactersPrompt = function() {
     document.getElementById('modifyCharacterSelected').focus();
   };
@@ -196,13 +193,9 @@ define(function(require) {
     x.click();
 		$.snackbar({content: "Characters saved as " + document.getElementById("saveCharactersFileName").value + ".txt"});
   };
-
-  View.prototype.loadCharacters = function(characters) {    ///NOT IN USE
-    this.modifyCharactersDataList(characters);
-		$.snackbar({content: "Characters loaded"});
-  };
   
-  View.prototype.saveTurns = function(serialization){
+  View.prototype.saveTurns = function(params){
+    var serialization = params.serialization
     var dataurl = "data:application/octet-stream;ucs2,"+ serialization;
     var x = document.getElementById("saveCombatDownload");
     x.setAttribute("download", document.getElementById("saveCombatFileName").value + ".txt");
