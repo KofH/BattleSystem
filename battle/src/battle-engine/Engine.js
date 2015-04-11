@@ -7,9 +7,7 @@ define(function(require) {
     var infoFighters = require('battle-engine/View/infoFighters');
 
 //    var EventManager = require('battle-engine/EventManager');
-=======
     var EventManager = require('battle-engine/EventManager');
->>>>>>> events
   /**
    * Constructor
    * @classDescription 
@@ -213,10 +211,8 @@ define(function(require) {
     console.log(btt.id + " selected!");
     this._model.execute();
    // this._view.showInfoFighters(this._model.characters.characterList);
-=======
     this._eventManager.dispatchEvent("combatExecuteAction", 
         {characters: this._model.characters.characterList, active: this._model.active}); 
->>>>>>> events
     this._on = true;
   };
   
