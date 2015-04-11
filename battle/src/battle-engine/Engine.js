@@ -5,8 +5,6 @@ define(function(require) {
     var View = require('battle-engine/View');
     var Model = require('battle-engine/Model');
     var infoFighters = require('battle-engine/View/infoFighters');
-
-//    var EventManager = require('battle-engine/EventManager');
     var EventManager = require('battle-engine/EventManager');
   /**
    * Constructor
@@ -37,12 +35,12 @@ define(function(require) {
   
   Engine.prototype.stop = function () {
     this._on = false;
-    this._eventManager.dispatchEvent("stopCombat");
+    this._eventManager.dispatchEvent("stop");
   };
   
   Engine.prototype.start = function () {
     this._on = true;
-    this._eventManager.dispatchEvent("startCombat");
+    this._eventManager.dispatchEvent("start");
   };
   
   Engine.prototype.tick = function(){
@@ -93,11 +91,11 @@ define(function(require) {
       }
       
       else if (this._waitCheck()){
-        this._eventManager.dispatchEvent("stopCombat");
+        this._eventManager.dispatchEvent("stop");
         this._on = false;
         this._combat();
         this._view.step(this._model);
-        this._eventManager.dispatchEvent("combatTurnSet", 
+        this._eventManager.dispatchEvent("turnSet", 
             {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
       }
       
@@ -191,7 +189,7 @@ define(function(require) {
     console.log("TURN!");
     this._model.active = this._model.characters.characterList.findWhere({wait: 0});
     this._model.saveCombat();
-    this._eventManager.dispatchEvent("combatShowActions", {character: this._model.active});
+    this._eventManager.dispatchEvent("showActions", {character: this._model.active});
     console.log("What will " + this._model.active.get("name") + " do?");
   };
   
@@ -202,7 +200,7 @@ define(function(require) {
     var target = this._model.getActionTarget();
     var characters = this._model.characters.characterList;
     var active = this._model.active;
-    this._eventManager.dispatchEvent("combatShowTargets", 
+    this._eventManager.dispatchEvent("showTargets", 
         {target: target, characters: characters, active: active});
   };
   
@@ -210,8 +208,7 @@ define(function(require) {
     this._model.selectedTarget = btt.id;
     console.log(btt.id + " selected!");
     this._model.execute();
-   // this._view.showInfoFighters(this._model.characters.characterList);
-    this._eventManager.dispatchEvent("combatExecuteAction", 
+    this._eventManager.dispatchEvent("action", 
         {characters: this._model.characters.characterList, active: this._model.active}); 
     this._on = true;
   };
@@ -222,7 +219,6 @@ define(function(require) {
     this._eventManager.dispatchEvent("combatTurnSet",
         {currentTurn: this._model.turns.current+1, turns: this._model.turns.combat.length});
     this._model.loadCombatTurn(this._model.turns.current);
-   // this._view.showInfoFighters(this._model.characters.characterList);
   };
 
   Engine.prototype.setCurrentTurn = function(n){

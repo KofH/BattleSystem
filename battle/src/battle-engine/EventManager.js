@@ -52,13 +52,13 @@ define(function(require) {
   EventManager.prototype.initialize = function() {
     var self = this;
     this.addListener("initialize", function (ev) { self._view.initialize(ev); } );
-    this.addListener("startCombat", function () { self._view.start(); } );  
-    this.addListener("stopCombat", function () { self._view.stop(); } );
+    this.addListener("start", function () { self._view.start(); } );  
+    this.addListener("stop", function () { self._view.stop(); } );
    
-    this.addListener("combatTurnSet", function (ev) { self._view.sliderBrowser(ev); } );
-    this.addListener("combatShowActions", function (ev) { self._view.showActiveActions(ev); } );
-    this.addListener("combatShowTargets", function (ev) { self._view.selectTargetButtonEnable(ev); } );
-    this.addListener("combatExecuteAction", function (ev) { self._view.disableButtons(ev); } );
+    this.addListener("turnSet", function (ev) { self._view.sliderBrowser(ev); } );
+    this.addListener("showActions", function (ev) { self._view.showActiveActions(ev); } );
+    this.addListener("showTargets", function (ev) { self._view.selectTargetButtonEnable(ev); } );
+    this.addListener("action", function (ev) { self._view.disableButtons(ev); } );
     
     this.addListener("newCharacter", function (ev) {
       console.log("newCharacter REFACTOR");
