@@ -59,7 +59,7 @@ define(function(require) {
   };
 	
   Model.prototype.loadCharacters = function(file){
-    this.characters.load(file);
+    this.characters.load(file, Bview);
   };
   
   Model.prototype.loadTurns = function(file, callback){

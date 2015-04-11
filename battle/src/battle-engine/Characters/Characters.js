@@ -98,13 +98,17 @@ define(function(require) {
     }
   };
     
-  Characters.prototype.load = function(file){
+  Characters.prototype.load = function(file, Bview){
     var filereader = new FileReader();
     var self = this;
-
+    
     filereader.onloadend = function (){
       self.defaultCharacterList = new CharacterList(JSON.parse(filereader.result));
       self.characterList = self.defaultCharacterList.clone(true);
+      if(Bview != undefined)
+        for (var i = 0; i < self.characterList.length; i++)
+          new Bview({model: self.characterList.at(i)});
+      
     }
     filereader.readAsText(file,'utf8');
   };
