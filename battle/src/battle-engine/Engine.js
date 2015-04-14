@@ -65,6 +65,12 @@ define(function(require) {
   
   Engine.prototype._step = function() {
     if (this._on){
+      if(this._model.turns.tick[0] == undefined){
+        this._model.saveTick();
+        this._model.saveCombat();
+        this._eventManager.dispatchEvent("turnSet",
+        {currentTurn: this._model.turns.current+1, turns: this._model.turns.combat.length});
+      }
       if (this._loadingCombat) {
         this._model.spliceCombat();
         this._loadingCombat = false;
@@ -117,8 +123,12 @@ define(function(require) {
   
   Engine.prototype._loadCombat = function(callback){
     var file = callback();
-    this._model.loadTurns(file);
-    this._eventManager.dispatchEvent("turnSet", {currentTurn: this._model.turns.current, turns: this._model.turns.combat.length});
+    var self = this;
+    var ev = function(){
+      self._eventManager.dispatchEvent("turnSet", 
+        {currentTurn: 0, turns: self._model.turns.combat.length}); 
+    };
+    this._model.loadTurns(file, ev);
   }
   
   Engine.prototype._saveCombat = function(){
@@ -190,10 +200,10 @@ define(function(require) {
     this._on = true;
   };
   
-  Engine.prototype._sliderBrowser = function(button){
+  Engine.prototype._sliderBrowser = function(button){ 
     this._loadingCombat = true;
     this._model.browseSlider(button);
-    this._eventManager.dispatchEvent("combatTurnSet",
+    this._eventManager.dispatchEvent("turnSet",
         {currentTurn: this._model.turns.current+1, turns: this._model.turns.combat.length});
     this._model.loadCombatTurn(this._model.turns.current);
   };

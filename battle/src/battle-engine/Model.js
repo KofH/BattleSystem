@@ -62,19 +62,20 @@ define(function(require) {
     this.characters.load(file, Bview);
   };
   
-  Model.prototype.loadTurns = function(file){
+  Model.prototype.loadTurns = function(file, eventCall){
     var filereader = new FileReader();
     var self = this;
     
     filereader.onloadend = function(){
-      self.turns = JSON.parse(filereader.result);
-      var length = self.turns.tick[self.turns.combat[self.turns.current]].length;
+      var obj = JSON.parse(filereader.result);
+      var length = obj.tick[obj.combat[0]].length;
       for (var i = 0; i < length; i++)
-        self.newCharacter( self.turns.tick[self.turns.combat[self.turns.current]][i] );
+        self.newCharacter( obj.tick[obj.combat[0]][i] );
       
-   /*   if(Bview != undefined)
-        for (var i = 0; i < self.characters.characterList.length; i++)
-          new Bview({model: self.characters.characterList.at(i)});*/
+      self.turns.tick = self.characters.arrayToCollection(obj.tick);
+      self.turns.combat = obj.combat;
+      self.turns.current = obj.current;
+      eventCall();
     }
     filereader.readAsText(file, 'utf8');
   }
@@ -83,9 +84,8 @@ define(function(require) {
 		console.log("New Character");
 		if ( (data.faction == "ally" && this.characters.contAllies() < this.MAX_ALLIES) ||
 		  data.faction == "enemy" && this.characters.contEnemies() < this.MAX_ENEMIES) {
-		   
-		  var char = this.characters.newCharacter(data);
-      new Bview({model: char});
+			var char = this.characters.newCharacter(data);
+			new Bview({model: char});
 		}
 		else { console.log("Too many character of this faction!"); }
 	};	

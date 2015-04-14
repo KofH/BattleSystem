@@ -173,5 +173,12 @@ define(function(require) {
     
   };
   
+  Characters.prototype.arrayToCollection = function(arr){
+    var chars = [];
+    for(var i = 0; i < arr.length; i++)
+      chars.push(new CharacterList(arr[i]));
+    return chars;
+  };
+  
   return Characters;
 });
