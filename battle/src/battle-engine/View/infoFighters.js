@@ -6,7 +6,6 @@ define(function(require){
   var temp = new Templates();
   
   var infoFighter = Backbone.View.extend({
-      //el: $('#infoFightersHeader'),
       template: _.template(temp.infoFighters),
       initialize: function(){
 				if(this.model.get('faction') === 'ally'){

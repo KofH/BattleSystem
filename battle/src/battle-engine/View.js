@@ -43,11 +43,6 @@ define(function(require) {
     document.getElementById("sliderPreviousTurn").onclick = engine._sliderBrowser.bind(engine, "sliderPreviousTurn");
     document.getElementById("sliderNextTurn").onclick = engine._sliderBrowser.bind(engine, "sliderNextTurn");
     document.getElementById("sliderLastTurn").onclick = engine._sliderBrowser.bind(engine, "sliderLastTurn");
- 	/*document.getElementById("buttonLoadWeapons").onclick = engine._loadWeapons.bind(engine);
-    document.getElementById("buttonSaveWeapons").onclick = engine._saveWeapons.bind(engine);
-    document.getElementById("buttonLoadArmors").onclick = engine._loadArmors.bind(engine);
-    document.getElementById("buttonSaveArmors" ).onclick = engine._saveArmors.bind(engine);
-	*/
 		$(function () {
   		$('[data-toggle="tooltip"]').tooltip()
 		});
@@ -69,7 +64,6 @@ define(function(require) {
 	      engine._loadingCombat  = true;
 	      engine.setCurrentTurn(parseInt(document.getElementById("slider-step-value").value - 1));
 	      engine._model.loadCombatTurn(engine._model.turns.current);
-	   //   self.showInfoFighters(engine._model.characters.characterList);
 	    }
 	  });
 	  
@@ -168,11 +162,6 @@ define(function(require) {
     document.getElementById("newCharacterAgility").value = "";
     document.getElementById("newCharacterIntelligence").value = "";
     document.getElementById("newCharacterAP").value = "";
-    //document.getElementById("newCharacterActionAttack").checked = false;
-    //document.getElementById("newCharacterActionDefense").checked = false;
-    //document.getElementById("newCharacterActionAreaAttack").checked = false;
-    //document.getElementById("weaponSelect").value = "";
-    //document.getElementById("armorSelect").value = "";
   };
 
   View.prototype.newCharacterPrompt = function() {
@@ -365,7 +354,6 @@ define(function(require) {
 				}
 				if(characters.at(i).get("name") === active.get("name")){
 					var span = document.createElement('span')
-					span.setAttribute("class","mdi-action-account-circle");
 					x.appendChild(span);
 					if(active.get("faction") === "ally"){
 						x.setAttribute("class","btn btn-material-lightblue btn-raised margin5");
