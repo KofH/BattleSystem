@@ -214,6 +214,27 @@ define(function(require) {
     }
   };
   
+  Engine.prototype.turnListSim = function(waitSim){
+    var myChars = this._model.characters.characterList.clone(true);
+    var myArray = [];
+    
+    while(myArray.length < 10){
+      if(myChars.where({wait: 0}).length > 0){
+        myArray.push(myChars.where({wait: 0})[0].get("id"));
+        myChars.where({wait: 0})[0].set({wait: waitSim});
+      }
+      else {
+        for (var i = 0; i < myChars.length; i++){
+          var newWait = myChars.at(i).get("wait") - myChars.at(i).get("initiative");
+          if (newWait < 0) newWait = 0;
+          myChars.at(i).set({wait: newWait});
+        }
+      }
+    };
+    
+    return myArray;
+  };
+  
   /**
    * End class
    */
