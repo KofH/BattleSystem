@@ -122,7 +122,7 @@ define(function(require) {
   };
   
   Characters.prototype.reset = function(){
-    this.characterList = this.defaultCharacterList.clone(true);
+    this.characterList.set(this.defaultCharacterList.models);
   };
   
   Characters.prototype.deadFaction = function(){
