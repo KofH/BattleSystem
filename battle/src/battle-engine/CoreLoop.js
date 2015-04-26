@@ -7,54 +7,42 @@ define(function(require) {
 	
 	function CoreLoop(){
 		this.model = {};
-		this.eventManager = {};
+		this._ready = false;
 	};
 	
-	CoreLoop.prototype.initialize = function (model, eventManager) {
+	CoreLoop.prototype.initialize = function (model) {
 		this.model = model;
-		this.eventManager = eventManager;
-		//this._configureEvents();
+		this._ready = false;
 	};
 	
 	CoreLoop.prototype.setModel = function (model) {
 		this.model = model;
 	};
 	
-	CoreLoop.prototype.setEventManager = function (eventManager) {
-		this.eventManager = evenManager;
-	};
-	
-	CoreLoop.prototype._configureEvents = function () {
-		
-	};
-	
 	CoreLoop.prototype.step = function () {
-		if(this.model.deadFaction()){
-			console.log("--- END OF COMBAT ---");
-			return false;
+		if (this.model.waitCheck()){
+			this.turnReady();
 		}
-		
-		else if (this.model.waitCheck()){
-			this.combat();
-			return false;
-		}
-		
 		else{
 			this.model.turn();
 		}
-		
-		return true;
+	
+		return this._ready;
 	};
 	
-	CoreLoop.prototype.combat = function () {
+	CoreLoop.prototype.turnReady = function () {
 		this.model.setActive();
 		this.model.saveCombat();
+		this._ready = true;
 	};
 	
 	CoreLoop.prototype.executeAction = function (action, target) {
-		this.model.selectedAction = action;
-		this.model.selectedTarget = target;
-		this.model.execute();
+		if(this._ready){
+			this.model.selectedAction = action;
+			this.model.selectedTarget = target;
+			this.model.execute();
+			this._ready = false;
+		}
 	};
 	
 	return CoreLoop;

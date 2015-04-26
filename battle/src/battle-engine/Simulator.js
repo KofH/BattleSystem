@@ -15,12 +15,11 @@ define(function(require) {
 		
 		this.coreLoop = new CoreLoop();
 		this.model = new Model();
-		this.eventManager = new EventManager();
 	};
 	
 	Simulator.prototype.initialize = function () {
 		this._interval = setInterval(this.step.bind(this), this.TIME_INTERVAL);
-		this.coreLoop.initialize(this.model, this.eventManager);
+		this.coreLoop.initialize(this.model);
 	};
 	
 	Simulator.prototype.start = function () {
@@ -37,13 +36,17 @@ define(function(require) {
   	this._on = false;
 	};
 	
-	Simulator.prototype._configureEvents = function () {
-		
-	};
-	
 	Simulator.prototype.step = function () {
-		if (this._on) 
-			this.on = this.coreLoop.step();
+		if (this._on) {
+			if (!this.model.deadFaction()){
+				this._on = this.coreLoop.step();
+				console.log(this.model.characters.infoWait());
+			}
+			else{
+				clearInterval(this._interval);
+				console.log("---- END OF COMBAT ----");
+			}
+		}
 	};
 	
 	Simulator.prototype.newCharacter = function (characterData) {

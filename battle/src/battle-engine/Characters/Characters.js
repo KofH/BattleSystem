@@ -179,6 +179,22 @@ define(function(require) {
       chars.push(new CharacterList(arr[i]));
     return chars;
   };
+	
+	Characters.prototype.infoWait = function() {
+		var str = "\n";
+		this.characterList.each( function(character) {
+			str += character.get("name") + ": \t" + character.get("wait") + '\n';
+		});
+		return str;
+	};
+	
+	Characters.prototype.waitCheck = function() {
+		return (this.characterList.where({wait: 0}).length > 0)
+	};
+	
+	Characters.prototype.getCharacter = function(condition) {
+		return this.characterList.where(condition)[0];
+	};
   
   return Characters;
 });

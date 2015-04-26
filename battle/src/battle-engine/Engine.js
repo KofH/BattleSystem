@@ -3,21 +3,19 @@ define(function(require) {
   "use strict";
   // INCLUDES
     var View = require('battle-engine/View');
-    var Model = require('battle-engine/Model');
+    var Simulator = require('battle-engine/Simulator');
     var infoFighters = require('battle-engine/View/infoFighters');
     var EventManager = require('battle-engine/EventManager');
+		
   /**
    * Constructor
    * @classDescription 
    */
   function Engine() {
-	  this.TIME_INTERVAL = 300; // ms
-      this._on = false;
-      this._view = new View();
-      this._model = new Model();
-      this._eventManager = new EventManager();
-      
-      this._loadingCombat = false;
+		this._view = new View();
+		this.simulator = new Simulator();
+		this._eventManager = new EventManager();
+		this._loadingCombat = false;
   };
   
   /********************
@@ -28,19 +26,19 @@ define(function(require) {
    * @param 
    */
   Engine.prototype.initialize = function () {
-		this._configureEvents();
+//		this._configureEvents();
 		this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
-    this._eventManager.dispatchEvent("initialize", {engine: this});
+//    this._eventManager.dispatchEvent("initialize", {engine: this});
   };
   
   Engine.prototype.stop = function () {
     this._on = false;
-    this._eventManager.dispatchEvent("stop");
+//    this._eventManager.dispatchEvent("stop");
   };
   
   Engine.prototype.start = function () {
     this._on = true;
-    this._eventManager.dispatchEvent("start", {characterList: this._model.characters.characterList});
+ //   this._eventManager.dispatchEvent("start", {characterList: this._model.characters.characterList});
   };
   
   Engine.prototype.tick = function(){
@@ -50,7 +48,7 @@ define(function(require) {
   };
   
   Engine.prototype.changeCharacters = function (attr, exp){
-    this._model.characters.change(attr, exp);
+ //   this._model.characters.change(attr, exp);
   };
   
   /*********************
@@ -167,9 +165,7 @@ define(function(require) {
     console.log("TODO saveAttr");
   };
   
-  Engine.prototype._waitCheck = function(){
-    return (this._model.characters.characterList.where({wait: 0}).length > 0)
-  };
+
   
   Engine.prototype._combat = function(){
     console.log("TURN!");

@@ -116,8 +116,16 @@ define(function(require) {
 		this.saveTick();
 	};
 	
+	Model.prototype.waitCheck = function(){
+		return this.characters.waitCheck();
+	};
+	
 	Model.prototype.deadFaction = function(){
 	  return this.characters.deadFaction();
+	}
+	
+	Model.prototype.setActive = function(){
+		this.active = this.characters.getCharacter({wait:0});	
 	}
 	
 	Model.prototype.execute = function(){
