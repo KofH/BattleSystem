@@ -13,7 +13,7 @@ define(function(require) {
    */
   function Engine() {
 		this._view = new View();
-		this.simulator = new Simulator();
+		this._simulator = new Simulator();
 		this._eventManager = new EventManager();
 		this._loadingCombat = false;
   };
@@ -26,14 +26,16 @@ define(function(require) {
    * @param 
    */
   Engine.prototype.initialize = function () {
-//		this._configureEvents();
-		this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
-//    this._eventManager.dispatchEvent("initialize", {engine: this});
+    this._configureEvents();
+    //		this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
+    this._view._configureEvents(this._eventManager);
+
+    this._eventManager.dispatchEvent("initialize", {engine: this});
   };
   
   Engine.prototype.stop = function () {
     this._on = false;
-//    this._eventManager.dispatchEvent("stop");
+   	this._eventManager.dispatchEvent("stop");
   };
   
   Engine.prototype.start = function () {
@@ -56,8 +58,18 @@ define(function(require) {
    *********************/
   
   Engine.prototype._configureEvents = function () {
-    this._eventManager.setView(this._view);
-    this._eventManager.initialize();
+    this._eventManager.addListener("start", function () { console.log("startEvent") } );
+    this._eventManager.addListener("tick", function () { console.log("tickEvent") } );
+    this._eventManager.addListener("inputNeeded", function () { console.log("inputNeededEvent") } );
+    this._eventManager.addListener("action", function () { console.log("action") } );
+    this._eventManager.addListener("outOfCombat", function () { console.log("outOfCombatEvent") } );
+    this._eventManager.addListener("death", function () { console.log("deathEvent") } );
+    this._eventManager.addListener("orderTactic", function () { console.log("orderTacticEvent") } );
+    this._eventManager.addListener("orderAttitude", function () { console.log("orderAttitudeEvent") } );
+    this._eventManager.addListener("orderFlee", function () { console.log("orderFleeEvent") } );
+    this._eventManager.addListener("setting", function () { console.log("settingEvent") } );
+    this._eventManager.addListener("end", function () { console.log("endEvent") } );
+    this._eventManager.addListener("script", function () { console.log("scriptEvent") } );
   }; 
   
   

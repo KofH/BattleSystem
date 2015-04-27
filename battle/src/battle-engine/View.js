@@ -15,18 +15,16 @@ define(function(require) {
    ****************************************************************************/
   
    View.prototype.step = function(model){
-
-    };
-    
+	 };
 
   View.prototype.initialize = function(params){
     var self = this;
 		var engine = params.engine;
     this._buttonAction = engine.stepSelectAction.bind(engine);
     this._buttonTarget = engine.stepSelectTarget.bind(engine);
-    this.selectEquipment(engine._model.weapons.weaponList,
-						 engine._model.armors.armorList);
-    this.selectActions(engine._model.actions.actionList);
+//    this.selectEquipment(engine._model.weapons.weaponList,
+//						 engine._model.armors.armorList);
+//    this.selectActions(engine._model.actions.actionList);
     document.getElementById("buttonResetCombat").onclick = function() {
       if (self.askReset()) engine._resetCombat (engine);
     };
@@ -69,6 +67,28 @@ define(function(require) {
 	  
 	  $('#slider-step').Link('lower').to($('#slider-step-value'));
   };
+	
+	View.prototype._configureEvents = function (eventManager){
+    var self = this;
+    eventManager.addListener("initialize", function (ev) { self.initialize(ev.params); } );
+    eventManager.addListener("start", function (ev) { 
+      self.start();
+      self.generateButtons(ev.params);
+    });  
+    eventManager.addListener("stop", function () { self.stop(); } );
+    eventManager.addListener("turnSet", function (ev) { self.sliderBrowser(ev.params); } );
+    eventManager.addListener("showActions", function (ev) { self.showActiveActions(ev.params); } );
+    eventManager.addListener("showTargets", function (ev) { self.selectTargetButtonEnable(ev.params); } );
+    eventManager.addListener("action", function (ev) { self.disableButtons(ev.params); } );
+    eventManager.addListener("newCharacter", function (ev) {
+      self.newCharacterPromptReset();
+      self.characterButton(ev.params);
+      self.factionButton(ev.params.data.faction);
+    });
+    
+    eventManager.addListener("saveCharacters", function (ev) { self.saveCharacters(ev.params)} );
+    eventManager.addListener("saveCombat", function (ev) { self.saveTurns(ev.params)} );
+	}
   
   View.prototype.get = function(param){
     return document.getElementById(param);

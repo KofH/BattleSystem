@@ -50,40 +50,6 @@ define(function(require) {
 	};
 	
   EventManager.prototype.initialize = function() {
-    var self = this;
-    this.addListener("initialize", function (ev) { self._view.initialize(ev.params); } );
-    this.addListener("start", function (ev) { 
-      self._view.start();
-      self._view.generateButtons(ev.params);
-    } );  
-    this.addListener("stop", function () { self._view.stop(); } );
-   
-    this.addListener("turnSet", function (ev) { self._view.sliderBrowser(ev.params); } );
-    this.addListener("showActions", function (ev) { self._view.showActiveActions(ev.params); } );
-    this.addListener("showTargets", function (ev) { self._view.selectTargetButtonEnable(ev.params); } );
-    this.addListener("action", function (ev) { self._view.disableButtons(ev.params); } );
-    
-    this.addListener("newCharacter", function (ev) {
-      self._view.newCharacterPromptReset();
-      self._view.characterButton(ev.params);
-      self._view.factionButton(ev.params.data.faction);
-    });
-    
-    this.addListener("saveCharacters", function (ev) { self._view.saveCharacters(ev.params)} );
-    this.addListener("saveCombat", function (ev) { self._view.saveTurns(ev.params)} );
-    
-    this.addListener("start", function () { console.log("startEvent") } );
-    this.addListener("tick", function () { console.log("tickEvent") } );
-    this.addListener("inputNeeded", function () { console.log("inputNeededEvent") } );
-    this.addListener("action", function () { console.log("action") } );
-    this.addListener("outOfCombat", function () { console.log("outOfCombatEvent") } );
-    this.addListener("death", function () { console.log("deathEvent") } );
-    this.addListener("orderTactic", function () { console.log("orderTacticEvent") } );
-    this.addListener("orderAttitude", function () { console.log("orderAttitudeEvent") } );
-    this.addListener("orderFlee", function () { console.log("orderFleeEvent") } );
-    this.addListener("setting", function () { console.log("settingEvent") } );
-    this.addListener("end", function () { console.log("endEvent") } );
-    this.addListener("script", function () { console.log("scriptEvent") } );
   };
   
 	
