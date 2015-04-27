@@ -40,8 +40,7 @@ define(function(require) {
 	}
 	
   EventManager.prototype.dispatchEvent = function(event, params){
-    var ev = new Event(event);
-    ev.params = params;
+    var ev = new CustomEvent(event, {detail: params});
     window.dispatchEvent(ev);
   }
 	

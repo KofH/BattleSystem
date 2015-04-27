@@ -38,7 +38,7 @@ define(function(require) {
   
   Engine.prototype.start = function () {
     this._on = true;
- //   this._eventManager.dispatchEvent("start", {characterList: this._model.characters.characterList});
+    this._eventManager.dispatchEvent("start", {characterList: this._simulator.model.characters.characterList});
   };
   
   Engine.prototype.tick = function(){

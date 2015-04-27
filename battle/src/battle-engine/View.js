@@ -70,24 +70,24 @@ define(function(require) {
 	
 	View.prototype._configureEvents = function (eventManager){
     var self = this;
-    eventManager.addListener("initialize", function (ev) { self.initialize(ev.params); } );
+    eventManager.addListener("initialize", function (ev) { self.initialize(ev.detail); } );
     eventManager.addListener("start", function (ev) { 
       self.start();
-      self.generateButtons(ev.params);
+      self.generateButtons(ev.detail);
     });  
     eventManager.addListener("stop", function () { self.stop(); } );
-    eventManager.addListener("turnSet", function (ev) { self.sliderBrowser(ev.params); } );
-    eventManager.addListener("showActions", function (ev) { self.showActiveActions(ev.params); } );
-    eventManager.addListener("showTargets", function (ev) { self.selectTargetButtonEnable(ev.params); } );
-    eventManager.addListener("action", function (ev) { self.disableButtons(ev.params); } );
+    eventManager.addListener("turnSet", function (ev) { self.sliderBrowser(ev.detail); } );
+    eventManager.addListener("showActions", function (ev) { self.showActiveActions(ev.detail); } );
+    eventManager.addListener("showTargets", function (ev) { self.selectTargetButtonEnable(ev.detail); } );
+    eventManager.addListener("action", function (ev) { self.disableButtons(ev.detail); } );
     eventManager.addListener("newCharacter", function (ev) {
       self.newCharacterPromptReset();
-      self.characterButton(ev.params);
-      self.factionButton(ev.params.data.faction);
+      self.characterButton(ev.detail);
+      self.factionButton(ev.detail.data.faction);
     });
     
-    eventManager.addListener("saveCharacters", function (ev) { self.saveCharacters(ev.params)} );
-    eventManager.addListener("saveCombat", function (ev) { self.saveTurns(ev.params)} );
+    eventManager.addListener("saveCharacters", function (ev) { self.saveCharacters(ev.detail)} );
+    eventManager.addListener("saveCombat", function (ev) { self.saveTurns(ev.detail)} );
 	}
   
   View.prototype.get = function(param){
