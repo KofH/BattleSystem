@@ -20,14 +20,14 @@ define(function(require) {
 	};
 	
 	CoreLoop.prototype.step = function () {
-		if (this.model.waitCheck()){
-			this.turnReady();
-		}
-		else{
-			this.model.turn();
-		}
-	
-		return this._ready;
+    if (this.model.waitCheck()){
+      this.turnReady();
+    }
+    else{
+      this.model.turn();
+    }
+
+    return this._ready;
 	};
 	
 	CoreLoop.prototype.turnReady = function () {

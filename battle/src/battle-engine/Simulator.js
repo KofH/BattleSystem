@@ -20,6 +20,32 @@ define(function(require) {
 	Simulator.prototype.initialize = function () {
 		this._interval = setInterval(this.step.bind(this), this.TIME_INTERVAL);
 		this.coreLoop.initialize(this.model);
+    
+    this.newCharacter({
+      name: "Ada",
+      strength : 2,
+      agility : 4,
+      intelligence: 4,
+      faction: "ally",
+      ap: 10,
+      weapon: "Shortsword",
+      armor: "Leather",
+      formation: "Vanguard",
+      actions: ["attack"]
+      });
+    
+    this.newCharacter({
+      name: "Orc",
+      strength : 3,
+      agility : 3,
+      intelligence: 3,
+      faction: "enemy",
+      ap: 10,
+      weapon: "Shortsword",
+      armor: "Leather",
+      formation: "Vanguard",
+      actions: ["attack"]
+      });
 	};
 	
 	Simulator.prototype.start = function () {
@@ -39,7 +65,7 @@ define(function(require) {
 	Simulator.prototype.step = function () {
 		if (this._on) {
 			if (!this.model.deadFaction()){
-				this._on = this.coreLoop.step();
+				this._on = !this.coreLoop.step();
 				console.log(this.model.characters.infoWait());
 			}
 			else{

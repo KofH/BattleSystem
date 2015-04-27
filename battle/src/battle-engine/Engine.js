@@ -27,9 +27,7 @@ define(function(require) {
    */
   Engine.prototype.initialize = function () {
     this._configureEvents();
-    //		this._interval = setInterval(this._step.bind(this), this.TIME_INTERVAL);
-    this._view._configureEvents(this._eventManager);
-
+    this._simulator.initialize();
     this._eventManager.dispatchEvent("initialize", {engine: this});
   };
   
@@ -70,8 +68,9 @@ define(function(require) {
     this._eventManager.addListener("setting", function () { console.log("settingEvent") } );
     this._eventManager.addListener("end", function () { console.log("endEvent") } );
     this._eventManager.addListener("script", function () { console.log("scriptEvent") } );
+    
+    this._view._configureEvents(this._eventManager);
   }; 
-  
   
   Engine.prototype._step = function() {
     if (this._on){

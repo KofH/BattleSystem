@@ -111,9 +111,8 @@ define(function(require) {
 	    };
 	};
 	
-	Model.prototype.turn = function(){		
+	Model.prototype.turn = function(){		  this.saveTick();
 		this.characters.turn();
-		this.saveTick();
 	};
 	
 	Model.prototype.waitCheck = function(){
@@ -158,6 +157,7 @@ define(function(require) {
 	};
 	
 	Model.prototype.saveCombat = function(){
+    this.saveTick();
 	  this.turns.combat[this.turns.combat.length] = this.turns.tick.length -1;
     this.turns.current++;
 	};
