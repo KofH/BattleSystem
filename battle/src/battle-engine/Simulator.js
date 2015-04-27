@@ -5,6 +5,7 @@ define(function(require) {
 	//INCLUDES
 	var CoreLoop = require('battle-engine/CoreLoop');
 	var Model = require('battle-engine/Model');
+  var Dao = require('battle-engine/Dao');
 	var EventManager = require('battle-engine/EventManager');
 
 	
@@ -15,12 +16,13 @@ define(function(require) {
 		
 		this.coreLoop = new CoreLoop();
 		this.model = new Model();
+    this.dao = new Dao();
 	};
 	
 	Simulator.prototype.initialize = function () {
 		this._interval = setInterval(this.step.bind(this), this.TIME_INTERVAL);
 		this.coreLoop.initialize(this.model);
-    
+    this.dao.initialize(this.model);
     this.newCharacter({
       name: "Ada",
       strength : 2,
@@ -79,6 +81,30 @@ define(function(require) {
 		this.model.newCharacter(characterData);
 	};
 	
+  Simulator.prototype.changeAttributeCalculation = function(attr, exp) {
+    this.model.characters.change(attr, exp);
+  };
+  
+  Simulator.prototype.resetCombat = function() {
+    this.model.resetCombat();
+  };
+  
+  Simulator.prototype.loadCharacters = function(file) {
+    this.dao.fileLoadCharacters(file);
+  };
+  
+  Simulator.prototype.saveCharacters = function(file) {
+    this.dao.fileSaveCharacters(file)
+  };
+  
+  Simulator.prototype.loadCombat = function(file) {
+    this.dao.fileLoadCombat(file);
+  };
+  
+  Simulator.prototyep.saveCombat = function(file){
+    this.dao.fileSaveCombat(file);
+  };
+  
 	return Simulator;
 
 });

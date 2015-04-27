@@ -32,23 +32,21 @@ define(function(require) {
   };
   
   Engine.prototype.stop = function () {
-    this._on = false;
+    this._simulator.stop();
    	this._eventManager.dispatchEvent("stop");
   };
   
   Engine.prototype.start = function () {
-    this._on = true;
+    this._simulator.start();
     this._eventManager.dispatchEvent("start", {characterList: this._simulator.model.characters.characterList});
   };
   
   Engine.prototype.tick = function(){
-  	 this._on = true;
-  	 this._step();
-  	 this._on = false;
+  	 this._simulator.oneStep();
   };
   
-  Engine.prototype.changeCharacters = function (attr, exp){
- //   this._model.characters.change(attr, exp);
+  Engine.prototype.changeAttributeCalculation = function (attr, exp){
+    this._simulator.changeAttributeCalculation(attr, exp);
   };
   
   /*********************
@@ -110,39 +108,38 @@ define(function(require) {
     }
   };
   
-  Engine.prototype._newCharacter = function(callback){  //TODO refactor needed
+  Engine.prototype._newCharacter = function(callback){  
     var data = callback();
-    this._model.newCharacter(data);
+    this._simulator.newCharacter(data);
     this._eventManager.dispatchEvent("newCharacter", {data: data});
   };
   
-  Engine.prototype._resetCombat = function(){ //TODO refactor needed
-      this._model.resetCombat();
+  Engine.prototype._resetCombat = function(){ 
+    this._simulator.resetCombat();
+    this._eventManager.dispatchEvent("reset");
   };
     
   Engine.prototype._loadCharacters = function(callback){
     var file = callback();
-    this._model.loadCharacters(file);
+    this._simulator.loadCharacters(file);
   };
   
-  Engine.prototype._saveCharacters = function(){
-    var serialization = this._model.getCharactersSerial();
+  Engine.prototype._saveCharacters = function(){  //TODO
+    this._simulator.saveCharacters(file);
     this._eventManager.dispatchEvent("saveCharacters", {serialization: serialization});
   };
   
   Engine.prototype._loadCombat = function(callback){
     var file = callback();
-    var self = this;
-    var ev = function(){
-      self._eventManager.dispatchEvent("turnSet", 
-        {currentTurn: 0, turns: self._model.turns.combat.length}); 
-    };
-    this._model.loadTurns(file, ev);
+    this._simulator.loadCombat(file);
+ //   this._eventManager.dispatchEvent("turnSet", 
+ //       {currentTurn: 0, turns: self._model.turns.combat.length}); 
   }
   
   Engine.prototype._saveCombat = function(){
     var serialization = this._model.getTurnsSerial();
-    this._eventManager.dispatchEvent("saveCombat", {serialization:serialization});
+    this._simulator.saveCombat(file);
+ //   this._eventManager.dispatchEvent("saveCombat", {serialization:serialization});
   }
   
   Engine.prototype._loadWeapons = function(){

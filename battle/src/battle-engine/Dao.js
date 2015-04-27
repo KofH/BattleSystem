@@ -19,9 +19,9 @@ define(function(require) {
 		this.characters = characters;
 	};
 	
-	Dao.prototype.initialize = function (model, characters) {
+	Dao.prototype.initialize = function (model) {
 		this.model = model;
-		this.characters = characters;
+		this.characters = model.characters;
 		
 		this.fileReader.onerror = function () { console.error("Error reading file")};
 
@@ -42,7 +42,7 @@ define(function(require) {
 		filereader.readAsText(file,'utf8');	
 	};
 	
-	Dao.prototype.fileSaveCharacters = function (data, file) {};
+	Dao.prototype.fileSaveCharacters = function (file) {};
 	
 	Dao.prototype.fileLoadCombat = function (file) {
 		var model = this.model;
@@ -60,15 +60,15 @@ define(function(require) {
 		filereader.readAsText(file,'utf8');
 	};
 	
-	Dao.prototype.fileSaveCombat = function (data, file) {};
+	Dao.prototype.fileSaveCombat = function (file) {};
 	
 	Dao.prototype.fileLoadWeapons = function (file) {};
 	
-	Dao.prototype.fileSaveWeapons = function (data, file) {};
+	Dao.prototype.fileSaveWeapons = function (file) {};
 	
 	Dao.prototype.fileLoadArmors = function (file) {};
 	
-	Dao.prototype.fileSaveArmors = function (data, file) {};
+	Dao.prototype.fileSaveArmors = function (file) {};
 	
 	return Dao;
 	
