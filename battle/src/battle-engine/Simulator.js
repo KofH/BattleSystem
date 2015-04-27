@@ -101,7 +101,7 @@ define(function(require) {
     this.dao.fileLoadCombat(file);
   };
   
-  Simulator.prototyep.saveCombat = function(file){
+  Simulator.prototype.saveCombat = function(file){
     this.dao.fileSaveCombat(file);
   };
   
