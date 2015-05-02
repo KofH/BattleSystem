@@ -13,6 +13,7 @@ define(function(require) {
 		this.TIME_INTERVAL = 300;
 		this._on = false;
 		this._interval = {};
+    this._continuedCombat = false;
 		
 		this.coreLoop = new CoreLoop();
 		this.model = new Model();
@@ -76,7 +77,13 @@ define(function(require) {
 			}
 		}
 	};
-	
+  
+  Simulator.prototype.executeAction = function(action, target){
+    this.coreLoop.executeAction(action, target);
+    if (this._continuedCombat) this._on = true;
+    else this._on = false;
+  };
+	 
 	Simulator.prototype.newCharacter = function (characterData) {
 		this.model.newCharacter(characterData);
 	};
