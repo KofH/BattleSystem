@@ -41,6 +41,8 @@ define(function(require) {
     document.getElementById("sliderPreviousTurn").onclick = engine._sliderBrowser.bind(engine, "sliderPreviousTurn");
     document.getElementById("sliderNextTurn").onclick = engine._sliderBrowser.bind(engine, "sliderNextTurn");
     document.getElementById("sliderLastTurn").onclick = engine._sliderBrowser.bind(engine, "sliderLastTurn");
+    document.getElementById("continuedCombat").onclick = engine.continuedCombat.bind(engine, function() {return self.get("continuedCombat").checked});
+    
 		$(function () {
   		$('[data-toggle="tooltip"]').tooltip()
 		});

@@ -13,7 +13,7 @@ define(function(require) {
 		this.TIME_INTERVAL = 300;
 		this._on = false;
 		this._interval = {};
-    this._continuedCombat = false;
+    this._continuedCombat = true;
 		
 		this.coreLoop = new CoreLoop();
 		this.model = new Model();

@@ -239,6 +239,10 @@ define(function(require) {
     return myArray;
   };
   
+  Engine.prototype.continuedCombat = function(mode){
+    this._simulator._continuedCombat = mode();
+  };
+  
   /**
    * End class
    */
