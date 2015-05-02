@@ -281,6 +281,26 @@ define(function(require) {
     }
   };
   
+  View.prototype.drawTurnList = function(array){
+    var div = document.getElementById('turnList');
+    
+    while(div.hasChildNodes()){
+      div.removeChild(div.firstChild);
+    }
+    
+    var list = document.createElement('ul');
+    list.setAttribute('class','noPadding');
+    list.setAttribute('style','list-style-type: none;');
+    
+    for(var i = 0; i < array.length; i++){
+      var item = document.createElement('li');
+      item.appendChild(document.createTextNode(array[i]));
+      list.appendChild(item);
+    }
+    
+    div.appendChild(list);
+  };
+  
   View.prototype.factionButton = function(params){
     var faction = params.faction;
     if (faction == "ally" && document.getElementById("factionAlly") == null){

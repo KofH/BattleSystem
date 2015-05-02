@@ -191,7 +191,7 @@ define(function(require) {
   };
   
   Engine.prototype.turnListSim = function(waitSim){
-    var myChars = this._model.characters.characterList.clone(true);
+    var myChars = this._simulator.model.characters.characterList.clone(true);
     var myArray = [];
     
     while(myArray.length < 10){
