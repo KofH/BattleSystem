@@ -16,6 +16,9 @@ define(function(require) {
 		this._simulator = new Simulator();
 		this._eventManager = new EventManager();
 		this._loadingCombat = false;
+    this._selectedTurn = -1;
+    this._intervalId = -1;
+    this.TIME_INTERVAL = 300;
   };
   
   /********************
@@ -49,6 +52,14 @@ define(function(require) {
     this._simulator.changeAttributeCalculation(attr, exp);
   };
   
+  Engine.prototype.setInterval = function () {
+    this._intervalId = setInterval(this._step.bind(this), this.TIME_INTERVAL);
+  };  
+  
+  Engine.prototype.clearInterval = function () {
+    clearInterval(this._intervalId);
+  };
+  
   /*********************
    * PRIVATE FUNCTIONS *
    *********************/
@@ -71,13 +82,20 @@ define(function(require) {
   }; 
   
   Engine.prototype._step = function() {
-    if (this._on){
-      if (this._loadingCombat) {
-        this._simulator.model.spliceCombat();
-        this._loadingCombat = false;
-      }
+/*    if (this._loadingCombat) {
+      this._simulator.model.spliceCombat(this._selectedTurn); //TODO selectedTurn parameter
+      this._loadingCombat = false;
+    } */
+    var state = this._simulator.step();
+    if (state != "end")
+       if(state == false){  //TODO event fusion 
+         this._eventManager.dispatchEvent("showActions", this._simulator.model.active);
+         this.clearInterval();
+       }
+       else{}
     
-    }
+    else
+      this._eventManager.dispatchEvent("end");
   };
   
   Engine.prototype._newCharacter = function(callback){  
@@ -133,8 +151,7 @@ define(function(require) {
     //TODO implement
     console.log("TODO saveArmors");
   };
-  
-  
+
   Engine.prototype.modCharactersLoadAttr = function() {
     this.model.modCharactersLoadAttr(); //TODO implement
     console.log("TODO loadAttr");
@@ -144,8 +161,6 @@ define(function(require) {
     this.model.modCharactersSaveAttr(); //TODO implement
     console.log("TODO saveAttr");
   };
-  
-
   
   Engine.prototype._combat = function(){
     console.log("TURN!");

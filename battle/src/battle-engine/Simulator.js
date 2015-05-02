@@ -10,7 +10,7 @@ define(function(require) {
 
 	
 	function Simulator() {
-		this.TIME_INTERVAL = 300;
+	//	this.TIME_INTERVAL = 300;
 		this._on = false;
 		this._interval = {};
     this._continuedCombat = true;
@@ -21,7 +21,6 @@ define(function(require) {
 	};
 	
 	Simulator.prototype.initialize = function () {
-		this._interval = setInterval(this.step.bind(this), this.TIME_INTERVAL);
 		this.coreLoop.initialize(this.model);
     this.dao.initialize(this.model);
     this.newCharacter({
@@ -50,6 +49,14 @@ define(function(require) {
       actions: ["attack"]
       });
 	};
+  
+  Simulator.prototype.setInterval = function (interval) {
+    this._interval = setInterval(this.step.bind(this), interval);
+  };
+  
+  Simulator.prototype.clearInterval = function () {
+    clearInterval(this._interval);
+  };
 	
 	Simulator.prototype.start = function () {
 		this._on = true;
@@ -64,19 +71,28 @@ define(function(require) {
   	this.step();
   	this._on = false;
 	};
-	
-	Simulator.prototype.step = function () {
-		if (this._on) {
-			if (!this.model.deadFaction()){
-				this._on = !this.coreLoop.step();
-				console.log(this.model.characters.infoWait());
-			}
-			else{
-				clearInterval(this._interval);
-				console.log("---- END OF COMBAT ----");
-			}
+  
+	Simulator.prototype.run = function () {
+		while (this._on) {
+			this.step();
 		}
 	};
+  
+  Simulator.prototype.step = function() {
+    if (this._on){
+      if (!this.model.deadFaction()){
+        this._on = !this.coreLoop.step();
+        console.log(this.model.characters.infoWait());
+        return this._on;
+      }
+      else{
+        this.clearInterval();
+        this._on = false;
+        console.log("---- END OF COMBAT ----");
+        return "end";
+      }
+    }
+  };
   
   Simulator.prototype.executeAction = function(action, target){
     this.coreLoop.executeAction(action, target);
