@@ -72,39 +72,11 @@ define(function(require) {
   
   Engine.prototype._step = function() {
     if (this._on){
-      if(this._model.turns.tick[0] == undefined){
-        this._model.saveTick();
-        this._model.saveCombat();
-        this._eventManager.dispatchEvent("turnSet",
-        {currentTurn: this._model.turns.current+1, turns: this._model.turns.combat.length});
-      }
       if (this._loadingCombat) {
-        this._model.spliceCombat();
+        this._simulator.model.spliceCombat();
         this._loadingCombat = false;
       }
-      
-      if(this._model.deadFaction()){
-        this._model.saveCombat();
-        this._on = false;
-        this._eventManager.dispatchEvent("combatTurnSet", 
-            {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
-        console.log("--- END OF COMBAT ---");
-        $.snackbar({content: "COMBAT ENDED!"}); 
-        this._eventManager.dispatchEvent("end");
-      }
-      
-      else if (this._waitCheck()){
-        this._on = false;
-        this._combat();
-        this._eventManager.dispatchEvent("stop");
-        this._eventManager.dispatchEvent("turnSet", 
-            {currentTurn: this._model.turns.combat.length, turns: this._model.turns.combat.length});
-      }
-      
-      else{
-        this._eventManager.dispatchEvent("tick");
-        this._model.turn();
-      }
+    
     }
   };
   

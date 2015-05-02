@@ -111,7 +111,8 @@ define(function(require) {
 	    };
 	};
 	
-	Model.prototype.turn = function(){		  this.saveTick();
+	Model.prototype.turn = function(){		  
+    this.saveTick();
 		this.characters.turn();
 	};
 	
@@ -162,11 +163,13 @@ define(function(require) {
     this.turns.current++;
 	};
 	
-	Model.prototype.spliceCombat = function(){
-	  if(this.turns.current < this.turns.combat.length){
-	    this.turns.tick.splice(this.turns.combat[this.turns.current] + 1, this.turns.tick.length);
-	    this.turns.combat.splice(this.turns.current, this.turns.combat.length);
-      this.turns.current--;
+	Model.prototype.spliceCombat = function(combatTurn){
+	  if(combatTurn < this.turns.combat.length){
+	    this.turns.tick.splice(this.turns.combat[combatTurn] + 1, this.turns.tick.length);
+	    this.turns.combat.splice(combatTurn, this.turns.combat.length);
+      this.turns.current = combatTurn - 1;
+      var models = this.turns.tick[this.turns.tick.length -1].models;
+      this.characters.characterList.set(models);
 	   }
 	};
 	
