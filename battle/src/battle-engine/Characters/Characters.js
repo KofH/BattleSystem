@@ -120,6 +120,12 @@ define(function(require) {
     this.characterList.add(character.clone());
     return this.characterList.get(character.get("name"));
   };
+	
+  Characters.prototype.newCharacterFromArray = function(data){
+	  for(i = 0; i < data.length; i++){
+	  	this.newCharacter(data[i]);
+	  };
+  };
   
   Characters.prototype.reset = function(){
     this.characterList.set(this.defaultCharacterList.models);

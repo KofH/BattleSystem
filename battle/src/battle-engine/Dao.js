@@ -28,18 +28,19 @@ define(function(require) {
 	};
 	
 	Dao.prototype.fileLoadCharacters = function (file) {
-		var characters = this.characters;
-		this.filereader.onload = function () {
-			characters.defaultCharacterList = new CharacterList(JSON.parse(filereader.result));
-      characters.characterList = self.defaultCharacterList.clone(true);
+		var self = this;
+		
+		this.fileReader.onloadend = function () {
+			self.model.characters = new Characters();
+			self.model.characters.newCharacterFromArray(JSON.parse(self.fileReader.result));
+			//self.characters.charactersList = self.characters.defaultCharacterList.clone(true);
 		/*
     if(Bview != undefined)
 			for (var i = 0; i < self.characterList.length; i++)
 				new Bview({model: self.characterList.at(i)});
 		//*/
 		};
-
-		filereader.readAsText(file,'utf8');	
+		this.fileReader.readAsText(file,'utf8');	
 	};
 	
 	Dao.prototype.fileSaveCharacters = function (file) {};
