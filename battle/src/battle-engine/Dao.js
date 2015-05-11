@@ -31,14 +31,10 @@ define(function(require) {
 		var self = this;
 		
 		this.fileReader.onloadend = function () {
-			self.model.characters = new Characters();
-			self.model.characters.newCharacterFromArray(JSON.parse(self.fileReader.result));
-			//self.characters.charactersList = self.characters.defaultCharacterList.clone(true);
-		/*
-    if(Bview != undefined)
-			for (var i = 0; i < self.characterList.length; i++)
-				new Bview({model: self.characterList.at(i)});
-		//*/
+      var obj = JSON.parse(self.fileReader.result);
+      for (var i = 0; i < obj.length; i++){
+        self.model.newCharacter(obj[i]);
+      }
 		};
 		this.fileReader.readAsText(file,'utf8');	
 	};
@@ -46,19 +42,19 @@ define(function(require) {
 	Dao.prototype.fileSaveCharacters = function (file) {};
 	
 	Dao.prototype.fileLoadCombat = function (file) {
-		var model = this.model;
+		var self = this;
 		
-		filereader.onloadend = function(){	//TODO
-   		var obj = JSON.parse(filereader.result);
+		this.fileReader.onloadend = function(){	//TODO
+   		var obj = JSON.parse(self.fileReader.result);
       var length = obj.tick[obj.combat[0]].length;
       for (var i = 0; i < length; i++)
-        model.newCharacter(obj.tick[obj.combat[0]][i]);
-      model.turns.tick = model.characters.arrayToCollection(obj.tick);
-      model.turns.combat = obj.combat;
-      model.turns.current = obj.current;
+        self.model.newCharacter(obj.tick[obj.combat[0]][i]);
+      self.model.turns.tick = self.model.characters.arrayToCollection(obj.tick);
+      self.model.turns.combat = obj.combat;
+      self.model.turns.current = obj.current;
     }
 		
-		filereader.readAsText(file,'utf8');
+		this.fileReader.readAsText(file,'utf8');
 	};
 	
 	Dao.prototype.fileSaveCombat = function (file) {};
